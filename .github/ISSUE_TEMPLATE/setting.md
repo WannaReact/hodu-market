@@ -1,7 +1,7 @@
 ---
 name: "🔧 세팅"
 about: 이슈 생성 템플릿
-title: '[SETTING]'
+title: '🔧 '
 labels: 세팅
 assignees: ''
 
