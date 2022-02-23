@@ -39,3 +39,5 @@ yarn-error.log*
 # yarn
 /.yarn
 .yarnrc.yml
+.pnp.cjs
+.pnp.loader.mjs
