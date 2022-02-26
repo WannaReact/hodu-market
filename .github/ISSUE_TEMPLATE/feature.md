@@ -1,13 +1,13 @@
 ---
-name: "\U0001F41B 버그"
+name: "✨ 기능 추가"
 about: 이슈 생성 템플릿
-title: '🐛 '
-labels: 버그 수정
+title: "✨ "
+labels: 기능 추가
 assignees: ''
 
 ---
 
-# BUG REPORT
+# NEW FEATURE
 
 ## 목록
 - [ ] 내용
