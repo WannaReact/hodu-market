@@ -55,6 +55,10 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     border: none;
     background: none;
+    cursor: pointer;
+  }
+  button:disabled{
+    cursor: default;
   }
 
   * {
