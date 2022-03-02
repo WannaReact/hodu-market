@@ -58,6 +58,10 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  button:disabled {
+    cursor: default;
+  }
+  
   input:focus {
     outline: none;
   }

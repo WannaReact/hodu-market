@@ -1,13 +1,13 @@
 ---
-name: "✨ 기능 추가"
+name: "🔧 세팅"
 about: 이슈 생성 템플릿
-title: "[FEAT]"
-labels: 기능 추가
+title: '🔧 '
+labels: 세팅
 assignees: ''
 
 ---
 
-# NEW FEATURE
+# MODIFY SETTING
 
 ## 목록
 - [ ] 내용
