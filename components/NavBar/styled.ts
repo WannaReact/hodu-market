@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface LinkListProps {
-  isDesktopBig: boolean;
+  isDesktopBig?: boolean;
 }
 
 interface LogoWrapperProps {

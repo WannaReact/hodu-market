@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const NavLinkConatainer = styled.a`
+export const NavButtonConatainer = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,7 +21,7 @@ export const NavLinkConatainer = styled.a`
   }
 `;
 
-export const NavLinkText = styled.p`
+export const NavButtonText = styled.p`
   margin-top: 0.5rem;
   font-size: 1.2rem;
   text-align: center;
