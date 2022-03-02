@@ -55,10 +55,16 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     border: none;
     background: none;
+    cursor: pointer;
+  }
+
+  input:focus {
+    outline: none;
   }
 
   * {
     box-sizing: border-box;
+    font-family: Spoqa Han Sans, sans-serif;
   }
 `;
 
