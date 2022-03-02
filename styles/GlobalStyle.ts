@@ -60,9 +60,10 @@ const GlobalStyle = createGlobalStyle`
   button:disabled{
     cursor: default;
   }
-
+  
   * {
     box-sizing: border-box;
+    font-family: Spoqa Han Sans, sans-serif;
   }
 `;
 
