@@ -63,7 +63,7 @@ function NavBar({ title, isHome }: NavBarProps) {
     <NavBarContainer>
       <Link href="/" passHref>
         <LogoWrapper isDesktopSmall={isDesktopSmall}>
-          <Logo />
+          <Logo viewBox="0 0 124 38" />
           {title}
         </LogoWrapper>
       </Link>

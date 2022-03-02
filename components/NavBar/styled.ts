@@ -25,11 +25,12 @@ export const NavBarContainer = styled.nav`
 
 export const LogoWrapper = styled.a<LogoWrapperProps>`
   ${({ isDesktopSmall }) =>
-    isDesktopSmall
-      ? `
-    transform: scale(70%);
-    `
-      : ''}
+    isDesktopSmall &&
+    `width: 9rem;
+    & svg {
+      width: 100%;
+      height: 100%;
+    }`}
 `;
 
 export const LinkList = styled.ul<LinkListProps>`
