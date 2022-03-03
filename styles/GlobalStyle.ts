@@ -57,10 +57,15 @@ const GlobalStyle = createGlobalStyle`
     background: none;
     cursor: pointer;
   }
-  button:disabled{
+
+  button:disabled {
     cursor: default;
   }
   
+  input:focus {
+    outline: none;
+  }
+
   * {
     box-sizing: border-box;
     font-family: Spoqa Han Sans, sans-serif;
