@@ -5,6 +5,7 @@ import SellProduct from '../../components/seller/SellPropduct';
 import TrackingInfo from '../../components/seller/TrackingInfo';
 import ClaimProduct from '../../components/seller/ClaimProduct';
 import Questions from '../../components/seller/Questions';
+import Reviews from '../../components/seller/Reviews';
 
 function Dynamic() {
   const router = useRouter();
@@ -37,7 +38,7 @@ function Dynamic() {
     case 'review':
       return (
         <SellerLayout menu={menu}>
-          <h1>아직준비중입니다</h1>
+          <Reviews />
         </SellerLayout>
       );
     case 'question':
