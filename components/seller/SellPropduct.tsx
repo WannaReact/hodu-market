@@ -7,15 +7,15 @@ function SellProduct() {
     <table style={{ width: '100%' }}>
       <thead>
         <Styled.Tr>
-          <Styled.Headtd flex={60}>상품정보</Styled.Headtd>
-          <Styled.Headtd flex={20}>판매가격</Styled.Headtd>
-          <Styled.Headtd flex={10}>수정</Styled.Headtd>
-          <Styled.Headtd flex={10}>삭제</Styled.Headtd>
+          <Styled.HeadTd flex={60}>상품정보</Styled.HeadTd>
+          <Styled.HeadTd flex={20}>판매가격</Styled.HeadTd>
+          <Styled.HeadTd flex={10}>수정</Styled.HeadTd>
+          <Styled.HeadTd flex={10}>삭제</Styled.HeadTd>
         </Styled.Tr>
       </thead>
       <tbody>
         <Styled.Tr>
-          <Styled.Bodytd hasProfile flex={60}>
+          <Styled.BodyTd hasProfile flex={60}>
             <Image src={profileImg} width={70} height={70} />
             <Styled.ProductText>
               <h4>
@@ -26,10 +26,10 @@ function SellProduct() {
               </h4>
               <p>안녕</p>
             </Styled.ProductText>
-          </Styled.Bodytd>
-          <Styled.Bodytd flex={20}>17,500원</Styled.Bodytd>
-          <Styled.Bodytd flex={10}>안녕</Styled.Bodytd>
-          <Styled.Bodytd flex={10}>안녕</Styled.Bodytd>
+          </Styled.BodyTd>
+          <Styled.BodyTd flex={20}>17,500원</Styled.BodyTd>
+          <Styled.BodyTd flex={10}>안녕</Styled.BodyTd>
+          <Styled.BodyTd flex={10}>안녕</Styled.BodyTd>
         </Styled.Tr>
       </tbody>
     </table>

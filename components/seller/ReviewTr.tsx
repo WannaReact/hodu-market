@@ -49,7 +49,7 @@ function ReviewTr() {
   return (
     <>
       <Styled.Tr onClick={answer} className="test">
-        <Styled.Bodytd hasProfile flex={30}>
+        <Styled.BodyTd hasProfile flex={30}>
           <Image src={profileImg} width={120} height={120} />
           <Styled.ProductText>
             <h4>
@@ -60,16 +60,16 @@ function ReviewTr() {
             </h4>
             <p>안녕</p>
           </Styled.ProductText>
-        </Styled.Bodytd>
-        <Styled.Bodytd flex={10}>jma1020</Styled.Bodytd>
-        <Styled.Bodytd flex={40}>
+        </Styled.BodyTd>
+        <Styled.BodyTd flex={10}>jma1020</Styled.BodyTd>
+        <Styled.BodyTd flex={40}>
           <p>2022.02.15</p>
           <p>별점</p>
           <p>리뷰내용리뷰내용</p>
           <Image src={profileImg} width={120} height={120} />
-        </Styled.Bodytd>
-        <Styled.Bodytd flex={10}>답변완료</Styled.Bodytd>
-        <Styled.Bodytd flex={10}>버튼 </Styled.Bodytd>
+        </Styled.BodyTd>
+        <Styled.BodyTd flex={10}>답변완료</Styled.BodyTd>
+        <Styled.BodyTd flex={10}>버튼 </Styled.BodyTd>
       </Styled.Tr>
 
       {showComment

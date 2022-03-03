@@ -21,13 +21,13 @@ export const Tr = styled.tr`
   background-color: white;
 `;
 
-export const Headtd = styled.th<FlexTh>`
+export const HeadTd = styled.th<FlexTh>`
   flex: 1 1 ${(props) => props.flex}%;
   font-size: 1.8rem;
   padding: 18px 0px;
 `;
 
-export const Bodytd = styled.td<ProfileCheck>`
+export const BodyTd = styled.td<ProfileCheck>`
   flex: 1 1 ${(props) => props.flex}%;
   display: ${(props) => (props.hasProfile ? 'flex' : null)};
   font-size: 1.8rem;
