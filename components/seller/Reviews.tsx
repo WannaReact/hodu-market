@@ -10,7 +10,7 @@ function Reviews() {
         <Styled.Tr className="test">
           <Styled.Headtd flex={30}>상품정보</Styled.Headtd>
           <Styled.Headtd flex={10}>작성자</Styled.Headtd>
-          <Styled.Headtd flex={40}>문의 내용</Styled.Headtd>
+          <Styled.Headtd flex={40}>리뷰 내용</Styled.Headtd>
           <Styled.Headtd flex={10}>처리 상태</Styled.Headtd>
           <Styled.Headtd flex={10}>쓰기/편집</Styled.Headtd>
         </Styled.Tr>
