@@ -5,7 +5,7 @@ import * as Styled from './styled';
 import profileImg from '../../public/images/seller-productIMG.png';
 
 interface ProfileCheck {
-  profile?: number;
+  profile?: boolean;
   flex: number;
   isText?: boolean;
   isAlign?: boolean;
@@ -47,12 +47,14 @@ function QuestionTr() {
   return (
     <>
       <Styled.Tr onClick={answer} className="test">
-        <Styled.Bodytd profile={1} flex={30}>
+        <Styled.Bodytd hasProfile flex={30}>
           <Image src={profileImg} width={120} height={120} />
           <Styled.ProductText>
             <h4>
-              안녕 상품정보를 너무 많이 넣으면 코로나 걸려버려 그러고 열 40도
-              즉사 ㅂㅇ 그리고 여긴 상품 타이틀이야 길게 적을 필요없어
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, amet!
+              Aperiam, laborum praesentium neque quas et debitis molestias
+              repudiandae est inventore, fugit eligendi delectus nobis error?
+              Consequatur provident repudiandae distinctio?
             </h4>
             <p>안녕</p>
           </Styled.ProductText>
@@ -70,7 +72,7 @@ function QuestionTr() {
         <CommentTr>
           <CommentTd flex={30}> </CommentTd>
           <CommentTd flex={60} isText>
-            <strong>박아무개</strong>
+            <strong>관리자</strong>
             <em>2022.02.15</em>
             <p>
               저는 정민입니다 대충 문의 답변 드릴게요?? 그냥 써주세요. 저는

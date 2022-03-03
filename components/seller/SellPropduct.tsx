@@ -15,12 +15,14 @@ function SellProduct() {
       </thead>
       <tbody>
         <Styled.Tr>
-          <Styled.Bodytd profile={1} flex={60}>
+          <Styled.Bodytd hasProfile flex={60}>
             <Image src={profileImg} width={70} height={70} />
             <Styled.ProductText>
               <h4>
-                안녕 상품정보를 너무 많이 넣으면 코로나 걸려버려 그러고 열 40도
-                즉사 ㅂㅇ 그리고 여긴 상품 타이틀이야 길게 적을 필요없어
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
+                aut enim quidem illo recusandae rem odio. At, corrupti.
+                Voluptatum at dolores cupiditate corporis eos laudantium,
+                voluptatem tempore possimus reprehenderit qui?
               </h4>
               <p>안녕</p>
             </Styled.ProductText>

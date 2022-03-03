@@ -5,7 +5,7 @@ interface FlexTh {
 }
 
 interface ProfileCheck {
-  profile?: number;
+  hasProfile?: boolean;
   flex: number;
 }
 export const TbodyTest = styled.tbody`
@@ -29,11 +29,11 @@ export const Headtd = styled.th<FlexTh>`
 
 export const Bodytd = styled.td<ProfileCheck>`
   flex: 1 1 ${(props) => props.flex}%;
-  display: ${(props) => (props.profile ? 'flex' : null)};
+  display: ${(props) => (props.hasProfile ? 'flex' : null)};
   font-size: 1.8rem;
   padding: 16px 0;
   text-align: center;
-  padding-left: ${(props) => (props.profile ? '30px' : null)};
+  padding-left: ${(props) => (props.hasProfile ? '30px' : null)};
   & span {
     flex-shrink: 0;
   }
