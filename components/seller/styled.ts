@@ -7,6 +7,8 @@ interface FlexTh {
 interface ProfileCheck {
   hasProfile?: boolean;
   flex: number;
+  isText?: boolean;
+  isAlign?: boolean;
 }
 export const TbodyTest = styled.tbody`
   background-color: #ccc;
@@ -51,5 +53,31 @@ export const ProductText = styled.div`
   & p {
     font-size: 1.6rem;
     color: #767676;
+  }
+`;
+
+export const CommentTr = styled.tr`
+  display: flex;
+  background-color: white;
+  align-items: center;
+`;
+
+export const CommentTd = styled.td<ProfileCheck>`
+  flex: 1 1 ${(props) => props.flex}%;
+  border-top: ${(props) => (props.isText ? '1px solid #ccc' : null)};
+  font-size: 1.8rem;
+  padding: 20px 0px;
+  text-align: ${(props) => (props.isAlign ? 'center' : null)};
+  & strong {
+    font-size: 1.4rem;
+    margin-right: 1rem;
+    color: #666;
+  }
+  & em {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  & p {
+    margin-top: 10px;
   }
 `;

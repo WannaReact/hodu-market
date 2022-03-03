@@ -1,41 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import styled from 'styled-components';
 import * as Styled from './styled';
 import profileImg from '../../public/images/seller-productIMG.png';
-
-interface ProfileCheck {
-  profile?: boolean;
-  flex: number;
-  isText?: boolean;
-  isAlign?: boolean;
-}
-
-const CommentTr = styled.tr`
-  display: flex;
-  background-color: white;
-  align-items: center;
-`;
-
-const CommentTd = styled.td<ProfileCheck>`
-  flex: 1 1 ${(props) => props.flex}%;
-  border-top: ${(props) => (props.isText ? '1px solid #ccc' : null)};
-  font-size: 1.8rem;
-  padding: 20px 0px;
-  text-align: ${(props) => (props.isAlign ? 'center' : null)};
-  & strong {
-    font-size: 1.4rem;
-    margin-right: 1rem;
-    color: #666;
-  }
-  & em {
-    font-size: 1.2rem;
-    color: #666;
-  }
-  & p {
-    margin-top: 10px;
-  }
-`;
 
 function ReviewTr() {
   const [showComment, setShowComment] = useState(false);
@@ -75,9 +41,9 @@ function ReviewTr() {
       {showComment
         ? commentCount.map((i) => {
             return (
-              <CommentTr key={i}>
-                <CommentTd flex={30}> </CommentTd>
-                <CommentTd flex={60} isText>
+              <Styled.CommentTr key={i}>
+                <Styled.CommentTd flex={30}> </Styled.CommentTd>
+                <Styled.CommentTd flex={60} isText>
                   <strong>박아무개</strong>
                   <em>2022.02.15</em>
                   <p>
@@ -86,11 +52,11 @@ function ReviewTr() {
                     대충 문의 답변 드릴게요?? 그냥 써주릴게요?? 그냥 써주세요.
                     저는 정민입니다 대충 문의 답변 드릴게요?? 그냥세요
                   </p>
-                </CommentTd>
-                <CommentTd flex={10} isAlign>
+                </Styled.CommentTd>
+                <Styled.CommentTd flex={10} isAlign>
                   삭제
-                </CommentTd>
-              </CommentTr>
+                </Styled.CommentTd>
+              </Styled.CommentTr>
             );
           })
         : null}
