@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 30px 100px 70px;
-  padding: 1px solid red;
+  padding: 3rem 10rem 7rem;
 `;
 
 export const Header = styled.header`
@@ -17,19 +16,19 @@ export const Header = styled.header`
 
 export const MainContainer = styled.main`
   display: flex;
-  margin-top: 30px;
+  margin-top: 3rem;
 `;
 
 export const NavBar = styled.ul`
   & li {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 `;
 
 export const Content = styled.section`
   flex: 1;
-  margin-left: 30px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  height: 1100px;
+  margin-left: 3rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.5rem;
+  height: 110rem;
 `;
