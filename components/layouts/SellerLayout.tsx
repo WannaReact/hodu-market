@@ -1,53 +1,19 @@
 import React from 'react';
-import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Buttons } from '..';
 import plusIcon from '../../public/images/icon-plus.png';
+import * as Styled from './styled';
 
 interface ChildProps {
   children: React.ReactNode;
   menu: string | string[] | undefined;
 }
 
-const Container = styled.div`
-  padding: 30px 100px 70px;
-  padding: 1px solid red;
-`;
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  & h1 {
-    font-size: 3.6rem;
-    font-weight: bold;
-  }
-`;
-
-const MainContainer = styled.main`
-  display: flex;
-  margin-top: 30px;
-`;
-
-const NavBar = styled.ul`
-  & li {
-    margin-bottom: 10px;
-  }
-`;
-
-const Content = styled.section`
-  flex: 1;
-  margin-left: 30px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  height: 1100px;
-`;
-
 function SellerLayout({ menu, children }: ChildProps) {
   return (
-    <Container>
-      <Header>
+    <Styled.Container>
+      <Styled.Header>
         <h1>대시보드</h1>
         <Link href="/addproduct" passHref>
           <a>
@@ -57,9 +23,9 @@ function SellerLayout({ menu, children }: ChildProps) {
             </Buttons.MS>
           </a>
         </Link>
-      </Header>
-      <MainContainer>
-        <NavBar>
+      </Styled.Header>
+      <Styled.MainContainer>
+        <Styled.NavBar>
           <Link href="/seller/sale" passHref>
             <li>
               <Buttons.Menu isActive={menu === 'sale'} badgeCount={100}>
@@ -109,10 +75,10 @@ function SellerLayout({ menu, children }: ChildProps) {
               </Buttons.Menu>
             </li>
           </Link>
-        </NavBar>
-        <Content>{children}</Content>
-      </MainContainer>
-    </Container>
+        </Styled.NavBar>
+        <Styled.Content>{children}</Styled.Content>
+      </Styled.MainContainer>
+    </Styled.Container>
   );
 }
 
