@@ -1,5 +1,5 @@
 import { MouseEventHandler, ReactNode } from 'react';
-import { S_L, S_M, S_MS, S_S, S_TAB, S_MENU, S_BADGE } from './styled';
+import * as Styled from './styled';
 
 interface IButtonProps {
   children: ReactNode;
@@ -34,41 +34,41 @@ interface IMenuButtonProps extends IButtonProps {
 
 export function L({ onClick, disabled, children }: ILButtonProps) {
   return (
-    <S_L onClick={onClick} disabled={disabled}>
+    <Styled.L onClick={onClick} disabled={disabled}>
       {children}
-    </S_L>
+    </Styled.L>
   );
 }
 
 export function M({ onClick, disabled, color, children }: IMButtonProps) {
   return (
-    <S_M onClick={onClick} disabled={disabled} color={color}>
+    <Styled.M onClick={onClick} disabled={disabled} color={color}>
       {children}
-    </S_M>
+    </Styled.M>
   );
 }
 
 export function MS({ onClick, color, children }: IMSButtonProps) {
   return (
-    <S_MS onClick={onClick} color={color}>
+    <Styled.MS onClick={onClick} color={color}>
       {children}
-    </S_MS>
+    </Styled.MS>
   );
 }
 
 export function S({ onClick, color, children }: ISButtonProps) {
   return (
-    <S_S onClick={onClick} color={color}>
+    <Styled.S onClick={onClick} color={color}>
       {children}
-    </S_S>
+    </Styled.S>
   );
 }
 
 export function Tab({ onClick, isActive, children }: ITabButtonProps) {
   return (
-    <S_TAB onClick={onClick} isActive={isActive}>
+    <Styled.TAB onClick={onClick} isActive={isActive}>
       {children}
-    </S_TAB>
+    </Styled.TAB>
   );
 }
 
@@ -79,10 +79,10 @@ export function Menu({
   children
 }: IMenuButtonProps) {
   return (
-    <S_MENU onClick={onClick} isActive={isActive}>
+    <Styled.MENU onClick={onClick} isActive={isActive}>
       {children}
-      {!!badgeCount && <S_BADGE>{badgeCount}</S_BADGE>}
-    </S_MENU>
+      {!!badgeCount && <Styled.BADGE>{badgeCount}</Styled.BADGE>}
+    </Styled.MENU>
   );
 }
 
