@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '../../shared/constants';
 
-export const S_L = styled.button`
+export const L = styled.button`
   width: 22rem;
   height: 6.8rem;
   color: ${COLOR.white};
@@ -12,7 +12,7 @@ export const S_L = styled.button`
   border-radius: 0.5rem;
 `;
 
-export const S_M = styled.button`
+export const M = styled.button`
   width: 48rem;
   height: 6rem;
   color: ${(props) => (props.color === 'white' ? COLOR.grey76 : COLOR.white)};
@@ -37,7 +37,7 @@ export const S_M = styled.button`
   border-radius: 0.5rem;
 `;
 
-export const S_MS = styled.button`
+export const MS = styled.button`
   width: 16.8rem;
   height: 5.4rem;
   font-size: 1.6rem;
@@ -68,7 +68,7 @@ export const S_MS = styled.button`
   align-items: center;
 `;
 
-export const S_S = styled.button`
+export const S = styled.button`
   width: 8rem;
   height: 4rem;
   ${(props) => {
@@ -93,7 +93,7 @@ export const S_S = styled.button`
   border-radius: 0.5rem;
 `;
 
-export const S_TAB = styled.button<{ isActive: boolean }>`
+export const TAB = styled.button<{ isActive: boolean }>`
   width: 32rem;
   height: 6rem;
   color: ${(props) => (props.isActive ? COLOR.accentColor : COLOR.grey76)};
@@ -105,7 +105,7 @@ export const S_TAB = styled.button<{ isActive: boolean }>`
     props.isActive ? COLOR.accentColor : COLOR.greyE0};
 `;
 
-export const S_MENU = styled.button<{ isActive: boolean }>`
+export const MENU = styled.button<{ isActive: boolean }>`
   width: 25rem;
   height: 5rem;
   font-size: 1.6rem;
@@ -124,7 +124,7 @@ export const S_MENU = styled.button<{ isActive: boolean }>`
   }
 `;
 
-export const S_BADGE = styled.span`
+export const BADGE = styled.span`
   height: 2rem;
   color: ${COLOR.white};
   font-size: 1.2rem;
