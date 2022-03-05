@@ -76,7 +76,7 @@ export const Menu = styled.button<{ isActive: boolean }>`
   padding: 0 2rem;
   &:hover {
     background-color: ${(props) =>
-      props.isActive ? COLOR.accentColor : COLOR.greyE0};
+      props.isActive ? COLOR.accentColor : COLOR.lightGreen};
   }
 `;
 
