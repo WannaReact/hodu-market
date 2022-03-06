@@ -6,21 +6,12 @@ interface IButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-interface ILButtonProps extends IButtonProps {
-  disabled: boolean;
-}
-
-interface IMButtonProps extends IButtonProps {
-  disabled: boolean;
+interface ICustomButtonProps extends IButtonProps {
+  width: number;
+  height: 3 | 4 | 5 | 5.4 | 6 | 6.8;
+  fontSize: number;
   color: 'green' | 'dark' | 'white';
-}
-
-interface IMSButtonProps extends IButtonProps {
-  color: 'green' | 'white';
-}
-
-interface ISButtonProps extends IButtonProps {
-  color: 'green' | 'white';
+  disabled: boolean;
 }
 
 interface ITabButtonProps extends IButtonProps {
@@ -32,43 +23,34 @@ interface IMenuButtonProps extends IButtonProps {
   badgeCount: number | undefined;
 }
 
-export function L({ onClick, disabled, children }: ILButtonProps) {
+export function Custom({
+  disabled,
+  width,
+  height,
+  color,
+  onClick,
+  fontSize,
+  children
+}: ICustomButtonProps) {
   return (
-    <Styled.L onClick={onClick} disabled={disabled}>
+    <Styled.Custom
+      onClick={onClick}
+      disabled={disabled}
+      width={width}
+      height={height}
+      fontSize={fontSize}
+      color={color}
+    >
       {children}
-    </Styled.L>
-  );
-}
-
-export function M({ onClick, disabled, color, children }: IMButtonProps) {
-  return (
-    <Styled.M onClick={onClick} disabled={disabled} color={color}>
-      {children}
-    </Styled.M>
-  );
-}
-
-export function MS({ onClick, color, children }: IMSButtonProps) {
-  return (
-    <Styled.MS onClick={onClick} color={color}>
-      {children}
-    </Styled.MS>
-  );
-}
-
-export function S({ onClick, color, children }: ISButtonProps) {
-  return (
-    <Styled.S onClick={onClick} color={color}>
-      {children}
-    </Styled.S>
+    </Styled.Custom>
   );
 }
 
 export function Tab({ onClick, isActive, children }: ITabButtonProps) {
   return (
-    <Styled.TAB onClick={onClick} isActive={isActive}>
+    <Styled.Tab onClick={onClick} isActive={isActive}>
       {children}
-    </Styled.TAB>
+    </Styled.Tab>
   );
 }
 
@@ -79,28 +61,21 @@ export function Menu({
   children
 }: IMenuButtonProps) {
   return (
-    <Styled.MENU onClick={onClick} isActive={isActive}>
+    <Styled.Menu onClick={onClick} isActive={isActive}>
       {children}
-      {!!badgeCount && <Styled.BADGE>{badgeCount}</Styled.BADGE>}
-    </Styled.MENU>
+      {!!badgeCount && <Styled.Badge>{badgeCount}</Styled.Badge>}
+    </Styled.Menu>
   );
 }
 
-L.defaultProps = {
+Custom.defaultProps = {
   onClick: () => {}
 };
-M.defaultProps = {
-  onClick: () => {}
-};
-MS.defaultProps = {
-  onClick: () => {}
-};
-S.defaultProps = {
-  onClick: () => {}
-};
+
 Tab.defaultProps = {
   onClick: () => {}
 };
+
 Menu.defaultProps = {
   onClick: () => {}
 };

@@ -1,99 +1,55 @@
 import styled from 'styled-components';
 import { COLOR } from '../../shared/constants';
 
-export const L = styled.button`
-  width: 22rem;
-  height: 6.8rem;
-  color: ${COLOR.white};
-  font-size: 2.4rem;
-  font-weight: 700;
-  background-color: ${(props) =>
-    props.disabled ? COLOR.greyC4 : COLOR.accentColor};
-  border-radius: 0.5rem;
-`;
+interface ICustomProps {
+  disabled: boolean;
+  width: number;
+  height: number;
+  fontSize: number;
+  color: string;
+}
 
-export const M = styled.button`
-  width: 48rem;
-  height: 6rem;
-  color: ${(props) => (props.color === 'white' ? COLOR.grey76 : COLOR.white)};
-  font-size: 1.8rem;
-  font-weight: 700;
-  background-color: ${(props) => (props.disabled ? COLOR.greyC4 : '')};
+export const Custom = styled.button<ICustomProps>`
+  width: ${(props) => props.width}rem;
+  height: ${(props) => props.height}rem;
   ${(props) => {
+    if (props.disabled) {
+      return `
+      color: ${COLOR.white};
+      background-color: ${COLOR.greyC4}`;
+    }
     switch (props.color) {
       case 'green':
-        return `background-color: ${COLOR.accentColor}`;
+        return `
+          color: ${COLOR.white};
+          background-color: ${COLOR.accentColor}`;
       case 'dark':
-        return `background-color: ${COLOR.grey76}`;
+        return `
+          color: ${COLOR.white};
+          background-color: ${COLOR.grey76}`;
       case 'white':
         return `
-        background-color: ${COLOR.white};
-        border: 0.1rem solid ${COLOR.greyC4}`;
+          background-color: ${COLOR.white};
+          border: 0.1rem solid ${COLOR.greyC4};
+          &:hover {
+            color:${COLOR.black}; 
+            border-color: ${COLOR.grey76};
+          };`;
       default:
         return ``;
     }
   }};
-  ${(props) => (props.disabled ? `background-color: ${COLOR.greyC4}` : '')};
+  font-size: ${(props) => props.fontSize}rem;
+  font-weight: ${(props) => (props.fontSize >= 1.8 ? 700 : 500)};
+  vertical-align: middle;
+  padding: 0 ${(props) => Math.floor((props.height - props.fontSize) / 2)}rem;
   border-radius: 0.5rem;
-`;
-
-export const MS = styled.button`
-  width: 16.8rem;
-  height: 5.4rem;
-  font-size: 1.6rem;
-  font-weight: 500;
-  ${(props) => {
-    switch (props.color) {
-      case 'green':
-        return `
-        color: ${COLOR.white}; 
-        background-color: ${COLOR.accentColor}`;
-      case 'white':
-        return `
-        color: ${COLOR.grey76}; 
-        background-color: ${COLOR.white}; 
-        border: 0.1rem solid ${COLOR.greyC4}; 
-        &:hover {
-          color:${COLOR.black}; 
-          border-color: ${COLOR.grey76};
-        }`;
-      default:
-        return '';
-    }
-  }};
-  padding: 0 2rem;
-  border-radius: 0.5rem;
-  display: flex;
+  display: inline-flex;
   justify-content: space-around;
   align-items: center;
 `;
 
-export const S = styled.button`
-  width: 8rem;
-  height: 4rem;
-  ${(props) => {
-    switch (props.color) {
-      case 'green':
-        return `
-        color: ${COLOR.white}; 
-        background-color: ${COLOR.accentColor}`;
-      case 'white':
-        return `
-        color: ${COLOR.grey76}; 
-        background-color: ${COLOR.white}; 
-        border: 0.1rem solid ${COLOR.greyC4}; 
-        &:hover {
-          color:${COLOR.black}; 
-          border-color: ${COLOR.grey76};
-        }`;
-      default:
-        return '';
-    }
-  }};
-  border-radius: 0.5rem;
-`;
-
-export const TAB = styled.button<{ isActive: boolean }>`
+export const Tab = styled.button<{ isActive: boolean }>`
   width: 32rem;
   height: 6rem;
   color: ${(props) => (props.isActive ? COLOR.accentColor : COLOR.grey76)};
@@ -105,7 +61,7 @@ export const TAB = styled.button<{ isActive: boolean }>`
     props.isActive ? COLOR.accentColor : COLOR.greyE0};
 `;
 
-export const MENU = styled.button<{ isActive: boolean }>`
+export const Menu = styled.button<{ isActive: boolean }>`
   width: 25rem;
   height: 5rem;
   font-size: 1.6rem;
@@ -120,11 +76,11 @@ export const MENU = styled.button<{ isActive: boolean }>`
   padding: 0 2rem;
   &:hover {
     background-color: ${(props) =>
-      props.isActive ? COLOR.accentColor : COLOR.greyE0};
+      props.isActive ? COLOR.accentColor : COLOR.lightGreen};
   }
 `;
 
-export const BADGE = styled.span`
+export const Badge = styled.span`
   height: 2rem;
   color: ${COLOR.white};
   font-size: 1.2rem;
