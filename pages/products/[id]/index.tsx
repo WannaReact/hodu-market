@@ -3,7 +3,7 @@ import dummyProduct from '../../../public/images/product-img-lg.png';
 import * as Styled from './styled';
 import { Buttons } from '../../../components';
 
-function Details() {
+export default function Details() {
   return (
     <Styled.Container>
       <Styled.ProductHeader>
@@ -27,16 +27,30 @@ function Details() {
                   총 수량 <span>1</span>개
                 </Styled.TotalCount>
                 <Styled.TotalPrice>
-                  <span>17,500</span>원
+                  <span>{(17500).toLocaleString()}</span>원
                 </Styled.TotalPrice>
               </div>
             </Styled.CountNPrice>
-            <div>
-              <Buttons.M disabled color="green">
+            <Styled.ButtonsWrapper>
+              <Buttons.Custom
+                width={41.6}
+                height={6}
+                fontSize={1.8}
+                color="green"
+                disabled
+              >
                 바로 구매
-              </Buttons.M>
-              <Buttons.MS color="white">장바구니</Buttons.MS>
-            </div>
+              </Buttons.Custom>
+              <Buttons.Custom
+                width={20}
+                height={6}
+                fontSize={1.8}
+                color="dark"
+                disabled={false}
+              >
+                장바구니
+              </Buttons.Custom>
+            </Styled.ButtonsWrapper>
           </div>
         </Styled.ProductSummary>
       </Styled.ProductHeader>
@@ -47,52 +61,6 @@ function Details() {
           <Buttons.Tab isActive={false}>QA</Buttons.Tab>
           <Buttons.Tab isActive={false}>반품/교환정보</Buttons.Tab>
         </Styled.TabMenu>
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
-        제품 상세 정보
-        <br />
       </Styled.TabSection>
       <Styled.TabSection>
         <Styled.TabMenu>
@@ -121,5 +89,3 @@ function Details() {
     </Styled.Container>
   );
 }
-
-export default Details;
