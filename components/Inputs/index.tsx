@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import React, { useCallback, useState } from 'react';
 import Check from 'public/images/icon-check.svg';
+import { COLOR } from 'shared/constants';
 import * as Styled from './styled';
 
 interface InputProps {
@@ -13,7 +14,7 @@ interface TextInputProps extends InputProps {
 }
 
 interface TextInputBoxProps extends InputProps {
-  labelName: string;
+  labelName?: string | null;
   option?: string;
 }
 
@@ -50,7 +51,7 @@ export function TextInputBoxComponent({
   const id = nanoid();
   return (
     <Styled.Box width={width}>
-      <Styled.Label htmlFor={id}>{labelName}</Styled.Label>
+      {labelName && <Styled.Label htmlFor={id}>{labelName}</Styled.Label>}
       <Styled.InputBox
         type={option === 'password' ? 'password' : 'text'}
         id={id}
@@ -69,7 +70,11 @@ export function TextInputBoxComponent({
               <Styled.CheckWrapper
                 width="2.8rem"
                 height="2.8rem"
-                isValid={isValid}
+                imgStyle={`
+                  & circle {
+                    fill: ${isValid ? COLOR.accentColor : COLOR.greyF2};
+                  }
+                `}
               >
                 <Check viewBox="0 0 28 28" />
               </Styled.CheckWrapper>
@@ -90,6 +95,7 @@ TextInputComponent.defaultProps = {
 TextInputBoxComponent.defaultProps = {
   width: '100%',
   maxLength: '',
+  labelName: null,
   option: 'none'
 };
 
