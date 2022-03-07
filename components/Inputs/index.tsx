@@ -14,7 +14,7 @@ interface TextInputProps extends InputProps {
 }
 
 interface TextInputBoxProps extends InputProps {
-  labelName: string;
+  labelName?: string | null;
   option?: string;
 }
 
@@ -51,7 +51,7 @@ export function TextInputBoxComponent({
   const id = nanoid();
   return (
     <Styled.Box width={width}>
-      <Styled.Label htmlFor={id}>{labelName}</Styled.Label>
+      {labelName && <Styled.Label htmlFor={id}>{labelName}</Styled.Label>}
       <Styled.InputBox
         type={option === 'password' ? 'password' : 'text'}
         id={id}
@@ -95,6 +95,7 @@ TextInputComponent.defaultProps = {
 TextInputBoxComponent.defaultProps = {
   width: '100%',
   maxLength: '',
+  labelName: null,
   option: 'none'
 };
 
