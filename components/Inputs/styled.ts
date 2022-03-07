@@ -6,10 +6,6 @@ interface inputProps {
   width?: string;
 }
 
-interface checkProps {
-  isValid: boolean;
-}
-
 export const Input = styled.input<inputProps>`
   width: ${({ width }) => width};
   height: 6rem;
@@ -53,11 +49,8 @@ export const Limit = styled.p`
   color: ${COLOR.greyC4};
 `;
 
-export const CheckWrapper = styled(ImageWrapper)<checkProps>`
+export const CheckWrapper = styled(ImageWrapper)`
   position: absolute;
   bottom: 1.3rem;
   right: 1.6rem;
-  & circle {
-    fill: ${({ isValid }) => (isValid ? COLOR.accentColor : COLOR.greyF2)};
-  }
 `;

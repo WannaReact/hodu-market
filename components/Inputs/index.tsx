@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import React, { useCallback, useState } from 'react';
 import Check from 'public/images/icon-check.svg';
+import { COLOR } from 'shared/constants';
 import * as Styled from './styled';
 
 interface InputProps {
@@ -69,7 +70,11 @@ export function TextInputBoxComponent({
               <Styled.CheckWrapper
                 width="2.8rem"
                 height="2.8rem"
-                isValid={isValid}
+                imgStyle={`
+                  & circle {
+                    fill: ${isValid ? COLOR.accentColor : COLOR.greyF2};
+                  }
+                `}
               >
                 <Check viewBox="0 0 28 28" />
               </Styled.CheckWrapper>
