@@ -5,7 +5,7 @@ import dummyData from './api/dummyData.json';
 
 const CardsContainer = styled.section`
   display: grid;
-  grid-template-columns: repeat(3, 380px);
+  grid-template-columns: repeat(3, 380rem);
 `;
 
 function Home() {
