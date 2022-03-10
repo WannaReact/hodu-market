@@ -1,7 +1,7 @@
 import { COLOR } from 'shared/constants';
 import styled from 'styled-components';
 
-export const ReviewContainer = styled.div`
+export const ReviewContainer = styled.li`
   height: 12rem;
   padding: 2rem 6rem;
   display: flex;
@@ -25,4 +25,12 @@ export const Date = styled.span`
 
 export const ReviewContent = styled.div`
   width: 80rem;
+`;
+
+export const ReviewText = styled.p`
+  font-size: 1.6rem;
+`;
+
+export const ExpansionButton = styled.button`
+  font-size: 1.4rem;
 `;
