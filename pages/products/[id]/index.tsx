@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { ReviewItem } from 'components/ReviewItem';
 import dummyProduct from '../../../public/images/product-img-lg.png';
 import * as Styled from './styled';
 import { Buttons } from '../../../components';
@@ -69,6 +70,9 @@ export default function Details() {
           <Buttons.Tab isActive={false}>QA</Buttons.Tab>
           <Buttons.Tab isActive={false}>반품/교환정보</Buttons.Tab>
         </Styled.TabMenu>
+        <ul>
+          <ReviewItem />
+        </ul>
       </Styled.TabSection>
       <Styled.TabSection>
         <Styled.TabMenu>
@@ -77,6 +81,17 @@ export default function Details() {
           <Buttons.Tab isActive>QA</Buttons.Tab>
           <Buttons.Tab isActive={false}>반품/교환정보</Buttons.Tab>
         </Styled.TabMenu>
+        <table>
+          <thead>
+            <tr>
+              <td>답변상태</td>
+              <td>제목</td>
+              <td>작성자</td>
+              <td>작성일</td>
+            </tr>
+          </thead>
+          {/* <tbody></tbody> */}
+        </table>
       </Styled.TabSection>
       <Styled.TabSection>
         <Styled.TabMenu>
