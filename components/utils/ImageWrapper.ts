@@ -9,6 +9,7 @@ interface props {
 export default styled.span<props>`
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+  position: relative;
   & > * {
     width: 100%;
     height: 100%;
