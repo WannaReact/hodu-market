@@ -32,11 +32,15 @@ interface NavButtonListProps extends ListProps {
   isDesktopBig: boolean;
 }
 
-function Menu({ children }: ListProps) {
+function Menu() {
   return (
     <MenuList>
-      {children.map((item: React.ReactNode): React.ReactNode => {
-        return <MenuListItem key={nanoid()}>{item}</MenuListItem>;
+      {menuItems.map((props): React.ReactNode => {
+        return (
+          <MenuListItem key={nanoid()}>
+            <MenuItem {...props} />
+          </MenuListItem>
+        );
       })}
     </MenuList>
   );
@@ -74,11 +78,7 @@ function NavBar({ title, isHome }: NavBarProps) {
         </LogoWrapper>
       </Link>
       {isHome && isDesktopBig && <SearchBar />}
-      <Menu>
-        {menuItems.map((props) => (
-          <MenuItem key={nanoid()} {...props} />
-        ))}
-      </Menu>
+      <Menu />
       {isDesktopSmall && <NavButton SVG={<List viewBox="0 0 16 16" />} />}
       {(isDesktopMedium || isDesktopBig) && (
         <NavButtonList isDesktopBig={isDesktopBig}>
