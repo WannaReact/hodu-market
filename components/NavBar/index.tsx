@@ -8,13 +8,7 @@ import List from 'public/images/icon-list.svg';
 import Search from 'public/images/icon-search.svg';
 import useBreakpoint from 'hooks/useBreakpoint';
 import SearchBar from './SearchBar';
-import {
-  LinkList,
-  LogoWrapper,
-  MenuList,
-  MenuListItem,
-  NavBarContainer
-} from './styled';
+import * as Styled from './styled';
 import MenuItem from './MenuItem';
 import menuItems from './menuItems';
 import NavButton from './NavButton';
@@ -34,27 +28,27 @@ interface NavButtonListProps extends ListProps {
 
 function Menu() {
   return (
-    <MenuList>
+    <Styled.MenuList>
       {menuItems.map((props): React.ReactNode => {
         return (
-          <MenuListItem key={nanoid()}>
+          <Styled.MenuListItem key={nanoid()}>
             <MenuItem {...props} />
-          </MenuListItem>
+          </Styled.MenuListItem>
         );
       })}
-    </MenuList>
+    </Styled.MenuList>
   );
 }
 
 function NavButtonList({ isDesktopBig, children }: NavButtonListProps) {
   return (
-    <LinkList isDesktopBig={isDesktopBig}>
+    <Styled.LinkList isDesktopBig={isDesktopBig}>
       {children
         .filter((child: React.ReactNode | null) => child)
         .map((link: React.ReactNode): React.ReactNode => {
           return <li key={nanoid()}>{link}</li>;
         })}
-    </LinkList>
+    </Styled.LinkList>
   );
 }
 
@@ -70,12 +64,12 @@ function NavBar({ title, isHome }: NavBarProps) {
   });
 
   return (
-    <NavBarContainer>
+    <Styled.NavBarContainer>
       <Link href="/" passHref>
-        <LogoWrapper isDesktopSmall={isDesktopSmall}>
+        <Styled.LogoWrapper isDesktopSmall={isDesktopSmall}>
           <Logo viewBox="0 0 124 38" />
           {title}
-        </LogoWrapper>
+        </Styled.LogoWrapper>
       </Link>
       {isHome && isDesktopBig && <SearchBar />}
       <Menu />
@@ -93,7 +87,7 @@ function NavBar({ title, isHome }: NavBarProps) {
           </NavButton>
         </NavButtonList>
       )}
-    </NavBarContainer>
+    </Styled.NavBarContainer>
   );
 }
 

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import { NavButtonConatainer, NavButtonText } from './styled';
+import * as Styled from './styled';
 
 export interface NavButtonProps {
   href?: string;
@@ -12,19 +12,19 @@ function NavButton({ href, SVG, children }: NavButtonProps) {
   if (href) {
     return (
       <Link href={href} passHref>
-        <NavButtonConatainer as="a">
+        <Styled.NavButtonConatainer as="a">
           {SVG}
-          <NavButtonText>{children}</NavButtonText>
-        </NavButtonConatainer>
+          <Styled.NavButtonText>{children}</Styled.NavButtonText>
+        </Styled.NavButtonConatainer>
       </Link>
     );
   }
 
   return (
-    <NavButtonConatainer type="button">
+    <Styled.NavButtonConatainer type="button">
       {SVG}
-      <NavButtonText>{children}</NavButtonText>
-    </NavButtonConatainer>
+      <Styled.NavButtonText>{children}</Styled.NavButtonText>
+    </Styled.NavButtonConatainer>
   );
 }
 
