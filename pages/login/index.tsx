@@ -2,14 +2,18 @@
 import { TextInput } from 'components/Inputs';
 import React from 'react';
 import Link from 'next/link';
+import Logo from 'public/images/logo.svg';
+import ImageWrapper from 'components/utils/ImageWrapper';
 import { Buttons } from '../../components';
-import { Wrap, MbTextInput, Container, UL } from './styled';
+import { Main, MbTextInput, Container, UL } from './styled';
 
 function Login() {
   return (
-    <Wrap>
+    <Main>
+      <ImageWrapper width="55rem" height="7.4rem">
+        <Logo viewBox="0 0 156 38" />
+      </ImageWrapper>
       <Container>
-        <h1>로그인</h1>
         <TextInput width="48rem" maxLength={8} placeholder="아이디" />
         <MbTextInput width="48rem" maxLength={10} placeholder="비밀번호" />
         <Buttons.Custom
@@ -24,12 +28,22 @@ function Login() {
       </Container>
       <UL>
         <li>
-          <Link href="/">회원가입</Link>
+          <Link href="/join" passHref>
+            <a>회원가입</a>
+          </Link>
         </li>
-        <li>아이디 찾기</li>
-        <li>비밀번호 찾기</li>
+        <li>
+          <Link href="/" passHref>
+            <a>아이디 찾기</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/" passHref>
+            <a>비밀번호 찾기</a>
+          </Link>
+        </li>
       </UL>
-    </Wrap>
+    </Main>
   );
 }
 
