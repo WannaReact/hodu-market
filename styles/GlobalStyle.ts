@@ -49,9 +49,7 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
     text-decoration: none;
   }
-  li {
-    list-style: none;
-  }
+
   button {
     padding: 0;
     margin: 0;
@@ -89,6 +87,17 @@ const GlobalStyle = createGlobalStyle`
     margin: -1px;
     border: 0;
     clip: rect(0, 0, 0, 0);
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    min-height: calc(100vh - 10rem);
+    margin-top: 10rem;
   }
 `;
 
