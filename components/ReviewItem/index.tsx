@@ -16,12 +16,12 @@ export function ReviewItem() {
         </ImageWrapper>
         <div>
           <Styled.RateWrapper>
-            <StarRating rating={3} forDisplay />
+            <StarRating rating={3} readOnly />
           </Styled.RateWrapper>
           <Styled.RateWrapper>
             <StarRating
               rating={rating}
-              forDisplay={false}
+              readOnly={false}
               setRating={setRating}
             />
           </Styled.RateWrapper>
