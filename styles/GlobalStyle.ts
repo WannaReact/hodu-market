@@ -88,6 +88,17 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
     clip: rect(0, 0, 0, 0);
   }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    min-height: calc(100vh - 10rem);
+    margin-top: 10rem;
+  }
 `;
 
 export default GlobalStyle;
