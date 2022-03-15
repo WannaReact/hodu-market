@@ -31,7 +31,7 @@ function Index({ rating, forDisplay, setRating }: IRatingProps) {
   };
 
   return (
-    <>
+    <div>
       {[...Array(5)].map((_, index) => (
         <button
           key={nanoid()}
@@ -47,7 +47,7 @@ function Index({ rating, forDisplay, setRating }: IRatingProps) {
           />
         </button>
       ))}
-    </>
+    </div>
   );
 }
 
