@@ -6,7 +6,7 @@ interface props {
   imgStyle?: string;
 }
 
-export default styled.span<props>`
+export default styled.div<props>`
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   position: relative;
