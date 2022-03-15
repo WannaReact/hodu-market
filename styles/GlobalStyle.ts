@@ -49,7 +49,9 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
     text-decoration: none;
   }
-
+  li {
+    list-style: none;
+  }
   button {
     padding: 0;
     margin: 0;
