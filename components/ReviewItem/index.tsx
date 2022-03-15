@@ -1,17 +1,33 @@
+import { useState } from 'react';
 import ImageWrapper from 'components/utils/ImageWrapper';
 import Image from 'next/image';
+import StarRating from 'components/StarRating';
 import * as Styled from './styled';
 import ReviewImage from '../../public/images/product-img-lg.png';
 
 export function ReviewItem() {
+  const [rating, setRating] = useState(0);
+
   return (
     <Styled.ReviewContainer>
       <Styled.ReviewInfo>
-        <ImageWrapper width="4rem" height="4rem" imgStyle="border-radius: 50%">
+        <ImageWrapper width="4rem" height="4rem" imgStyle="border-radius: 50%;">
           <Image src={ReviewImage} layout="fill" />
         </ImageWrapper>
-        <Styled.Author>chungu</Styled.Author>
-        <Styled.Date>2022. 02. 22</Styled.Date>
+        <div>
+          <Styled.RateWrapper>
+            <StarRating rating={3} forDisplay />
+          </Styled.RateWrapper>
+          <Styled.RateWrapper>
+            <StarRating
+              rating={rating}
+              forDisplay={false}
+              setRating={setRating}
+            />
+          </Styled.RateWrapper>
+          <Styled.Author>chungu</Styled.Author>
+          <Styled.Date>2022. 02. 22</Styled.Date>
+        </div>
       </Styled.ReviewInfo>
       <Styled.ReviewContent>
         <Styled.ReviewText>대충 리뷰 내용</Styled.ReviewText>
