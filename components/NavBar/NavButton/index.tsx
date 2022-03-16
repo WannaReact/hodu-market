@@ -14,7 +14,7 @@ function NavButton({ href, SVG, children }: NavButtonProps) {
       <Link href={href} passHref>
         <Styled.NavButtonConatainer as="a">
           {SVG}
-          <Styled.NavButtonText>{children}</Styled.NavButtonText>
+          {children && <Styled.NavButtonText>{children}</Styled.NavButtonText>}
         </Styled.NavButtonConatainer>
       </Link>
     );
@@ -23,7 +23,7 @@ function NavButton({ href, SVG, children }: NavButtonProps) {
   return (
     <Styled.NavButtonConatainer type="button">
       {SVG}
-      <Styled.NavButtonText>{children}</Styled.NavButtonText>
+      {children && <Styled.NavButtonText>{children}</Styled.NavButtonText>}
     </Styled.NavButtonConatainer>
   );
 }

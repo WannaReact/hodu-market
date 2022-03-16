@@ -2,10 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 import { nanoid } from 'nanoid';
 import * as Styled from './styled';
+import { MediaQuery } from '../styled';
 
 export interface MenuItemProps {
   title: [string, string];
   categoryList: [string, string][];
+  mediaQuery?: MediaQuery;
 }
 
 function MenuItem({ title, categoryList }: MenuItemProps) {
