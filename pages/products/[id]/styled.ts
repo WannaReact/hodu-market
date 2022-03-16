@@ -90,6 +90,11 @@ export const TotalPrice = styled.span`
   }
 `;
 
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const TabSection = styled.section`
   position: relative;
   margin-bottom: 8rem;
