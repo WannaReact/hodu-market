@@ -14,7 +14,7 @@ function MenuItem({ title, categoryList }: MenuItemProps) {
       <Link href={title[1]} passHref>
         <Styled.MenuTitle>{title[0]}</Styled.MenuTitle>
       </Link>
-      <Styled.CategoryList>
+      <Styled.CategoryList className="gnb-dropdown">
         {categoryList.map(([category, href]) => {
           return (
             <Styled.CategoryWrapper key={nanoid()}>
