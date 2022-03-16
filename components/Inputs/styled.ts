@@ -3,11 +3,11 @@ import { COLOR } from 'shared/constants';
 import ImageWrapper from 'components/utils/ImageWrapper';
 
 interface inputProps {
-  width?: string;
+  width?: number;
 }
 
 export const Input = styled.input<inputProps>`
-  width: ${({ width }) => width};
+  width: ${({ width }) => width}rem;
   height: 6rem;
   padding: 2rem 0;
   border-bottom: 1px solid ${COLOR.greyC4};
@@ -19,7 +19,7 @@ export const Input = styled.input<inputProps>`
 
 export const Box = styled.div<inputProps>`
   position: relative;
-  width: ${({ width }) => width};
+  width: ${({ width }) => width}rem;
 `;
 
 export const InputBox = styled.input<inputProps>`
@@ -36,7 +36,7 @@ export const InputBox = styled.input<inputProps>`
 `;
 
 export const Label = styled.label`
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   color: ${COLOR.grey76};
 `;
 
