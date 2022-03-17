@@ -1,3 +1,4 @@
+// import { GetStaticProps } from 'next';
 import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 import ProductCard from '../components/ProductCard';
@@ -20,5 +21,16 @@ function Home() {
     </main>
   );
 }
+
+// export const getStaticProps: GetStaticProps = () => {
+//   return {
+//     props: {
+//       gnb: {
+//         active: true,
+//         title: '관리자 페이지'
+//       }
+//     }
+//   };
+// };
 
 export default Home;
