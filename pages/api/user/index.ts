@@ -1,5 +1,5 @@
-import { fail, success } from 'lib/mongoose/response';
 import User from 'models/User';
+import { fail, success } from 'lib/mongoose/response';
 import createHandler from 'lib/mongoose/createHandler';
 
 const handler = createHandler();
@@ -11,7 +11,9 @@ handler.get(async (req, res) => {
 
 handler.post(async (req, res) => {
   const { body } = req;
-  const duplicate = await User.findOne({ userId: body.userId });
+  const duplicate =
+    (await User.findOne({ userId: body.userId })) ||
+    (await User.findOne({ userName: body.userName }));
   if (duplicate) {
     fail(res, '중복 아이디 존재');
   } else {
