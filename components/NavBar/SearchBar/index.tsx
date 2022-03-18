@@ -1,14 +1,14 @@
 import Search from 'public/images/icon-search.svg';
-import { SearchForm, SearchInput, SearchButton } from './styled';
+import * as Styled from './styled';
 
 function SearchBar() {
   return (
-    <SearchForm>
-      <SearchInput placeholder="상품을 검색해보세요!" />
-      <SearchButton type="button">
+    <Styled.SearchForm>
+      <Styled.SearchInput placeholder="상품을 검색해보세요!" />
+      <Styled.SearchButton type="button">
         <Search />
-      </SearchButton>
-    </SearchForm>
+      </Styled.SearchButton>
+    </Styled.SearchForm>
   );
 }
 
