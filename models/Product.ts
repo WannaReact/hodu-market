@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-const ProductSchema = new Schema({
+export const ProductSchema = new Schema({
   productName: {
     type: String,
     unique: true,

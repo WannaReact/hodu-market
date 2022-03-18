@@ -1,9 +1,9 @@
+import mongoose from 'mongoose';
 import { success } from 'lib/mongoose/response';
-import Comment from 'models/Comment';
-import Review from 'models/Review';
 import createHandler from 'lib/mongoose/createHandler';
 
 const handler = createHandler();
+const { Review, Comment } = mongoose.models;
 
 handler.get(async (req, res) => {
   const reviews = await Comment.find({});
