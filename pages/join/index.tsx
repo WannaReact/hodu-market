@@ -4,22 +4,28 @@ import { TextInputBox } from 'components/Inputs';
 import ImageWrapper from 'components/utils/ImageWrapper';
 import styled from 'styled-components';
 import Logo from 'public/images/logo.svg';
+import { ChangeEvent, useState } from 'react';
+import { COLOR } from 'shared/constants';
 import { Main, Container } from './styled';
 
 const Wrap = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: flex-end;
-  width: 100%;
+  width: 48rem;
 `;
 const P = styled.p`
   font-size: 2rem;
   line-height: 5rem;
 `;
-
-const Select = styled.select`
-  width: 15rem;
-  height: 5rem;
+interface ISelectProps {
+  isOpen: boolean;
+}
+const Select = styled.select<ISelectProps>`
+  width: ${(props) => (props.isOpen ? '7rem' : '13rem')};
+  height: 5.4rem;
+  border: 1px solid ${COLOR.greyC4};
+  border-radius: 0.5rem;
 `;
 const ExP = styled.p`
   line-height: 1.6rem;
@@ -29,7 +35,17 @@ const ExP = styled.p`
 const A = styled.a`
   color: blue;
 `;
+
 function Join() {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    if (e.currentTarget.value === 'direct') {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  };
+
   return (
     <Main>
       <ImageWrapper width="23.8rem" height="7.4rem">
@@ -59,14 +75,23 @@ function Join() {
         <TextInputBox width={48} placeholder="비밀번호 재확인" />
         <TextInputBox width={48} placeholder="이름" />
         <Wrap>
-          <TextInputBox width={15} placeholder="번호" />
-          <TextInputBox width={15} placeholder="번호" />
-          <TextInputBox width={15} placeholder="번호" />
+          <TextInputBox width={12} placeholder="번호" />
+          <P>-</P>
+          <TextInputBox width={15} />
+          <P>-</P>
+          <TextInputBox width={15} />
         </Wrap>
         <Wrap>
           <TextInputBox width={22} placeholder="이메일" />
           <P>@</P>
-          <Select>
+          {/* 상단 select box에서 직접입력 선택 시 나타날 인풋박스 */}
+          {isOpen && <TextInputBox width={14} />}
+          <Select
+            id="emailBox"
+            name="emailBox"
+            onChange={handleChange}
+            isOpen={isOpen}
+          >
             <option value="">선택해주세요</option>
             <option value="@gamil.com">gmail.com</option>
             <option value="@hanmail.net">hanmail.net</option>
@@ -74,13 +99,13 @@ function Join() {
             <option value="nate.com">nate.com</option>
             <option value="@naver.com">naver.com</option>
             <option value="@yahoo.co.kr">yahoo.co.kr</option>
-            <option value="direct">직접 입력</option>
+            <option value="direct">직접입력</option>
           </Select>
         </Wrap>
       </Container>
       <div>
         <ExP>
-          <input type="checkbox" /> 호두샵의{' '}
+          <input type="checkbox" /> 원두마켓의{' '}
           <Link href="/" passHref>
             <A>이용약관</A>
           </Link>{' '}
