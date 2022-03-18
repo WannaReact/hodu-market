@@ -1,32 +1,23 @@
-import dbConnect from 'lib/mongoose/dbConnect';
-import { fail, Response, success, Success } from 'lib/mongoose/response';
+import { fail, success } from 'lib/mongoose/response';
 import User from 'models/User';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import createHandler from 'lib/mongoose/createHandler';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Response | Success>
-) {
-  try {
-    const { method } = req;
-    await dbConnect();
+const handler = createHandler();
 
-    if (method === 'GET') {
-      const users = await User.find({});
-      success(res, users);
-    } else if (method === 'POST') {
-      const { body } = req;
-      const duplicate = await User.findOne({ userId: body.userId });
-      if (duplicate) {
-        fail(res, '중복 아이디 존재');
-      } else {
-        await new User({ ...body }).save();
-        success(res);
-      }
-    } else {
-      fail(res);
-    }
-  } catch {
-    fail(res);
+handler.get(async (req, res) => {
+  const users = await User.find({});
+  success(res, users);
+});
+
+handler.post(async (req, res) => {
+  const { body } = req;
+  const duplicate = await User.findOne({ userId: body.userId });
+  if (duplicate) {
+    fail(res, '중복 아이디 존재');
+  } else {
+    await new User({ ...body }).save();
+    success(res);
   }
-}
+});
+
+export default handler;
