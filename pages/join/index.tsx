@@ -8,6 +8,10 @@ import { ChangeEvent, useState } from 'react';
 import { COLOR } from 'shared/constants';
 import { Main, Container } from './styled';
 
+const MarginB = styled.div`
+  margin-bottom: 3.5rem;
+`;
+
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
@@ -22,14 +26,14 @@ interface ISelectProps {
   isOpen: boolean;
 }
 const Select = styled.select<ISelectProps>`
-  width: ${(props) => (props.isOpen ? '7rem' : '13rem')};
+  width: ${(props) => (props.isOpen ? '7rem' : '22rem')};
   height: 5.4rem;
   border: 1px solid ${COLOR.greyC4};
   border-radius: 0.5rem;
 `;
 const ExP = styled.p`
-  line-height: 1.6rem;
-  vertical-align: -2px;
+  position: relative;
+  font-size: 1.3rem;
 `;
 
 const A = styled.a`
@@ -48,14 +52,16 @@ function Join() {
 
   return (
     <Main>
-      <ImageWrapper width="23.8rem" height="7.4rem">
-        <Logo viewBox="0 0 156 38" />
-      </ImageWrapper>
+      <MarginB>
+        <ImageWrapper width="23.8rem" height="7.4rem">
+          <Logo viewBox="0 0 156 38" />
+        </ImageWrapper>
+      </MarginB>
       <Container>
         <h1 className="sr-only">회원가입</h1>
         <Wrap>
           <TextInputBox
-            width={32}
+            width={34}
             maxLength={10}
             // labelName="아이디"
             placeholder="아이디"
@@ -103,7 +109,7 @@ function Join() {
           </Select>
         </Wrap>
       </Container>
-      <div>
+      <MarginB>
         <ExP>
           <input type="checkbox" /> 원두마켓의{' '}
           <Link href="/" passHref>
@@ -115,16 +121,16 @@ function Join() {
           </Link>
           에 대한 내용을 확인하였고 동의합니다.
         </ExP>
-        <Buttons.Custom
-          width={48}
-          height={6}
-          fontSize={1.8}
-          color="green"
-          disabled={false}
-        >
-          가입하기
-        </Buttons.Custom>
-      </div>
+      </MarginB>
+      <Buttons.Custom
+        width={48}
+        height={6}
+        fontSize={1.8}
+        color="green"
+        disabled={false}
+      >
+        가입하기
+      </Buttons.Custom>
     </Main>
   );
 }
