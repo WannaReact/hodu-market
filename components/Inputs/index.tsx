@@ -5,7 +5,7 @@ import { COLOR } from 'shared/constants';
 import * as Styled from './styled';
 
 interface InputProps {
-  width?: string;
+  width?: number;
   maxLength?: number;
 }
 
@@ -16,6 +16,7 @@ interface TextInputProps extends InputProps {
 
 interface TextInputBoxProps extends InputProps {
   labelName?: string | null;
+  placeholder?: string;
   option?: string;
 }
 
@@ -47,6 +48,7 @@ export function TextInputBoxComponent({
   width,
   maxLength,
   labelName,
+  placeholder,
   option
 }: TextInputBoxProps) {
   const [value, setValue] = useState<string>('');
@@ -64,6 +66,7 @@ export function TextInputBoxComponent({
         id={id}
         maxLength={maxLength}
         value={value}
+        placeholder={placeholder}
         onChange={handleChange}
       />
       {(() => {
@@ -104,6 +107,7 @@ TextInputBoxComponent.defaultProps = {
   width: '100%',
   maxLength: '',
   labelName: null,
+  placeholder: '',
   option: 'none'
 };
 
