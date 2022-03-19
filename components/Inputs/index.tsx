@@ -18,6 +18,7 @@ interface TextInputBoxProps extends InputProps {
   labelName?: string | null;
   placeholder?: string;
   option?: string;
+  // explain?: string;
 }
 
 function TextInputComponent({
@@ -58,11 +59,19 @@ export function TextInputBoxComponent({
   // 추후에 react-hook-form 적용하면 변경 필요
   const isValid: boolean = false;
   const id = nanoid();
+  let type = '';
+  if (option === 'password') {
+    type = 'password';
+  } else if (option === 'tel') {
+    type = 'tel';
+  } else {
+    type = 'text';
+  }
   return (
     <Styled.Box width={width}>
       {labelName && <Styled.Label htmlFor={id}>{labelName}</Styled.Label>}
       <Styled.InputBox
-        type={option === 'password' ? 'password' : 'text'}
+        type={type}
         id={id}
         maxLength={maxLength}
         value={value}
@@ -109,6 +118,7 @@ TextInputBoxComponent.defaultProps = {
   labelName: null,
   placeholder: '',
   option: 'none'
+  // explain: ''
 };
 
 export const TextInput = React.memo(TextInputComponent);
