@@ -14,10 +14,7 @@ handler.post(async (req, res) => {
   const { body } = req;
   const { reviewId } = body ?? {};
   const { _id } = await new Comment({ ...body }).save();
-  await Review.findOneAndUpdate(
-    { _id: reviewId },
-    { $push: { comments: _id } }
-  );
+  await Review.findByIdAndUpdate(reviewId, { $push: { comments: _id } });
   success(res);
 });
 

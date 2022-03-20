@@ -12,7 +12,7 @@ handler.get(async (req, res) => {
   if (typeof id !== 'string') {
     return;
   }
-  const review = await Review.findOne({ _id: id }).populate('comments');
+  const review = await Review.findById(id).populate('comments');
   success(res, review);
 });
 

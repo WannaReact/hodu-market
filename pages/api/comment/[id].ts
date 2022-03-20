@@ -12,7 +12,7 @@ handler.get(async (req, res) => {
   if (typeof id !== 'string') {
     return;
   }
-  const review = await Comment.findOne({ _id: id });
+  const review = await Comment.findById(id);
   success(res, review);
 });
 
