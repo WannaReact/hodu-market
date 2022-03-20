@@ -3,6 +3,38 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+`;
+
+export const Aside = styled.nav`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 35rem;
+`;
+
+export const AsideButton = styled.button.attrs({ type: 'button' })`
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  border-bottom: 2px solid ${COLOR.black};
+  border-right: 2px solid ${COLOR.black};
+  font-size: 3rem;
+  text-align: left;
+
+  &:hover {
+    background-color: ${COLOR.lightGreen};
+  }
+`;
+
+export const MethodName = styled.span`
+  width: 14rem;
+  padding-right: 1rem;
+  text-align: right;
+`;
+
+export const Section = styled.section`
+  flex: 1;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -10,7 +42,7 @@ export const Container = styled.div`
   padding: 3rem;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button.attrs({ type: 'button' })`
   padding: 1rem;
   border: 2px solid ${COLOR.accentColor};
   font-size: 3rem;
@@ -27,11 +59,8 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  width: 70rem;
+  gap: 2rem;
   padding: 1rem;
-  border-top: 2px solid ${COLOR.black};
-  border-bottom: 2px solid ${COLOR.black};
 `;
 
 export const InputWrapper = styled.div`
