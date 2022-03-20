@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { IMAGE_MATCH } from './constants';
 
 export const ReviewSchema = new Schema({
   productId: {
@@ -11,13 +12,22 @@ export const ReviewSchema = new Schema({
   },
   rating: {
     type: Number,
-    required: true
+    required: true,
+    min: 1,
+    max: 5
   },
   content: {
     type: String,
-    required: true
+    required: true,
+    minlength: 10,
+    maxlength: 1000
   },
-  images: [String],
+  images: [
+    {
+      type: String,
+      match: IMAGE_MATCH
+    }
+  ],
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 });
 

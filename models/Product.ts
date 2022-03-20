@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { DISCOUNT_MATCH, IMAGE_MATCH } from './constants';
 
 export const ProductSchema = new Schema({
   productName: {
@@ -6,19 +7,28 @@ export const ProductSchema = new Schema({
     unique: true,
     required: true
   },
+  image: {
+    type: String,
+    match: IMAGE_MATCH
+  },
   price: {
     type: Number,
-    required: true
+    required: true,
+    min: 0,
+    max: 100_000_000
   },
   discount: {
-    type: Number,
-    default: 0
+    type: String,
+    match: DISCOUNT_MATCH
   },
   stock: {
     type: Number,
-    required: true
+    required: true,
+    min: 0,
+    max: 100_000_000
   },
-  image: String,
+  options: [{ type: Schema.Types.ObjectId, ref: 'Option' }],
+  categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
   reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
 });
 

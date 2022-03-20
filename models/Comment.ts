@@ -11,7 +11,9 @@ export const CommentSchema = new Schema({
   },
   content: {
     type: String,
-    required: true
+    required: true,
+    minlength: 10,
+    maxlength: 150
   }
 });
 
