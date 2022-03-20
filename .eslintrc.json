@@ -38,10 +38,7 @@
       "components": [ "Link" ],
       "specialLink": [ "hrefLeft", "hrefRight" ],
       "aspects": [ "invalidHref", "preferButton" ]
-    }],
-    "vars-on-top": "off",
-    "no-var": "off",
-    "no-unused-vars": "off"
+    }]
   },
   "root": true
 }
