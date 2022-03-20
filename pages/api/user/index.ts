@@ -12,7 +12,7 @@ handler.get(async (req, res) => {
 
 handler.post(async (req, res) => {
   const { body } = req;
-  await new User({ ...body }).save();
+  await new User(body).save();
   success(res);
 });
 

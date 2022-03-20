@@ -9,11 +9,25 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  if (typeof id !== 'string') {
-    return;
-  }
   const user = await User.findById(id).populate('reviews');
   success(res, user);
+});
+
+handler.put(async (req, res) => {
+  const {
+    body: { userName, nickname, phone, email },
+    query: { id }
+  } = req;
+  await User.findByIdAndUpdate(id, { userName, nickname, phone, email });
+  success(res);
+});
+
+handler.delete(async (req, res) => {
+  const {
+    query: { id }
+  } = req;
+  await User.findByIdAndDelete(id);
+  success(res);
 });
 
 export default handler;

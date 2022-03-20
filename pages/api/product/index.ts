@@ -11,7 +11,7 @@ handler.get(async (req, res) => {
 
 handler.post(async (req, res) => {
   const { body } = req;
-  await new Product({ ...body }).save();
+  await new Product(body).save();
   success(res);
 });
 

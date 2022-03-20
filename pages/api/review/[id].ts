@@ -9,11 +9,25 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  if (typeof id !== 'string') {
-    return;
-  }
   const review = await Review.findById(id).populate('comments');
   success(res, review);
+});
+
+handler.put(async (req, res) => {
+  const {
+    body: { rating, content, images },
+    query: { id }
+  } = req;
+  await Review.findByIdAndUpdate(id, { rating, content, images });
+  success(res);
+});
+
+handler.delete(async (req, res) => {
+  const {
+    query: { id }
+  } = req;
+  await Review.findByIdAndDelete(id);
+  success(res);
 });
 
 export default handler;
