@@ -31,7 +31,8 @@ export const ProductSchema = new Schema(
     },
     options: [{ type: Schema.Types.ObjectId, ref: 'Option' }],
     categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
-    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
+    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
+    inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry' }]
   },
   { timestamps: true }
 );

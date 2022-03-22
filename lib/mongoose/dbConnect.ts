@@ -4,6 +4,7 @@ import { CommentSchema } from 'models/Comment';
 import { ProductSchema } from 'models/Product';
 import { ReviewSchema } from 'models/Review';
 import { UserSchema } from 'models/User';
+import { InquirySchema } from 'models/Inquiry';
 
 const { MONGODB_URI } = process.env;
 
@@ -22,6 +23,7 @@ export default async (
     mongoose.model('Review', ReviewSchema);
     mongoose.model('Product', ProductSchema);
     mongoose.model('Comment', CommentSchema);
+    mongoose.model('Inquiry', InquirySchema);
   }
   return next();
 };

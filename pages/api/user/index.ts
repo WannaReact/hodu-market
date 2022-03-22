@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { fail, success } from 'lib/mongoose/response';
+import { success } from 'lib/mongoose/response';
 import createHandler from 'lib/mongoose/createHandler';
 
 const handler = createHandler();

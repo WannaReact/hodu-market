@@ -3,7 +3,7 @@ import { success } from 'lib/mongoose/response';
 import createHandler from 'lib/mongoose/createHandler';
 
 const handler = createHandler();
-const { Review } = mongoose.models;
+const { User, Review, Product, Comment } = mongoose.models;
 
 handler.get(async (req, res) => {
   const {
@@ -26,7 +26,14 @@ handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  await Review.findByIdAndDelete(id);
+  const { productId, userId, comments } = await Review.findByIdAndDelete(id);
+  await Promise.all([
+    ...comments.map((commentId: String) =>
+      Comment.findByIdAndDelete(commentId)
+    ),
+    Product.findByIdAndUpdate(productId, { $pull: { reviews: id } }),
+    User.findByIdAndUpdate(userId, { $pull: { reviews: id } })
+  ]);
   success(res);
 });
 

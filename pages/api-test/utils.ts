@@ -173,6 +173,58 @@ export const apiList = [
         param: ['댓글ID', 'id']
       }
     ]
+  },
+  {
+    url: '/inquiry',
+    api: [
+      {
+        method: 'get',
+        button: '모든 문의 정보 조회하기'
+      },
+      {
+        method: 'post',
+        button: '문의 등록하기',
+        body: [
+          ['productId', '상품ID'],
+          ['userId', '유저ID'],
+          ['content', '내용(10~500자)']
+        ]
+      },
+      {
+        method: 'get',
+        button: 'ObjectId로 특정 문의 정보 조회하기',
+        param: ['문의ID', 'id']
+      },
+      {
+        method: 'put',
+        button: 'ObjectId로 특정 문의 정보 수정하기',
+        param: ['문의ID', 'id'],
+        body: [['content', '내용(10~150자)']]
+      },
+      {
+        method: 'delete',
+        button: 'ObjectId로 특정 문의 정보 삭제하기',
+        param: ['문의ID', 'id']
+      }
+    ],
+    nested: [
+      {
+        url: '/answer',
+        api: [
+          {
+            method: 'put',
+            button: '문의에 답변 등록/수정하기',
+            param: ['문의ID', 'id'],
+            body: [['answer', '답변(~500자)']]
+          },
+          {
+            method: 'delete',
+            button: '문의에 등록된 답변 삭제하기',
+            param: ['문의ID', 'id']
+          }
+        ]
+      }
+    ]
   }
 ];
 

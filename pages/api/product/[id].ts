@@ -3,13 +3,15 @@ import { success } from 'lib/mongoose/response';
 import createHandler from 'lib/mongoose/createHandler';
 
 const handler = createHandler();
-const { Product } = mongoose.models;
+const { Review, Product, Inquiry } = mongoose.models;
 
 handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const product = await Product.findById(id).populate('reviews');
+  const product = await Product.findById(id)
+    .populate('reviews')
+    .populate('inquiries');
   success(res, product);
 });
 
@@ -32,7 +34,13 @@ handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  await Product.findByIdAndDelete(id);
+  const { reviews, inquiries } = await Product.findByIdAndDelete(id);
+  await Promise.all([
+    ...reviews.map((reviewId: String) => Review.findByIdAndDelete(reviewId)),
+    ...inquiries.map((inquiryId: String) =>
+      Inquiry.findByIdAndDelete(inquiryId)
+    )
+  ]);
   success(res);
 });
 
