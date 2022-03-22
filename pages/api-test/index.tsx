@@ -18,6 +18,7 @@ function ApiTest() {
             onClick={() => {
               setInfo(apiObject);
               setUrl(`${prevPath}${url}`);
+              window.scrollTo(0, 0);
             }}
           >
             <Styled.MethodName>{`[${apiObject.method}]`}</Styled.MethodName>
@@ -33,7 +34,6 @@ function ApiTest() {
     const { button, body, query, param } = info;
     let objectId = null;
     if (param) {
-      console.log(param);
       objectId = (
         <Styled.InputWrapper key={nanoid()}>
           {`${param[0]}: `}
