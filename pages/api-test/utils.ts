@@ -241,7 +241,9 @@ export const handler =
         : url) + (param ? `/${inputs[0].value}` : '');
     const apiBody = body?.reduce(
       (acc, [key], i) =>
-        inputs[i].value ? { ...acc, [key]: inputs[i].value } : acc,
+        inputs[i].value
+          ? { ...acc, [key]: inputs[i + (param ? 1 : 0)].value }
+          : acc,
       {}
     );
     const data = await api[method](apiUrl, apiBody);
