@@ -6,7 +6,8 @@ export const ProductSchema = new Schema(
     productName: {
       type: String,
       unique: true,
-      required: true
+      required: true,
+      maxlength: 50
     },
     image: {
       type: String,
