@@ -79,7 +79,11 @@ export function TextInputBoxComponent({
         placeholder={placeholder}
         onChange={handleChange}
       />
-      <Styled.ValidationMsg>{validationMsg}</Styled.ValidationMsg>
+      {validationMsg && (
+        <Styled.ValidationMsg option={option}>
+          {validationMsg}
+        </Styled.ValidationMsg>
+      )}
       {(() => {
         switch (option) {
           case 'limit':
