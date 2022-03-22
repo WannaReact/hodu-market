@@ -18,7 +18,7 @@ interface TextInputBoxProps extends InputProps {
   labelName?: string | null;
   placeholder?: string;
   option?: string;
-  // explain?: string;
+  validationMsg?: string;
 }
 
 function TextInputComponent({
@@ -50,7 +50,8 @@ export function TextInputBoxComponent({
   maxLength,
   labelName,
   placeholder,
-  option
+  option,
+  validationMsg
 }: TextInputBoxProps) {
   const [value, setValue] = useState<string>('');
   const handleChange = useCallback((e) => {
@@ -78,6 +79,7 @@ export function TextInputBoxComponent({
         placeholder={placeholder}
         onChange={handleChange}
       />
+      <Styled.ValidationMsg>{validationMsg}</Styled.ValidationMsg>
       {(() => {
         switch (option) {
           case 'limit':
@@ -98,6 +100,7 @@ export function TextInputBoxComponent({
                 <Check viewBox="0 0 28 28" />
               </Styled.CheckWrapper>
             );
+
           default:
             return null;
         }
@@ -117,8 +120,8 @@ TextInputBoxComponent.defaultProps = {
   maxLength: '',
   labelName: null,
   placeholder: '',
-  option: 'none'
-  // explain: ''
+  option: 'none',
+  validationMsg: ''
 };
 
 export const TextInput = React.memo(TextInputComponent);
