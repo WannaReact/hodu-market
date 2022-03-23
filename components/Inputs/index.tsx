@@ -5,7 +5,7 @@ import { COLOR } from 'shared/constants';
 import * as Styled from './styled';
 
 interface InputProps {
-  width?: string;
+  width?: number;
   maxLength?: number;
 }
 
@@ -16,7 +16,10 @@ interface TextInputProps extends InputProps {
 
 interface TextInputBoxProps extends InputProps {
   labelName?: string | null;
+  placeholder?: string;
   option?: string;
+  unit?: string;
+  type?: string;
 }
 
 function TextInputComponent({
@@ -47,7 +50,10 @@ export function TextInputBoxComponent({
   width,
   maxLength,
   labelName,
-  option
+  placeholder,
+  option,
+  unit,
+  type
 }: TextInputBoxProps) {
   const [value, setValue] = useState<string>('');
   const handleChange = useCallback((e) => {
@@ -60,10 +66,11 @@ export function TextInputBoxComponent({
     <Styled.Box width={width}>
       {labelName && <Styled.Label htmlFor={id}>{labelName}</Styled.Label>}
       <Styled.InputBox
-        type={option === 'password' ? 'password' : 'text'}
+        type={type ?? (option === 'password' ? 'password' : 'text')}
         id={id}
         maxLength={maxLength}
         value={value}
+        placeholder={placeholder}
         onChange={handleChange}
       />
       {(() => {
@@ -86,6 +93,9 @@ export function TextInputBoxComponent({
                 <Check viewBox="0 0 28 28" />
               </Styled.CheckWrapper>
             );
+          case 'unit': {
+            return <Styled.Unit>{unit}</Styled.Unit>;
+          }
           default:
             return null;
         }
@@ -104,7 +114,10 @@ TextInputBoxComponent.defaultProps = {
   width: '100%',
   maxLength: '',
   labelName: null,
-  option: 'none'
+  placeholder: '',
+  option: 'none',
+  unit: '',
+  type: 'text'
 };
 
 export const TextInput = React.memo(TextInputComponent);
