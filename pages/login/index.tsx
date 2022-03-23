@@ -14,8 +14,8 @@ function Login() {
         <Logo viewBox="0 0 156 38" />
       </ImageWrapper>
       <Container>
-        <TextInput width="48rem" maxLength={8} placeholder="아이디" />
-        <MbTextInput width="48rem" maxLength={10} placeholder="비밀번호" />
+        <TextInput width={48} maxLength={8} placeholder="아이디" />
+        <MbTextInput width={48} maxLength={10} placeholder="비밀번호" />
         <Buttons.Custom
           width={48}
           height={6}

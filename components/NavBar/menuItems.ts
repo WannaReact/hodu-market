@@ -1,6 +1,9 @@
-import { MenuItemProps } from './MenuItem';
+interface menuItem {
+  title: [string, string];
+  categoryList: [string, string][];
+}
 
-const menuItems: MenuItemProps[] = [
+const menuItems: menuItem[] = [
   {
     title: ['추천원두', '/foo'],
     categoryList: [

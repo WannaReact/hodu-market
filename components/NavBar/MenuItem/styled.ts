@@ -1,23 +1,26 @@
+import { COLOR } from 'shared/constants';
 import styled from 'styled-components';
 
 export const MenuTitle = styled.a`
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: -2.5rem;
   width: 100%;
-  height: 100%;
+  height: 9.9rem;
   font-size: 1.8rem;
 `;
 
 export const CategoryList = styled.ul`
   position: absolute;
-  top: 100%;
+  top: 9rem;
   left: 0;
+  z-index: 20;
   width: 100%;
   padding: 1rem;
-  background-color: #ebeef0;
   & li:not(:last-child) {
-    padding-bottom: 1.5rem;
+    padding-bottom: 2rem;
   }
 `;
 
@@ -32,4 +35,8 @@ export const Category = styled.a`
   width: 100%;
   height: 100%;
   font-size: 1.6rem;
+
+  &:hover {
+    color: ${COLOR.accentColor};
+  }
 `;
