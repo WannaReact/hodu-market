@@ -95,17 +95,11 @@ export const ButtonsWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const ProductBody = styled.section``;
-
 export const TabSection = styled.section`
-  height: 100rem;
   position: relative;
-  padding-top: 6rem;
   margin-bottom: 8rem;
 `;
-
 export const TabMenu = styled.section`
   position: sticky;
   top: 0;
-  z-index: 10;
 `;

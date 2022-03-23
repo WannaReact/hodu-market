@@ -1,3 +1,4 @@
+import { RefObject, useRef } from 'react';
 import Image from 'next/image';
 import { ReviewItem } from 'components/ReviewItem';
 import dummyProduct from '../../../public/images/product-img-lg.png';
@@ -5,6 +6,15 @@ import * as Styled from './styled';
 import { Buttons } from '../../../components';
 
 export default function Details() {
+  const detailSectionRef = useRef<HTMLElement>(null);
+  const reviewSectionRef = useRef<HTMLElement>(null);
+  const QASectionRef = useRef<HTMLElement>(null);
+  const noticeSectionRef = useRef<HTMLElement>(null);
+
+  const scrollToSection = ($targetRef: RefObject<HTMLElement>) => {
+    $targetRef.current!.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <Styled.Container>
       <Styled.ProductHeader>
@@ -55,52 +65,70 @@ export default function Details() {
           </div>
         </Styled.ProductSummary>
       </Styled.ProductHeader>
-      <Styled.TabSection>
+      <Styled.ProductBody>
         <Styled.TabMenu>
-          <Buttons.Tab isActive>제품 상세 정보</Buttons.Tab>
-          <Buttons.Tab isActive={false}>리뷰</Buttons.Tab>
-          <Buttons.Tab isActive={false}>QA</Buttons.Tab>
-          <Buttons.Tab isActive={false}>반품/교환정보</Buttons.Tab>
+          <Buttons.Tab
+            isActive
+            onClick={() => {
+              scrollToSection(detailSectionRef);
+            }}
+          >
+            제품 상세 정보
+          </Buttons.Tab>
+          <Buttons.Tab
+            isActive={false}
+            onClick={() => {
+              scrollToSection(reviewSectionRef);
+            }}
+          >
+            리뷰
+          </Buttons.Tab>
+          <Buttons.Tab
+            isActive={false}
+            onClick={() => {
+              scrollToSection(QASectionRef);
+            }}
+          >
+            QA
+          </Buttons.Tab>
+          <Buttons.Tab
+            isActive={false}
+            onClick={() => {
+              scrollToSection(noticeSectionRef);
+            }}
+          >
+            반품/교환정보
+          </Buttons.Tab>
         </Styled.TabMenu>
-      </Styled.TabSection>
-      <Styled.TabSection>
-        <Styled.TabMenu>
-          <Buttons.Tab isActive={false}>제품 상세 정보</Buttons.Tab>
-          <Buttons.Tab isActive>리뷰</Buttons.Tab>
-          <Buttons.Tab isActive={false}>QA</Buttons.Tab>
-          <Buttons.Tab isActive={false}>반품/교환정보</Buttons.Tab>
-        </Styled.TabMenu>
-        <ul>
-          <ReviewItem />
-        </ul>
-      </Styled.TabSection>
-      <Styled.TabSection>
-        <Styled.TabMenu>
-          <Buttons.Tab isActive={false}>제품 상세 정보</Buttons.Tab>
-          <Buttons.Tab isActive={false}>리뷰</Buttons.Tab>
-          <Buttons.Tab isActive>QA</Buttons.Tab>
-          <Buttons.Tab isActive={false}>반품/교환정보</Buttons.Tab>
-        </Styled.TabMenu>
-        <table>
-          <thead>
-            <tr>
-              <td>답변상태</td>
-              <td>제목</td>
-              <td>작성자</td>
-              <td>작성일</td>
-            </tr>
-          </thead>
-          {/* <tbody></tbody> */}
-        </table>
-      </Styled.TabSection>
-      <Styled.TabSection>
-        <Styled.TabMenu>
-          <Buttons.Tab isActive={false}>제품 상세 정보</Buttons.Tab>
-          <Buttons.Tab isActive={false}>리뷰</Buttons.Tab>
-          <Buttons.Tab isActive={false}>QA</Buttons.Tab>
-          <Buttons.Tab isActive>반품/교환정보</Buttons.Tab>
-        </Styled.TabMenu>
-      </Styled.TabSection>
+        <Styled.TabSection ref={detailSectionRef}>
+          제품 상세 정보
+        </Styled.TabSection>
+        <Styled.TabSection ref={reviewSectionRef}>
+          <ul>
+            <ReviewItem />
+            <ReviewItem />
+            <ReviewItem />
+            <ReviewItem />
+            <ReviewItem />
+          </ul>
+        </Styled.TabSection>
+        <Styled.TabSection ref={QASectionRef}>
+          <table>
+            <thead>
+              <tr>
+                <td>답변상태</td>
+                <td>제목</td>
+                <td>작성자</td>
+                <td>작성일</td>
+              </tr>
+            </thead>
+            {/* <tbody></tbody> */}
+          </table>
+        </Styled.TabSection>
+        <Styled.TabSection ref={noticeSectionRef}>
+          교환 반품 정보
+        </Styled.TabSection>
+      </Styled.ProductBody>
     </Styled.Container>
   );
 }

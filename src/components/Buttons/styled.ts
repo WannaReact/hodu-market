@@ -59,10 +59,6 @@ export const Tab = styled.button<{ isActive: boolean }>`
   border-bottom: 0.6rem solid;
   border-color: ${(props) =>
     props.isActive ? COLOR.accentColor : COLOR.greyE0};
-  &:hover {
-    color: ${COLOR.accentColor};
-    background-color: ${COLOR.lightGreen};
-  }
 `;
 
 export const Menu = styled.button<{ isActive: boolean }>`
