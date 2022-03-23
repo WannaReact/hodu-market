@@ -5,11 +5,11 @@ import Star from '../../public/images/icon-star-rating.svg';
 
 interface IRatingProps {
   rating: number;
-  forDisplay: boolean;
+  readOnly: boolean;
   setRating?: Dispatch<SetStateAction<number>>;
 }
 
-function Index({ rating, forDisplay, setRating }: IRatingProps) {
+function Index({ rating, readOnly, setRating }: IRatingProps) {
   const [hoverRating, setHoverRating] = useState(0);
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -31,13 +31,13 @@ function Index({ rating, forDisplay, setRating }: IRatingProps) {
   };
 
   return (
-    <>
+    <div>
       {[...Array(5)].map((_, index) => (
         <button
           key={nanoid()}
           type="button"
           data-rating={index + 1}
-          disabled={forDisplay}
+          disabled={readOnly}
           onClick={handleClick}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -47,7 +47,7 @@ function Index({ rating, forDisplay, setRating }: IRatingProps) {
           />
         </button>
       ))}
-    </>
+    </div>
   );
 }
 
