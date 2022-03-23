@@ -18,6 +18,7 @@ interface TextInputBoxProps extends InputProps {
   labelName?: string | null;
   placeholder?: string;
   option?: string;
+  validationMsg?: string;
   unit?: string;
   type?: string;
 }
@@ -52,6 +53,7 @@ export function TextInputBoxComponent({
   labelName,
   placeholder,
   option,
+  validationMsg
   unit,
   type
 }: TextInputBoxProps) {
@@ -62,6 +64,14 @@ export function TextInputBoxComponent({
   // 추후에 react-hook-form 적용하면 변경 필요
   const isValid: boolean = false;
   const id = nanoid();
+  let type = '';
+  if (option === 'password') {
+    type = 'password';
+  } else if (option === 'tel') {
+    type = 'tel';
+  } else {
+    type = 'text';
+  }
   return (
     <Styled.Box width={width}>
       {labelName && <Styled.Label htmlFor={id}>{labelName}</Styled.Label>}
@@ -73,6 +83,11 @@ export function TextInputBoxComponent({
         placeholder={placeholder}
         onChange={handleChange}
       />
+      {validationMsg && (
+        <Styled.ValidationMsg option={option}>
+          {validationMsg}
+        </Styled.ValidationMsg>
+      )}
       {(() => {
         switch (option) {
           case 'limit':
@@ -116,6 +131,7 @@ TextInputBoxComponent.defaultProps = {
   labelName: null,
   placeholder: '',
   option: 'none',
+  validationMsg: ''
   unit: '',
   type: 'text'
 };

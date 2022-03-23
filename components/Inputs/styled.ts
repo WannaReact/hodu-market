@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import { COLOR } from 'shared/constants';
 import ImageWrapper from 'components/utils/ImageWrapper';
 
+interface validationProps {
+  option?: string;
+}
 interface inputProps {
   width?: number;
 }
@@ -46,10 +49,23 @@ export const Label = styled.label`
 
 export const Limit = styled.p`
   position: absolute;
-  bottom: 1.8rem;
-  right: 1.6rem;
+  bottom: 50%;
+  transform: translateY(100%);
+  right: 2.6rem;
   font-weight: 300;
   font-size: 1.6rem;
+  color: ${COLOR.greyC4};
+`;
+export const ValidationMsg = styled.p<validationProps>`
+  ${(props) =>
+    props.option === 'password' ? 'right: 5.5rem;' : 'right: 1.5rem;'}
+  position: absolute;
+  top: 50%;
+  /* transform: translateY(100%); */
+
+  font-weight: 300;
+  font-size: 1rem;
+  vertical-align: top;
   color: ${COLOR.greyC4};
 `;
 
