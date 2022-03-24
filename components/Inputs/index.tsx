@@ -53,7 +53,7 @@ export function TextInputBoxComponent({
   labelName,
   placeholder,
   option,
-  validationMsg
+  validationMsg,
   unit,
   type
 }: TextInputBoxProps) {
@@ -64,19 +64,12 @@ export function TextInputBoxComponent({
   // 추후에 react-hook-form 적용하면 변경 필요
   const isValid: boolean = false;
   const id = nanoid();
-  let type = '';
-  if (option === 'password') {
-    type = 'password';
-  } else if (option === 'tel') {
-    type = 'tel';
-  } else {
-    type = 'text';
-  }
+
   return (
     <Styled.Box width={width}>
       {labelName && <Styled.Label htmlFor={id}>{labelName}</Styled.Label>}
       <Styled.InputBox
-        type={type ?? (option === 'password' ? 'password' : 'text')}
+        type={option === 'password' ? 'password' : type}
         id={id}
         maxLength={maxLength}
         value={value}
@@ -131,7 +124,7 @@ TextInputBoxComponent.defaultProps = {
   labelName: null,
   placeholder: '',
   option: 'none',
-  validationMsg: ''
+  validationMsg: '',
   unit: '',
   type: 'text'
 };
