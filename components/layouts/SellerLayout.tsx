@@ -17,10 +17,16 @@ function SellerLayout({ menu, children }: ChildProps) {
         <h1>대시보드</h1>
         <Link href="/addproduct" passHref>
           <a>
-            <Buttons.MS color="green">
+            <Buttons.Custom
+              width={22}
+              height={6.8}
+              fontSize={2.4}
+              color="green"
+              disabled={false}
+            >
               <Image src={plusIcon} width={32} height={32} />
               상품 업로드
-            </Buttons.MS>
+            </Buttons.Custom>
           </a>
         </Link>
       </Styled.Header>

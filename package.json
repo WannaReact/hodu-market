@@ -9,6 +9,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^3.13.1",
     "@types/styled-components": "^5.1.23",
     "axios": "^0.26.1",
     "mongoose": "^6.2.7",

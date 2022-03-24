@@ -1744,6 +1744,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tinymce/tinymce-react@npm:^3.13.1":
+  version: 3.13.1
+  resolution: "@tinymce/tinymce-react@npm:3.13.1"
+  dependencies:
+    prop-types: ^15.6.2
+    tinymce: ^5.5.1
+  peerDependencies:
+    react: ^17.0.1 || ^16.7.0
+    react-dom: ^17.0.1 || ^16.7.0
+  checksum: dea1525c634a8760a83503adae3f7424120ff9790d5f1dbca00680fe54eb1585983d11dfd32e8a86f656b344e770e233f541b6e1542606d92cd31730c3683167
+  languageName: node
+  linkType: hard
+
 "@trysound/sax@npm:0.2.0":
   version: 0.2.0
   resolution: "@trysound/sax@npm:0.2.0"
@@ -3406,6 +3419,7 @@ __metadata:
   resolution: "hodu-market@workspace:."
   dependencies:
     "@svgr/webpack": ^6.2.1
+    "@tinymce/tinymce-react": ^3.13.1
     "@types/mongoose": ^5.11.97
     "@types/nanoid": ^3.0.0
     "@types/node": 17.0.18
@@ -4478,7 +4492,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.1, prop-types@npm:^15.7.2":
+"prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -5160,6 +5174,13 @@ __metadata:
   version: 2.3.8
   resolution: "through@npm:2.3.8"
   checksum: a38c3e059853c494af95d50c072b83f8b676a9ba2818dcc5b108ef252230735c54e0185437618596c790bbba8fcdaef5b290405981ffa09dce67b1f1bf190cbd
+  languageName: node
+  linkType: hard
+
+"tinymce@npm:^5.5.1":
+  version: 5.10.3
+  resolution: "tinymce@npm:5.10.3"
+  checksum: cdccabec38545a5807f8e06faf828616d37fd958fd571244256937342e880c51711ba13bdb1a95aae89c9ea70014806c8cf70b125abfad6dd488380e4bc53f27
   languageName: node
   linkType: hard
 
