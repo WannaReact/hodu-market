@@ -1,10 +1,22 @@
+import { useCallback, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { ReviewItem } from '@components/ReviewItem';
+import { Buttons, ReviewItem, TabMenu } from '@components';
 import dummyProduct from 'public/images/product-img-lg.png';
 import * as Styled from './styled';
-import { Buttons } from '../../../components';
 
 export default function Details() {
+  const sectionRefs = useRef<HTMLElement[]>([]);
+  console.log('[Details]', sectionRefs);
+
+  const storeRef = useCallback((elem: HTMLElement, index: number) => {
+    sectionRefs.current[index] = elem;
+    console.log('[Details] Ref 저장', sectionRefs, index);
+  }, []);
+
+  useEffect(() => {
+    console.log('[Details] Mounted', sectionRefs);
+  }, []);
+
   return (
     <Styled.Container>
       <Styled.ProductHeader>
@@ -55,52 +67,38 @@ export default function Details() {
           </div>
         </Styled.ProductSummary>
       </Styled.ProductHeader>
-      <Styled.TabSection>
-        <Styled.TabMenu>
-          <Buttons.Tab isActive>제품 상세 정보</Buttons.Tab>
-          <Buttons.Tab isActive={false}>리뷰</Buttons.Tab>
-          <Buttons.Tab isActive={false}>QA</Buttons.Tab>
-          <Buttons.Tab isActive={false}>반품/교환정보</Buttons.Tab>
-        </Styled.TabMenu>
-      </Styled.TabSection>
-      <Styled.TabSection>
-        <Styled.TabMenu>
-          <Buttons.Tab isActive={false}>제품 상세 정보</Buttons.Tab>
-          <Buttons.Tab isActive>리뷰</Buttons.Tab>
-          <Buttons.Tab isActive={false}>QA</Buttons.Tab>
-          <Buttons.Tab isActive={false}>반품/교환정보</Buttons.Tab>
-        </Styled.TabMenu>
-        <ul>
-          <ReviewItem />
-        </ul>
-      </Styled.TabSection>
-      <Styled.TabSection>
-        <Styled.TabMenu>
-          <Buttons.Tab isActive={false}>제품 상세 정보</Buttons.Tab>
-          <Buttons.Tab isActive={false}>리뷰</Buttons.Tab>
-          <Buttons.Tab isActive>QA</Buttons.Tab>
-          <Buttons.Tab isActive={false}>반품/교환정보</Buttons.Tab>
-        </Styled.TabMenu>
-        <table>
-          <thead>
-            <tr>
-              <td>답변상태</td>
-              <td>제목</td>
-              <td>작성자</td>
-              <td>작성일</td>
-            </tr>
-          </thead>
-          {/* <tbody></tbody> */}
-        </table>
-      </Styled.TabSection>
-      <Styled.TabSection>
-        <Styled.TabMenu>
-          <Buttons.Tab isActive={false}>제품 상세 정보</Buttons.Tab>
-          <Buttons.Tab isActive={false}>리뷰</Buttons.Tab>
-          <Buttons.Tab isActive={false}>QA</Buttons.Tab>
-          <Buttons.Tab isActive>반품/교환정보</Buttons.Tab>
-        </Styled.TabMenu>
-      </Styled.TabSection>
+      <Styled.ProductBody>
+        <TabMenu sectionRefs={sectionRefs} />
+        <Styled.TabSection ref={(elem: HTMLElement) => storeRef(elem, 0)}>
+          제품 상세 정보
+        </Styled.TabSection>
+        <Styled.TabSection ref={(elem: HTMLElement) => storeRef(elem, 1)}>
+          리뷰
+          <ul>
+            <ReviewItem />
+            <ReviewItem />
+            <ReviewItem />
+            <ReviewItem />
+            <ReviewItem />
+          </ul>
+        </Styled.TabSection>
+        <Styled.TabSection ref={(elem: HTMLElement) => storeRef(elem, 2)}>
+          <table>
+            <thead>
+              <tr>
+                <td>답변상태</td>
+                <td>제목</td>
+                <td>작성자</td>
+                <td>작성일</td>
+              </tr>
+            </thead>
+            {/* <tbody></tbody> */}
+          </table>
+        </Styled.TabSection>
+        <Styled.TabSection ref={(elem: HTMLElement) => storeRef(elem, 3)}>
+          교환 반품 정보
+        </Styled.TabSection>
+      </Styled.ProductBody>
     </Styled.Container>
   );
 }
