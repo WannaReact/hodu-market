@@ -3,16 +3,16 @@ import { success } from 'lib/mongoose/response';
 import createHandler from 'lib/mongoose/createHandler';
 
 const handler = createHandler();
-const { User } = mongoose.models;
+const { Category } = mongoose.models;
 
 handler.get(async (req, res) => {
-  const users = await User.find({});
-  success(res, users);
+  const categories = await Category.find({});
+  success(res, categories);
 });
 
 handler.post(async (req, res) => {
   const { body } = req;
-  await new User(body).save();
+  await new Category(body).save();
   success(res);
 });
 

@@ -3,22 +3,22 @@ import { success } from 'lib/mongoose/response';
 import createHandler from 'lib/mongoose/createHandler';
 
 const handler = createHandler();
-const { Review, Comment } = mongoose.models;
+const { Product, Category } = mongoose.models;
 
 handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const review = await Comment.findById(id);
-  success(res, review);
+  const category = await Category.findById(id).populate('products');
+  success(res, category);
 });
 
 handler.put(async (req, res) => {
   const {
-    body: { content },
+    body,
     query: { id }
   } = req;
-  await Comment.findByIdAndUpdate(id, { content });
+  await Category.findByIdAndUpdate(id, body);
   success(res);
 });
 
@@ -26,8 +26,12 @@ handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const { reviewId } = await Comment.findByIdAndDelete(id);
-  await Review.findByIdAndUpdate(reviewId, { $pull: { comments: id } });
+  const { products } = await Category.findByIdAndDelete(id);
+  await Promise.all([
+    ...products.map((productId: string) =>
+      Product.findByIdAndUpdate(productId, { $pull: { categories: id } })
+    )
+  ]);
   success(res);
 });
 

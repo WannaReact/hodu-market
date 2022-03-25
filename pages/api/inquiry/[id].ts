@@ -3,14 +3,14 @@ import { success } from 'lib/mongoose/response';
 import createHandler from 'lib/mongoose/createHandler';
 
 const handler = createHandler();
-const { Review, Comment } = mongoose.models;
+const { Product, User, Inquiry } = mongoose.models;
 
 handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const review = await Comment.findById(id);
-  success(res, review);
+  const inquiry = await Inquiry.findById(id);
+  success(res, inquiry);
 });
 
 handler.put(async (req, res) => {
@@ -18,7 +18,7 @@ handler.put(async (req, res) => {
     body: { content },
     query: { id }
   } = req;
-  await Comment.findByIdAndUpdate(id, { content });
+  await Inquiry.findByIdAndUpdate(id, { content });
   success(res);
 });
 
@@ -26,8 +26,11 @@ handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const { reviewId } = await Comment.findByIdAndDelete(id);
-  await Review.findByIdAndUpdate(reviewId, { $pull: { comments: id } });
+  const { _id, productId, userId } = await Inquiry.findByIdAndDelete(id);
+  await Promise.all([
+    Product.findByIdAndUpdate(productId, { $pull: { inquiries: _id } }),
+    User.findByIdAndUpdate(userId, { $pull: { inquiries: _id } })
+  ]);
   success(res);
 });
 

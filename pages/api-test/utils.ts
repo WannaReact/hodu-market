@@ -3,7 +3,7 @@ import api from 'utils/api';
 interface API {
   method: string;
   button: string;
-  body?: [string, string][];
+  body?: [string, string, boolean | undefined][];
   query?: [string, string][];
   param?: [string, string];
 }
@@ -114,7 +114,8 @@ export const apiList = [
           ['productName', '상품 이름'],
           ['price', '정가'],
           ['discount', '할인'],
-          ['stock', '재고']
+          ['stock', '재고'],
+          ['categories', '카테고리(쉼표로 구분)', true]
         ]
       },
       {
@@ -130,7 +131,8 @@ export const apiList = [
           ['productName', '상품 이름'],
           ['price', '정가'],
           ['discount', '할인'],
-          ['stock', '재고']
+          ['stock', '재고'],
+          ['categories', '카테고리(쉼표로 구분)', true]
         ]
       },
       {
@@ -173,6 +175,88 @@ export const apiList = [
         param: ['댓글ID', 'id']
       }
     ]
+  },
+  {
+    url: '/inquiry',
+    api: [
+      {
+        method: 'get',
+        button: '모든 문의 정보 조회하기'
+      },
+      {
+        method: 'post',
+        button: '문의 등록하기',
+        body: [
+          ['productId', '상품ID'],
+          ['userId', '유저ID'],
+          ['content', '내용(10~500자)']
+        ]
+      },
+      {
+        method: 'get',
+        button: 'ObjectId로 특정 문의 정보 조회하기',
+        param: ['문의ID', 'id']
+      },
+      {
+        method: 'put',
+        button: 'ObjectId로 특정 문의 정보 수정하기',
+        param: ['문의ID', 'id'],
+        body: [['content', '내용(10~150자)']]
+      },
+      {
+        method: 'delete',
+        button: 'ObjectId로 특정 문의 정보 삭제하기',
+        param: ['문의ID', 'id']
+      }
+    ],
+    nested: [
+      {
+        url: '/answer',
+        api: [
+          {
+            method: 'put',
+            button: '문의에 답변 등록/수정하기',
+            param: ['문의ID', 'id'],
+            body: [['answer', '답변(~500자)']]
+          },
+          {
+            method: 'delete',
+            button: '문의에 등록된 답변 삭제하기',
+            param: ['문의ID', 'id']
+          }
+        ]
+      }
+    ]
+  },
+  {
+    url: '/category',
+    api: [
+      {
+        method: 'get',
+        button: '모든 카테고리 정보 조회하기'
+      },
+      {
+        method: 'post',
+        button: '카테고리 등록하기',
+        body: [['categoryName', '카테고리 이름']]
+      },
+      {
+        method: 'get',
+        button: 'ObjectId로 특정 카테고리 정보 조회하기',
+        param: ['카테고리ID', 'id']
+      },
+      {
+        method: 'put',
+        button: 'ObjectId로 특정 카테고리 정보 수정하기',
+        param: ['카테고리ID', 'id'],
+        body: [['categoryName', '카테고리 이름']]
+      },
+      {
+        method: 'delete',
+        button: 'ObjectId로 특정 카테고리 정보 삭제하기',
+        param: ['카테고리ID', 'id']
+      }
+    ]
   }
 ];
 
@@ -188,8 +272,15 @@ export const handler =
             .join('&')}`
         : url) + (param ? `/${inputs[0].value}` : '');
     const apiBody = body?.reduce(
-      (acc, [key], i) =>
-        inputs[i].value ? { ...acc, [key]: inputs[i].value } : acc,
+      (acc, [key, _, isArray], i) =>
+        inputs[i + (param ? 1 : 0)].value
+          ? {
+              ...acc,
+              [key]: isArray
+                ? inputs[i + (param ? 1 : 0)].value.split(',')
+                : inputs[i + (param ? 1 : 0)].value
+            }
+          : acc,
       {}
     );
     const data = await api[method](apiUrl, apiBody);
