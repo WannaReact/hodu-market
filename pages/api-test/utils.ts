@@ -272,9 +272,14 @@ export const handler =
             .join('&')}`
         : url) + (param ? `/${inputs[0].value}` : '');
     const apiBody = body?.reduce(
-      (acc, [key], i) =>
-        inputs[i].value
-          ? { ...acc, [key]: inputs[i + (param ? 1 : 0)].value }
+      (acc, [key, _, isArray], i) =>
+        inputs[i + (param ? 1 : 0)].value
+          ? {
+              ...acc,
+              [key]: isArray
+                ? inputs[i + (param ? 1 : 0)].value.split(',')
+                : inputs[i + (param ? 1 : 0)].value
+            }
           : acc,
       {}
     );
