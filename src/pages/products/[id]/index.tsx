@@ -1,20 +1,16 @@
-import { useCallback, useRef, useEffect } from 'react';
+import { useCallback, useRef } from 'react';
 import Image from 'next/image';
-import { Buttons, ReviewItem, TabMenu } from '@components';
+import { Buttons, ReviewItem, TabMenu, PriceCalculator } from '@components';
 import dummyProduct from 'public/images/product-img-lg.png';
 import * as Styled from './styled';
 
 export default function Details() {
   const sectionRefs = useRef<HTMLElement[]>([]);
-  console.log('[Details]', sectionRefs);
+  // console.log('[Details]', sectionRefs);
 
   const storeRef = useCallback((elem: HTMLElement, index: number) => {
     sectionRefs.current[index] = elem;
-    console.log('[Details] Ref 저장', sectionRefs, index);
-  }, []);
-
-  useEffect(() => {
-    console.log('[Details] Mounted', sectionRefs);
+    // console.log('[Details] Ref 저장', sectionRefs, index);
   }, []);
 
   return (
@@ -32,25 +28,14 @@ export default function Details() {
           </div>
           <div>
             <Styled.Shipment>택배배송 / 무료배송</Styled.Shipment>
-            <Styled.Count>3개</Styled.Count>
-            <Styled.CountNPrice>
-              <span>총 상품 금액</span>
-              <div>
-                <Styled.TotalCount>
-                  총 수량 <span>1</span>개
-                </Styled.TotalCount>
-                <Styled.TotalPrice>
-                  <span>{(17500).toLocaleString()}</span>원
-                </Styled.TotalPrice>
-              </div>
-            </Styled.CountNPrice>
+            <PriceCalculator price={17500} />
             <Styled.ButtonsWrapper>
               <Buttons.Custom
                 width={41.6}
                 height={6}
                 fontSize={1.8}
                 color="green"
-                disabled
+                disabled={false}
               >
                 바로 구매
               </Buttons.Custom>
