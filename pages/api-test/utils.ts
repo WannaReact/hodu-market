@@ -3,7 +3,7 @@ import api from 'utils/api';
 interface API {
   method: string;
   button: string;
-  body?: [string, string][];
+  body?: [string, string, boolean | undefined][];
   query?: [string, string][];
   param?: [string, string];
 }
@@ -114,7 +114,8 @@ export const apiList = [
           ['productName', '상품 이름'],
           ['price', '정가'],
           ['discount', '할인'],
-          ['stock', '재고']
+          ['stock', '재고'],
+          ['categories', '카테고리(쉼표로 구분)', true]
         ]
       },
       {
@@ -130,7 +131,8 @@ export const apiList = [
           ['productName', '상품 이름'],
           ['price', '정가'],
           ['discount', '할인'],
-          ['stock', '재고']
+          ['stock', '재고'],
+          ['categories', '카테고리(쉼표로 구분)', true]
         ]
       },
       {
@@ -223,6 +225,36 @@ export const apiList = [
             param: ['문의ID', 'id']
           }
         ]
+      }
+    ]
+  },
+  {
+    url: '/category',
+    api: [
+      {
+        method: 'get',
+        button: '모든 카테고리 정보 조회하기'
+      },
+      {
+        method: 'post',
+        button: '카테고리 등록하기',
+        body: [['categoryName', '카테고리 이름']]
+      },
+      {
+        method: 'get',
+        button: 'ObjectId로 특정 카테고리 정보 조회하기',
+        param: ['카테고리ID', 'id']
+      },
+      {
+        method: 'put',
+        button: 'ObjectId로 특정 카테고리 정보 수정하기',
+        param: ['카테고리ID', 'id'],
+        body: [['categoryName', '카테고리 이름']]
+      },
+      {
+        method: 'delete',
+        button: 'ObjectId로 특정 카테고리 정보 삭제하기',
+        param: ['카테고리ID', 'id']
       }
     ]
   }
