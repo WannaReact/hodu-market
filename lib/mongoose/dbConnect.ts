@@ -21,6 +21,7 @@ export default async (
 
   if (!global.mongoose) {
     global.mongoose = await mongoose.connect(MONGODB_URI);
+    global.orderNumber = [...Array(100000)].map((_, i) => i);
     mongoose.model('User', UserSchema);
     mongoose.model('Review', ReviewSchema);
     mongoose.model('Product', ProductSchema);
