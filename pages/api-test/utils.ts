@@ -257,6 +257,48 @@ export const apiList = [
         param: ['카테고리ID', 'id']
       }
     ]
+  },
+  {
+    url: '/order',
+    api: [
+      {
+        method: 'get',
+        button: '모든 주문 정보 조회하기'
+      },
+      {
+        method: 'post',
+        button: '주문 정보 등록하기',
+        body: [
+          ['productId', '상품ID'],
+          ['userId', '회원ID'],
+          ['couponId', '쿠폰ID'],
+          ['count', '수량'],
+          ['cost', '가격'],
+          ['courierId', '택배사ID'],
+          ['invoice', '송장번호'],
+          ['addressee', '수취인명']
+        ]
+      },
+      {
+        method: 'get',
+        button: 'ObjectId로 특정 주문 정보 조회하기',
+        param: ['주문ID', 'id']
+      },
+      {
+        method: 'put',
+        button: 'ObjectId로 특정 주문 정보 수정하기',
+        param: ['주문ID', 'id'],
+        body: [
+          ['courierId', '택배사ID'],
+          ['invoice', '송장번호']
+        ]
+      },
+      {
+        method: 'delete',
+        button: 'ObjectId로 특정 주문 정보 삭제하기',
+        param: ['주문ID', 'id']
+      }
+    ]
   }
 ];
 
