@@ -4,3 +4,4 @@ export * from './ReviewItem';
 export * as StarRating from './StarRating';
 export * from './TabMenu';
 export * from './PriceCalculator';
+export * from './ProductImage';

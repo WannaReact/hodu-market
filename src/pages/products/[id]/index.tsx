@@ -1,8 +1,23 @@
 import { useCallback, useRef } from 'react';
-import Image from 'next/image';
-import { Buttons, ReviewItem, TabMenu, PriceCalculator } from '@components';
-import dummyProduct from 'public/images/product-img-lg.png';
+// import Image from 'next/image';
+import {
+  Buttons,
+  ReviewItem,
+  TabMenu,
+  PriceCalculator,
+  ProductImage
+} from '@components';
+// import dummyProduct from 'public/images/product-img-lg.png';
 import * as Styled from './styled';
+
+// productImage 컴포넌트에 넘겨줄 이미지 배열
+const productImages = [
+  '/images/product-img-small-1.png',
+  '/images/product-img-small-2.png',
+  '/images/product-img-small-3.png',
+  '/images/product-img-small-4.png',
+  '/images/product-img-small-5.png'
+];
 
 export default function Details() {
   const sectionRefs = useRef<HTMLElement[]>([]);
@@ -16,9 +31,10 @@ export default function Details() {
   return (
     <Styled.Container>
       <Styled.ProductHeader>
-        <Styled.ProductImage>
+        <ProductImage productImages={productImages} />
+        {/* <Styled.ProductImage>
           <Image src={dummyProduct} />
-        </Styled.ProductImage>
+        </Styled.ProductImage> */}
         <Styled.ProductSummary>
           <div>
             <Styled.ProductTitle>딥러닝 개발자 무릎 담요</Styled.ProductTitle>

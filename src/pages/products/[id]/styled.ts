@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLOR } from '../../../shared/constants';
 
 export const Container = styled.main`
+  padding-top: 12rem;
   width: 128rem;
 `;
 
