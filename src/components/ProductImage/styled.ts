@@ -3,23 +3,36 @@ import styled from 'styled-components';
 
 export const ProductImage = styled.div``;
 
-export const CurrentImage = styled.div`
-  width: 60rem;
-  height: 60rem;
+export const ImageSlider = styled.div`
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  position: relative;
+  &:hover button {
+    visibility: visible;
+  }
 `;
 
-export const ImageSlider = styled.div`
-  width: 60rem;
-  height: 60rem;
-  margin-bottom: 1.5rem;
+export const PrevButton = styled.button`
+  width: 6rem;
+  height: 7rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  & > svg {
+    vertical-align: top;
+  }
 `;
-export const PrevButton = styled.button``;
-export const NextButton = styled.button``;
+export const NextButton = styled(PrevButton)`
+  right: 0;
+`;
+
 export const Thumbnails = styled.div`
   width: 39rem;
   display: flex;
   gap: 1rem;
-  & > div:hover {
+  & > button:hover {
     outline: 2px solid ${COLOR.accentColor};
   }
 `;
