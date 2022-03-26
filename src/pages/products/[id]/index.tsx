@@ -32,9 +32,6 @@ export default function Details() {
     <Styled.Container>
       <Styled.ProductHeader>
         <ProductImage productImages={productImages} />
-        {/* <Styled.ProductImage>
-          <Image src={dummyProduct} />
-        </Styled.ProductImage> */}
         <Styled.ProductSummary>
           <div>
             <Styled.ProductTitle>딥러닝 개발자 무릎 담요</Styled.ProductTitle>
