@@ -11,7 +11,7 @@ export const Main = styled.main`
   min-height: calc(100vh - 10rem);
   margin-top: 10rem;
 `;
-export const Container = styled.div`
+export const Container = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
