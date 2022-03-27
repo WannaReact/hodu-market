@@ -1,21 +1,20 @@
 /* eslint-disable react/jsx-key */
-import { TextInput } from 'src/components/Inputs';
-import React from 'react';
+import React, { Component } from 'react';
 import Link from 'next/link';
 import Logo from 'public/images/logo.svg';
-import ImageWrapper from 'src/utils/ImageWrapper';
-import { Buttons } from '../../components';
-import { Main, MbTextInput, Container, UL } from './styled';
+import ImageWrapper from '@utils/ImageWrapper';
+import { Buttons, Inputs } from '@components';
+import * as Styled from './styled';
 
 function Login() {
   return (
-    <Main>
+    <Styled.Main>
       <ImageWrapper width="55rem" height="7.4rem">
         <Logo viewBox="0 0 156 38" />
       </ImageWrapper>
-      <Container>
-        <TextInput width={48} maxLength={8} placeholder="아이디" />
-        <MbTextInput width={48} maxLength={10} placeholder="비밀번호" />
+      <Styled.Container>
+        <Inputs.TextInput width={48} maxLength={8} placeholder="아이디" />
+        <Styled.MbTextInput width={48} maxLength={10} placeholder="비밀번호" />
         <Buttons.Custom
           width={48}
           height={6}
@@ -25,8 +24,8 @@ function Login() {
         >
           로그인
         </Buttons.Custom>
-      </Container>
-      <UL>
+      </Styled.Container>
+      <Styled.UL>
         <li>
           <Link href="/join" passHref>
             <a>회원가입</a>
@@ -42,8 +41,8 @@ function Login() {
             <a>비밀번호 찾기</a>
           </Link>
         </li>
-      </UL>
-    </Main>
+      </Styled.UL>
+    </Styled.Main>
   );
 }
 
