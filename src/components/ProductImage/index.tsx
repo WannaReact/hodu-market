@@ -41,12 +41,16 @@ export function ProductImage({ productImages }: IProductImageProps) {
         <ImageWrapper width="60rem" height="60rem">
           <Image src={productImages[currentSlideNum]} layout="fill" />
         </ImageWrapper>
-        <Styled.PrevButton onClick={toPrevSlide}>
-          <PrevCaret />
-        </Styled.PrevButton>
-        <Styled.NextButton onClick={toNextSlide}>
-          <NextCaret />
-        </Styled.NextButton>
+        {productImages.length > 1 && (
+          <>
+            <Styled.PrevButton onClick={toPrevSlide}>
+              <PrevCaret />
+            </Styled.PrevButton>
+            <Styled.NextButton onClick={toNextSlide}>
+              <NextCaret />
+            </Styled.NextButton>
+          </>
+        )}
       </Styled.ImageSlider>
       <Styled.Thumbnails>
         {productImages.length > 1 &&
