@@ -5,14 +5,15 @@ import * as Styled from './styled';
 
 interface IPriceCalculatorProps {
   price: number;
+  stock: number;
 }
 
-export function PriceCalculator({ price }: IPriceCalculatorProps) {
+export function PriceCalculator({ price, stock }: IPriceCalculatorProps) {
   const [totalCount, setTotalCount] = useState(1);
   const totalPrice = price * totalCount;
 
   const increaseCount = () => {
-    if (totalCount === 100) {
+    if (totalCount === stock) {
       return;
     }
     setTotalCount((prevCount) => prevCount + 1);
@@ -27,7 +28,7 @@ export function PriceCalculator({ price }: IPriceCalculatorProps) {
 
   const changeCount = (e: ChangeEvent<HTMLInputElement>) => {
     const count = +e.currentTarget.value;
-    if (count > 100 || count < 1) {
+    if (count > stock || count < 1) {
       return;
     }
     setTotalCount(count);
