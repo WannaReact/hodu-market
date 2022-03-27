@@ -8,6 +8,8 @@ import { InquirySchema } from 'models/Inquiry';
 import { CategorySchema } from 'models/Category';
 import { OrderSchema } from 'models/Order';
 import { CourierSchema } from 'models/Courier';
+import { CouponTypeSchema } from 'models/CouponType';
+import { CouponSchema } from 'models/Coupon';
 
 const { MONGODB_URI } = process.env;
 
@@ -31,6 +33,8 @@ export default async (
     mongoose.model('Category', CategorySchema);
     mongoose.model('Order', OrderSchema);
     mongoose.model('Courier', CourierSchema);
+    mongoose.model('Coupon', CouponSchema);
+    mongoose.model('CouponType', CouponTypeSchema);
   }
   return next();
 };
