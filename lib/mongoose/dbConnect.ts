@@ -7,6 +7,7 @@ import { UserSchema } from 'models/User';
 import { InquirySchema } from 'models/Inquiry';
 import { CategorySchema } from 'models/Category';
 import { OrderSchema } from 'models/Order';
+import { CourierSchema } from 'models/Courier';
 
 const { MONGODB_URI } = process.env;
 
@@ -29,6 +30,7 @@ export default async (
     mongoose.model('Inquiry', InquirySchema);
     mongoose.model('Category', CategorySchema);
     mongoose.model('Order', OrderSchema);
+    mongoose.model('Courier', CourierSchema);
   }
   return next();
 };
