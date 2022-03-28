@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from '../../../shared/constants';
+import { COLOR } from '../../../src/shared/constants';
 
 export const Container = styled.main`
   width: 128rem;

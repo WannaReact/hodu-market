@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import React, { useCallback, useState } from 'react';
 import Check from 'public/images/icon-check.svg';
-import { COLOR } from 'src/shared/constants';
+import { COLOR } from '@shared/constants';
 import * as Styled from './styled';
 
 interface InputProps {
@@ -19,6 +19,8 @@ interface TextInputBoxProps extends InputProps {
   placeholder?: string;
   option?: string;
   validationMsg?: string;
+  unit?: string;
+  type?: string;
 }
 
 function TextInputComponent({
@@ -51,7 +53,9 @@ export function TextInputBoxComponent({
   labelName,
   placeholder,
   option,
-  validationMsg
+  validationMsg,
+  unit,
+  type
 }: TextInputBoxProps) {
   const [value, setValue] = useState<string>('');
   const handleChange = useCallback((e) => {
@@ -60,19 +64,12 @@ export function TextInputBoxComponent({
   // 추후에 react-hook-form 적용하면 변경 필요
   const isValid: boolean = false;
   const id = nanoid();
-  let type = '';
-  if (option === 'password') {
-    type = 'password';
-  } else if (option === 'tel') {
-    type = 'tel';
-  } else {
-    type = 'text';
-  }
+
   return (
     <Styled.Box width={width}>
       {labelName && <Styled.Label htmlFor={id}>{labelName}</Styled.Label>}
       <Styled.InputBox
-        type={type}
+        type={option === 'password' ? 'password' : type}
         id={id}
         maxLength={maxLength}
         value={value}
@@ -104,7 +101,9 @@ export function TextInputBoxComponent({
                 <Check viewBox="0 0 28 28" />
               </Styled.CheckWrapper>
             );
-
+          case 'unit': {
+            return <Styled.Unit>{unit}</Styled.Unit>;
+          }
           default:
             return null;
         }
@@ -125,7 +124,9 @@ TextInputBoxComponent.defaultProps = {
   labelName: null,
   placeholder: '',
   option: 'none',
-  validationMsg: ''
+  validationMsg: '',
+  unit: '',
+  type: 'text'
 };
 
 export const TextInput = React.memo(TextInputComponent);

@@ -1,4 +1,4 @@
-import { COLOR } from 'shared/constants';
+import { COLOR } from '@shared/constants';
 import styled from 'styled-components';
 
 export const Container = styled.div`

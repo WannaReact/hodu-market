@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import styled from 'styled-components';
-import { TextInputBox } from '../../components/Inputs';
+import { TextInputBox } from '../../src/components/Inputs';
 import { Buttons } from '../../components';
 
 interface Custom {

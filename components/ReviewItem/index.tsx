@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ImageWrapper from 'components/utils/ImageWrapper';
+import ImageWrapper from '@utils/ImageWrapper';
 import Image from 'next/image';
 import StarRating from 'components/StarRating';
 import * as Styled from './styled';

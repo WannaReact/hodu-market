@@ -1,6 +1,6 @@
 import React, { Dispatch, MouseEvent, SetStateAction, useState } from 'react';
 import { nanoid } from 'nanoid';
-import { COLOR } from '../../shared/constants';
+import { COLOR } from '../../src/shared/constants';
 import Star from '../../public/images/icon-star-rating.svg';
 
 interface IRatingProps {
