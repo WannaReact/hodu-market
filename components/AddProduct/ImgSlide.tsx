@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface Custom {
   img: any;
@@ -11,22 +11,39 @@ interface ImgLink {
 
 function ImgSlide() {
   const [createObjectURL, setCreateObjectURL] = useState<string[]>([]);
+  const [mainImg, setMainImg] = useState<string | undefined>('');
 
-  const uploadToClient = (event: any) => {
+  const uploadToClient = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0];
 
       setCreateObjectURL([...createObjectURL, URL.createObjectURL(i)]);
     }
   };
+  useEffect(() => {
+    setMainImg(createObjectURL[0]);
+  }, [createObjectURL]);
+
+  const changeImg: React.MouseEventHandler<HTMLLIElement> = (event) => {
+    const { dataset } = event.target as HTMLLIElement;
+
+    setMainImg(dataset.img);
+  };
 
   return (
     <ImageBox>
-      <Image htmlFor="img" img={createObjectURL[0]} />
+      <Image htmlFor="img" img={mainImg} />
       <ImageInput type="file" id="img" onChange={uploadToClient} />
       <ImgListBox>
         {createObjectURL.map((item) => {
-          return <Item link={item} key={`img+${item}`} />;
+          return (
+            <Item
+              link={item}
+              key={`img+${item}`}
+              onClick={changeImg}
+              data-img={item}
+            />
+          );
         })}
       </ImgListBox>
     </ImageBox>
