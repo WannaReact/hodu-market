@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { CommentSchema } from 'models/Comment';
-import { ProductSchema } from 'models/Product';
-import { ReviewSchema } from 'models/Review';
-import { UserSchema } from 'models/User';
-import { InquirySchema } from 'models/Inquiry';
-import { CategorySchema } from 'models/Category';
-import { OrderSchema } from 'models/Order';
-import { CourierSchema } from 'models/Courier';
-import { CouponTypeSchema } from 'models/CouponType';
-import { CouponSchema } from 'models/Coupon';
+import { CommentSchema } from './models/Comment';
+import { ProductSchema } from './models/Product';
+import { ReviewSchema } from './models/Review';
+import { UserSchema } from './models/User';
+import { InquirySchema } from './models/Inquiry';
+import { CategorySchema } from './models/Category';
+import { OrderSchema } from './models/Order';
+import { CourierSchema } from './models/Courier';
+import { CouponTypeSchema } from './models/CouponType';
+import { CouponSchema } from './models/Coupon';
 
 const { MONGODB_URI } = process.env;
 
