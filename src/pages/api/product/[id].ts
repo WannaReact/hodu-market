@@ -18,10 +18,9 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body,
+    body: { productName, price, discount, stock, categories = [] },
     query: { id }
   } = req;
-  const categories = body?.categories ?? [];
   const categoryPromises = await Promise.allSettled(
     categories.map((categoryName: string) => Category.findOne({ categoryName }))
   );
@@ -36,7 +35,13 @@ handler.put(async (req, res) => {
     .map((_id: mongoose.Types.ObjectId) => _id.toString())
     .filter((category: string) => !categoryIds.includes(category));
   await Promise.all([
-    Product.findByIdAndUpdate(id, { ...body, categories: categoryIds }),
+    Product.findByIdAndUpdate(id, {
+      productName,
+      price,
+      discount,
+      stock,
+      categories: categoryIds
+    }),
     ...newCategories.map((categoryId) =>
       Category.findByIdAndUpdate(categoryId, { $push: { products: id } })
     ),

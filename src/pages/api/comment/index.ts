@@ -11,9 +11,10 @@ handler.get(async (req, res) => {
 });
 
 handler.post(async (req, res) => {
-  const { body } = req;
-  const { reviewId } = body ?? {};
-  const { _id } = await new Comment(body).save();
+  const {
+    body: { reviewId, userId, content }
+  } = req;
+  const { _id } = await new Comment({ reviewId, userId, content }).save();
   await Review.findByIdAndUpdate(reviewId, { $push: { comments: _id } });
   success(res);
 });

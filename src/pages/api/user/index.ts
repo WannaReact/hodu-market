@@ -11,8 +11,10 @@ handler.get(async (req, res) => {
 });
 
 handler.post(async (req, res) => {
-  const { body } = req;
-  await new User(body).save();
+  const {
+    body: { userId, userName, nickName, phone, email }
+  } = req;
+  await new User({ userId, userName, nickName, phone, email }).save();
   success(res);
 });
 

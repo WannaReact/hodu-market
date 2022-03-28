@@ -15,10 +15,10 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body,
+    body: { categoryName },
     query: { id }
   } = req;
-  await Category.findByIdAndUpdate(id, body);
+  await Category.findByIdAndUpdate(id, { categoryName });
   success(res);
 });
 
@@ -27,11 +27,11 @@ handler.delete(async (req, res) => {
     query: { id }
   } = req;
   const { products } = await Category.findByIdAndDelete(id);
-  await Promise.all([
-    ...products.map((productId: string) =>
+  await Promise.all(
+    products.map((productId: string) =>
       Product.findByIdAndUpdate(productId, { $pull: { categories: id } })
     )
-  ]);
+  );
   success(res);
 });
 

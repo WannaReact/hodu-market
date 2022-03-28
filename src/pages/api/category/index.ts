@@ -11,8 +11,10 @@ handler.get(async (req, res) => {
 });
 
 handler.post(async (req, res) => {
-  const { body } = req;
-  await new Category(body).save();
+  const {
+    body: { categoryName }
+  } = req;
+  await new Category({ categoryName }).save();
   success(res);
 });
 

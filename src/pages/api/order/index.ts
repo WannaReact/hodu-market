@@ -12,11 +12,28 @@ handler.get(async (req, res) => {
 });
 
 handler.post(async (req, res) => {
-  const { body } = req;
-  const { userId } = body ?? {};
+  const {
+    body: {
+      productId,
+      userId,
+      couponId,
+      count,
+      cost,
+      courierId,
+      invoice,
+      addressee
+    }
+  } = req;
   const { _id } = await new Order({
-    ...body,
-    orderNumber: orderNumGen()
+    orderNumber: orderNumGen(),
+    productId,
+    userId,
+    couponId,
+    count,
+    cost,
+    courierId,
+    invoice,
+    addressee
   }).save();
   await User.findByIdAndUpdate(userId, { $push: { options: _id } });
   success(res);

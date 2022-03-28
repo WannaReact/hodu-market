@@ -11,9 +11,15 @@ handler.get(async (req, res) => {
 });
 
 handler.post(async (req, res) => {
-  const { body } = req;
-  const { userId } = body ?? {};
-  const { _id } = await new Coupon(body).save();
+  const {
+    body: { couponTypeId, userId, isUsed, expiryDate }
+  } = req;
+  const { _id } = await new Coupon({
+    couponTypeId,
+    userId,
+    isUsed,
+    expiryDate
+  }).save();
   await User.findByIdAndUpdate(userId, { $push: { coupons: _id } });
   success(res);
 });

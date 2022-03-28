@@ -11,9 +11,15 @@ handler.get(async (req, res) => {
 });
 
 handler.post(async (req, res) => {
-  const { body } = req;
-  const { productId, userId } = body ?? {};
-  const { _id } = await new Inquiry(body).save();
+  const {
+    body: { productId, userId, content, answer }
+  } = req;
+  const { _id } = await new Inquiry({
+    productId,
+    userId,
+    content,
+    answer
+  }).save();
   await Promise.all([
     productId &&
       Product.findByIdAndUpdate(productId, { $push: { inquiries: _id } }),
