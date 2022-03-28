@@ -2,7 +2,7 @@
 import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 import ProductCard from '../components/ProductCard';
-import dummyData from './api/dummyData.json';
+import dummyData from '../src/pages/api/dummyData.json';
 
 const CardsContainer = styled.section`
   display: grid;

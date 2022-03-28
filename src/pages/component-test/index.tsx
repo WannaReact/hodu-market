@@ -1,4 +1,4 @@
-import { TextInputBox } from 'components/Inputs';
+import { TextInputBox } from 'src/components/Inputs';
 import { GetStaticProps } from 'next';
 
 function ComponentTest() {

@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { KOREAN_NAME_MATCH } from './constants';
 
 export const UserSchema = new Schema(
   {
@@ -11,7 +12,7 @@ export const UserSchema = new Schema(
     userName: {
       type: String,
       required: true,
-      match: /[ㄱ-ㅎㅏ-ㅣ가-힣]{2,8}/
+      match: KOREAN_NAME_MATCH
     },
     nickname: {
       type: String,

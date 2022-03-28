@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
-import NavBar from 'components/NavBar';
-import GlobalStyle from 'styles/GlobalStyle';
+import NavBar from 'src/components/NavBar';
+import GlobalStyle from '@styles/GlobalStyle';
 import { useRouter } from 'next/router';
 import { AppContextType } from 'next/dist/shared/lib/utils';
 

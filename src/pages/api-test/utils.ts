@@ -1,4 +1,4 @@
-import api from 'utils/api';
+import api from '@utils/api';
 
 interface API {
   method: string;
@@ -255,6 +255,158 @@ export const apiList = [
         method: 'delete',
         button: 'ObjectId로 특정 카테고리 정보 삭제하기',
         param: ['카테고리ID', 'id']
+      }
+    ]
+  },
+  {
+    url: '/order',
+    api: [
+      {
+        method: 'get',
+        button: '모든 주문 정보 조회하기'
+      },
+      {
+        method: 'post',
+        button: '주문 정보 등록하기',
+        body: [
+          ['productId', '상품ID'],
+          ['userId', '회원ID'],
+          ['couponId', '쿠폰ID'],
+          ['count', '수량'],
+          ['cost', '가격'],
+          ['courierId', '택배사ID'],
+          ['invoice', '송장번호'],
+          ['addressee', '수취인명']
+        ]
+      },
+      {
+        method: 'get',
+        button: 'ObjectId로 특정 주문 정보 조회하기',
+        param: ['주문ID', 'id']
+      },
+      {
+        method: 'put',
+        button: 'ObjectId로 특정 주문 정보 수정하기',
+        param: ['주문ID', 'id'],
+        body: [
+          ['courierId', '택배사ID'],
+          ['invoice', '송장번호']
+        ]
+      },
+      {
+        method: 'delete',
+        button: 'ObjectId로 특정 주문 정보 삭제하기',
+        param: ['주문ID', 'id']
+      }
+    ]
+  },
+  {
+    url: '/courier',
+    api: [
+      {
+        method: 'get',
+        button: '모든 택배사 정보 조회하기'
+      },
+      {
+        method: 'post',
+        button: '택배사 정보 등록하기',
+        body: [['courierName', '택배사명']]
+      },
+      {
+        method: 'get',
+        button: '택배사명으로 특정 택배사 정보 조회하기',
+        param: ['택배사명', 'name']
+      },
+      {
+        method: 'put',
+        button: '택배사명으로 특정 택배사 정보 수정하기',
+        param: ['택배사명', 'name'],
+        body: [['courierName', '변경할 택배사명']]
+      },
+      {
+        method: 'delete',
+        button: '택배사명으로 특정 택배사 정보 삭제하기',
+        param: ['택배사명', 'name']
+      }
+    ]
+  },
+  {
+    url: '/coupon',
+    api: [
+      {
+        method: 'get',
+        button: '모든 쿠폰 정보 조회하기'
+      },
+      {
+        method: 'post',
+        button: '쿠폰 정보 등록하기',
+        body: [
+          ['couponTypeId', '쿠폰종류ID'],
+          ['userId', '유저ID'],
+          ['isUsed', '사용여부'],
+          ['expiryDate', '유효기간']
+        ]
+      },
+      {
+        method: 'get',
+        button: 'ObjectId로 특정 쿠폰 정보 조회하기',
+        param: ['쿠폰ID', 'id']
+      },
+      {
+        method: 'put',
+        button: 'ObjectId로 특정 쿠폰 정보 수정하기',
+        param: ['쿠폰ID', 'id'],
+        body: [
+          ['isUsed', '사용여부'],
+          ['expiryDate', '유효기간']
+        ]
+      },
+      {
+        method: 'delete',
+        button: 'ObjectId로 특정 쿠폰 정보 삭제하기',
+        param: ['쿠폰ID', 'id']
+      }
+    ],
+    nested: [
+      {
+        url: '/type',
+        api: [
+          {
+            method: 'get',
+            button: '모든 쿠폰 종류 정보 조회하기'
+          },
+          {
+            method: 'post',
+            button: '쿠폰 종류 정보 등록하기',
+            body: [
+              ['couponName', '쿠폰 이름'],
+              ['categories', '적용 상품 카테고리', true],
+              ['maxPrice', '적용 상품 최대 가격'],
+              ['discount', '할인']
+            ]
+          },
+          {
+            method: 'get',
+            button: 'ObjectId로 특정 쿠폰 종류 정보 조회하기',
+            param: ['쿠폰종류ID', 'id']
+          },
+          {
+            method: 'put',
+            button: 'ObjectId로 특정 쿠폰 종류 정보 수정하기',
+            param: ['쿠폰종류ID', 'id'],
+            body: [
+              ['couponName', '쿠폰 이름'],
+              ['categories', '적용 상품 카테고리', true],
+              ['maxPrice', '적용 상품 최대 가격'],
+              ['discount', '할인']
+            ]
+          },
+          {
+            method: 'delete',
+            button: 'ObjectId로 특정 쿠폰 종류 정보 삭제하기',
+            param: ['쿠폰종류ID', 'id']
+          }
+        ]
       }
     ]
   }

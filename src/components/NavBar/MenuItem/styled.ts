@@ -1,4 +1,4 @@
-import { COLOR } from 'src/shared/constants';
+import { COLOR } from '@shared/constants';
 import styled from 'styled-components';
 
 export const MenuTitle = styled.a`
