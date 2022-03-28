@@ -1,28 +1,10 @@
-import { useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import styled from 'styled-components';
+import ImgSlide from 'components/AddProduct/ImgSlide';
 import { TextInputBox } from '../../components/Inputs';
 import { Buttons } from '../../components';
 
-interface Custom {
-  img: any;
-}
-
-interface ImgLink {
-  link: string;
-}
-
 function AddproductPage() {
-  const [createObjectURL, setCreateObjectURL] = useState<string[]>([]);
-
-  const uploadToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
-
-      setCreateObjectURL([...createObjectURL, URL.createObjectURL(i)]);
-    }
-  };
-
   const selectIMG = ($dom: any) => {
     const $imgBox = document.createElement('div');
     $imgBox.style.width = '60px';
@@ -38,15 +20,7 @@ function AddproductPage() {
       <header>상품 등록</header>
       <main>
         <ViewBox>
-          <ImageBox>
-            <Image htmlFor="img" img={createObjectURL[0]} />
-            <ImageInput type="file" id="img" onChange={uploadToClient} />
-            <ImgListBox>
-              {createObjectURL.map((item) => {
-                return <Item link={item} key={`img+${item}`} />;
-              })}
-            </ImgListBox>
-          </ImageBox>
+          <ImgSlide />
           <InputBox>
             <TextInputBox labelName="카테고리" maxLength={20} />
             <TextInputBox labelName="상품명" maxLength={20} option="limit" />
@@ -63,7 +37,6 @@ function AddproductPage() {
             </Buttons.Custom>
           </InputBox>
         </ViewBox>
-
         <Editor
           apiKey="velrv8dvpig61i0ewv03ljv8jsy1rwysgrwh814cutgpmd6k"
           init={{
@@ -104,54 +77,10 @@ function AddproductPage() {
   );
 }
 
-const ImgListBox = styled.ul`
-  display: flex;
-`;
-
-const Item = styled.li<ImgLink>`
-  padding: 20px 20px;
-  background-image: url(${(props) => props.link});
-  background-size: 100% 100%;
-`;
-
-const Image = styled.label<Custom>`
-  display: inline-block;
-  padding: 200px 200px;
-  background-image: url(${(props) => props.img});
-  background-size: 100% 100%;
-  position: relative;
-  background-color: #eee;
-  &::after {
-    display: block;
-    content: '';
-    background: ${(props) =>
-      props.img ? null : 'url(images/img-button.png) no-repeat'};
-    background-size: 50px, 50px;
-    width: 50px;
-    height: 50px;
-    /* border-radius: 40px; */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-`;
-
-const ImageInput = styled.input`
-  position: absolute;
-  clip: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-`;
-
 const ViewBox = styled.div`
   display: flex;
   margin-bottom: 20px;
 `;
-
-const ImageBox = styled.div``;
 
 const InputBox = styled.div`
   flex-basis: 70%;
