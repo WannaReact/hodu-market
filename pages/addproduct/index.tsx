@@ -1,18 +1,26 @@
+import React, { useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import styled from 'styled-components';
 import ImgSlide from 'components/AddProduct/ImgSlide';
+import EditorModal from 'components/AddProduct/EditorModal';
 import { TextInputBox } from '../../components/Inputs';
 import { Buttons } from '../../components';
 
 function AddproductPage() {
-  const selectIMG = ($dom: any) => {
-    const $imgBox = document.createElement('div');
-    $imgBox.style.width = '60px';
-    $imgBox.style.height = '60px';
-    $imgBox.style.backgroundImage = 'images/img-button.png';
-    $imgBox.style.backgroundRepeat = 'no-repeat';
+  const [text, setText] = useState('');
+  const [isModal, setIsModal] = useState(false);
+  // const [modalImg, setModalImg] = useState<string[]>([]);
 
-    $dom.appendChild($imgBox);
+  console.log(text);
+
+  const addModalImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+      const imgUrl = URL.createObjectURL(i);
+      console.log(imgUrl);
+      setText((prev) => `${prev}<img src="${imgUrl}" />`);
+      setIsModal(false);
+    }
   };
 
   return (
@@ -39,6 +47,8 @@ function AddproductPage() {
         </ViewBox>
         <Editor
           apiKey="velrv8dvpig61i0ewv03ljv8jsy1rwysgrwh814cutgpmd6k"
+          value={text}
+          onEditorChange={setText}
           init={{
             language: 'ko',
             height: 500,
@@ -57,21 +67,22 @@ function AddproductPage() {
               editor.ui.registry.addButton('add_image', {
                 text: '이미지추가',
                 onAction: () => {
-                  const $iframe = document.querySelector(
-                    '.tox-edit-area__iframe'
-                  ) as HTMLIFrameElement;
-                  if (!$iframe) {
-                    return;
-                  }
-                  const $iframeDOM =
-                    $iframe.contentWindow?.document.getElementById('tinymce');
-
-                  selectIMG($iframeDOM);
+                  setIsModal(true);
                 }
               });
             }
           }}
         />
+        <EditorModal isModal={isModal} setIsModal={setIsModal}>
+          <ImageLabel htmlFor="modalImg">상품추가</ImageLabel>
+          <ImageInput
+            type="file"
+            id="modalImg"
+            multiple
+            accept="image/*"
+            onChange={addModalImg}
+          />
+        </EditorModal>
       </main>
     </>
   );
@@ -88,6 +99,21 @@ const InputBox = styled.div`
   & input {
     margin-bottom: 10px;
   }
+`;
+
+const ImageLabel = styled.label`
+  display: block;
+  background-color: white;
+  margin: 5px 5px 0px;
+`;
+
+const ImageInput = styled.input`
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
 `;
 
 export default AddproductPage;
