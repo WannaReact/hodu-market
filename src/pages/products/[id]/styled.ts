@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLOR } from '../../../shared/constants';
 
 export const Container = styled.main`
+  padding-top: 12rem;
   width: 128rem;
 `;
 
@@ -55,7 +56,7 @@ export const ButtonsWrapper = styled.div`
 export const ProductBody = styled.section``;
 
 export const TabSection = styled.section`
-  height: 100rem;
+  min-height: 100rem;
   position: relative;
   padding-top: 6rem;
   margin-bottom: 8rem;

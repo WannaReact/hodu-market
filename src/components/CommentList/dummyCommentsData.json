@@ -1,0 +1,65 @@
+[
+  {
+    "reviewId": 1,
+    "comments": []
+  },
+  {
+    "reviewId": 2,
+    "comments": [
+      {
+        "commentId": 1,
+        "author": "junhong",
+        "authorImg": "/images/seller-productIMG.png",
+        "content": "댓글이 하나뿐인 리뷰",
+        "date": "2022. 02. 17"
+      }
+    ]
+  },
+  {
+    "reviewId": 3,
+    "comments": [
+      {
+        "commentId": 1,
+        "author": "junhong",
+        "authorImg": "/images/seller-productIMG.png",
+        "content": "댓글이 6개인 리뷰 1",
+        "date": "2022. 02. 17"
+      },
+      {
+        "commentId": 2,
+        "author": "nahee",
+        "authorImg": "/images/seller-productIMG.png",
+        "content": "댓글이 6개인 리뷰 2",
+        "date": "2022. 02. 17"
+      },
+      {
+        "commentId": 3,
+        "author": "jungmin",
+        "authorImg": "/images/seller-productIMG.png",
+        "content": "댓글이 6개인 리뷰 3",
+        "date": "2022. 02. 17"
+      },
+      {
+        "commentId": 4,
+        "author": "chungu",
+        "authorImg": "/images/seller-productIMG.png",
+        "content": "댓글이 6개인 리뷰 4",
+        "date": "2022. 02. 17"
+      },
+      {
+        "commentId": 5,
+        "author": "junhong",
+        "authorImg": "/images/seller-productIMG.png",
+        "content": "댓글이 6개인 리뷰 5",
+        "date": "2022. 02. 17"
+      },
+      {
+        "commentId": 6,
+        "author": "junhong",
+        "authorImg": "/images/seller-productIMG.png",
+        "content": "댓글이 6개인 리뷰 6",
+        "date": "2022. 02. 17"
+      }
+    ]
+  }
+]
