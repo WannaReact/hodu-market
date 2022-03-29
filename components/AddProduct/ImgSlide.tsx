@@ -16,15 +16,18 @@ function ImgSlide() {
   const uploadToClient = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0];
-
-      setCreateObjectURL([...createObjectURL, URL.createObjectURL(i)]);
+      if (createObjectURL.length < 8) {
+        setCreateObjectURL([...createObjectURL, URL.createObjectURL(i)]);
+      } else {
+        alert('사진은 최대 8개만 가능');
+      }
     }
   };
   useEffect(() => {
     setMainImg(createObjectURL[0]);
   }, [createObjectURL]);
 
-  const changeImg: React.MouseEventHandler<HTMLLIElement> = (event) => {
+  const changeImg = (event: React.MouseEvent<HTMLLIElement>) => {
     const { dataset } = event.target as HTMLLIElement;
 
     setMainImg(dataset.img);
@@ -55,7 +58,7 @@ const ImgListBox = styled.ul`
 `;
 
 const Item = styled.li<ImgLink>`
-  padding: 20px 20px;
+  padding: 25px 25px;
   background-image: url(${(props) => props.link});
   background-size: 100% 100%;
 `;
