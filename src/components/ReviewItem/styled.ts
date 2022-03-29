@@ -10,7 +10,11 @@ export const ReviewContainer = styled.li`
   padding: 2rem 6rem;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #c4c4c4;
+  border-top: 0.1rem solid ${COLOR.greyC4};
+  border-bottom: 0.1rem solid ${COLOR.greyC4};
+  li + & {
+    border-top: none;
+  }
 `;
 
 export const ReviewInfo = styled.div`
@@ -39,8 +43,9 @@ export const Date = styled.span`
   color: ${COLOR.grey76};
 `;
 
-export const ReviewContent = styled.div`
-  width: 80rem;
+export const ReviewContent = styled.div<IProps>`
+  width: ${({ isOpen }) => (isOpen ? 95 : 80)}rem;
+  position: relative;
 `;
 
 export const ReviewText = styled.p<IProps>`
@@ -59,6 +64,9 @@ export const ReviewText = styled.p<IProps>`
 
 export const ExpansionButton = styled.button<IProps>`
   font-size: 1.4rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
   &::after {
     display: inline-block;
     content: '';
