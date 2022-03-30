@@ -21,9 +21,8 @@ handler.post(async (req, res) => {
     content
   }).save();
   await Promise.all([
-    userId && User.findByIdAndUpdate(userId, { $push: { reviews: _id } }),
-    productId &&
-      Product.findByIdAndUpdate(productId, { $push: { reviews: _id } })
+    User.findByIdAndUpdate(userId, { $push: { reviews: _id } }),
+    Product.findByIdAndUpdate(productId, { $push: { reviews: _id } })
   ]);
   success(res);
 });
