@@ -38,7 +38,7 @@ export const InputBox = styled.input<inputProps>`
   &:focus {
     border: 1px solid ${COLOR.accentColor};
   }
-  &:focus + div {
+  &:focus + .unit {
     border: 1px solid ${COLOR.accentColor};
     background-color: ${COLOR.accentColor};
   }
@@ -77,7 +77,7 @@ export const CheckWrapper = styled(ImageWrapper)`
   right: 1.6rem;
 `;
 
-export const Unit = styled.div`
+export const Unit = styled.div.attrs({ className: 'unit' })`
   display: flex;
   justify-content: center;
   align-items: center;
