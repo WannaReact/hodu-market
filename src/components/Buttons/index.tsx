@@ -4,6 +4,7 @@ import * as Styled from './styled';
 interface IButtonProps {
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  type?: 'submit' | 'button' | 'reset';
 }
 
 interface ICustomButtonProps extends IButtonProps {
@@ -30,7 +31,8 @@ export function Custom({
   color,
   onClick,
   fontSize,
-  children
+  children,
+  type
 }: ICustomButtonProps) {
   return (
     <Styled.Custom
@@ -40,6 +42,7 @@ export function Custom({
       height={height}
       fontSize={fontSize}
       color={color}
+      type={type}
     >
       {children}
     </Styled.Custom>
