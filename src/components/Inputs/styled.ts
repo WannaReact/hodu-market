@@ -89,5 +89,6 @@ export const Unit = styled.div`
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   background-color: ${COLOR.greyC4};
+  font-size: 1.6rem;
   color: ${COLOR.white};
 `;
