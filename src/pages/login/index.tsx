@@ -11,6 +11,7 @@ interface LoginInputs {
   loginId: string;
   loginPw: string;
 }
+const onSubmit: SubmitHandler<LoginInputs> = (data) => console.log(data);
 
 function Login() {
   const {
@@ -19,7 +20,6 @@ function Login() {
     watch,
     formState: { errors }
   } = useForm<LoginInputs>();
-  const onSubmit: SubmitHandler<LoginInputs> = (data) => console.log(data);
   console.log(watch('loginId'));
   return (
     <Styled.Main>
@@ -32,6 +32,9 @@ function Login() {
             width={48}
             hook={register('loginId', {
               required: true,
+              min: 3,
+              max: 15,
+              maxLength: 15,
               pattern: {
                 value: /^[A-Za-z0-9]+$/i,
                 message: '특수문자를 제외한 문자,숫자를 입력해주세요'
@@ -47,7 +50,12 @@ function Login() {
           )}
 
           <Inputs.TextInput
-            hook={register('loginPw', { required: true })}
+            hook={register('loginPw', {
+              required: true,
+              min: 8,
+              max: 16,
+              maxLength: 16
+            })}
             width={48}
             placeholder="비밀번호"
           />
