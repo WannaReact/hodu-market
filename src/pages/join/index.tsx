@@ -1,48 +1,40 @@
 import Link from 'next/link';
-import * as Buttons from '@components/Buttons';
-import { TextInputBox } from '@components/Inputs';
+import { Buttons } from '@components';
+import { Inputs } from '@components';
 import ImageWrapper from '@utils/ImageWrapper';
-import styled from 'styled-components';
 import Logo from 'public/images/logo.svg';
-import { ChangeEvent, useState } from 'react';
-import { COLOR } from 'src/shared/constants';
-import { Main, Container } from './styled';
+import { ChangeEvent, useRef, useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import * as Styled from './styled';
 
-const MarginB = styled.div`
-  margin-bottom: 3.5rem;
-`;
-
-const Wrap = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  width: 48rem;
-`;
-const P = styled.p`
-  font-size: 2rem;
-  line-height: 5rem;
-`;
-interface ISelectProps {
-  isOpen: boolean;
+interface JoinInputs {
+  joinId: string;
+  joinPw: string;
+  joinPwConfirm: string;
+  name: string;
+  phoneNum1: number;
+  phoneNum2: number;
+  phoneNum3: number;
+  emailId: string;
+  emailAddress?: string;
 }
-const Select = styled.select<ISelectProps>`
-  width: ${(props) => (props.isOpen ? '7rem' : '22rem')};
-  height: 5.4rem;
-  border: 1px solid ${COLOR.greyC4};
-  border-radius: 0.5rem;
-`;
-const ExP = styled.span`
-  position: relative;
-  font-size: 1.3rem;
-  top: -1.6px;
-`;
-
-const A = styled.a`
-  color: blue;
-`;
+const onSubmit: SubmitHandler<JoinInputs> = (data) => console.log(data);
+const regExpId = /^[A-Za-z0-9]+$/i;
+const regExpPw = /^(?=.*[a-zA-Z])((?=.*d)|(?=.*W)).{8,16}$/i;
 
 function Join() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    trigger,
+    formState: { errors }
+  } = useForm<JoinInputs>({ mode: 'onChange' });
+  const joinPw = useRef('');
+  joinPw.current = watch('joinPw');
+  // name joinPw element 관찰
+
+  console.log(watch('joinId'));
   const [isOpen, setIsOpen] = useState(false);
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     if (e.currentTarget.value === 'direct') {
@@ -51,21 +43,24 @@ function Join() {
       setIsOpen(false);
     }
   };
-
   return (
-    <Main>
-      <MarginB>
+    <Styled.Main>
+      <Styled.JoinHeader>
         <ImageWrapper width="23.8rem" height="7.4rem">
           <Logo viewBox="0 0 156 38" />
         </ImageWrapper>
-      </MarginB>
-      <Container>
+      </Styled.JoinHeader>
+      <Styled.Container>
         <h1 className="sr-only">회원가입</h1>
-        <Wrap>
-          <TextInputBox
+        <Styled.Wrap>
+          <Inputs.TextInputBox
             width={34}
-            maxLength={10}
-            // labelName="아이디"
+            hook={register('joinId', {
+              required: true,
+              minLength: 3,
+              maxLength: 15,
+              pattern: regExpId
+            })}
             placeholder="아이디"
             validationMsg="3~15자의 영문/숫자를 조합하여 입력"
           />
@@ -75,36 +70,140 @@ function Join() {
             fontSize={1.8}
             color="green"
             disabled={false}
+            type="button"
+            onClick={() => {
+              trigger('joinId');
+            }}
           >
             중복확인
           </Buttons.Custom>
-        </Wrap>
-        <TextInputBox
+        </Styled.Wrap>
+        {/* 에러시 출력칸 */}
+        {errors?.joinId?.type === 'required' && (
+          <Styled.ErrorMsg>아이디를 입력해주세요</Styled.ErrorMsg>
+        )}
+        {(errors?.joinId?.type === 'maxLength' ||
+          errors?.joinId?.type === 'minLength') && (
+          <Styled.ErrorMsg>입력 가능한 글자수가 틀렸습니다</Styled.ErrorMsg>
+        )}
+        {errors?.joinId?.type === 'pattern' && (
+          <Styled.ErrorMsg>
+            특수문자를 제외한 영어,숫자로 입력해주세요
+            {console.log(errors?.joinId)}
+          </Styled.ErrorMsg>
+        )}
+        <Inputs.TextInputBox
+          name="joinPw"
           width={48}
+          hook={register('joinPw', {
+            required: true,
+            minLength: 8,
+            maxLength: 16,
+            pattern: regExpPw
+          })}
           option="password"
           placeholder="비밀번호"
-          validationMsg="8-16자의 영문/숫자를 조합하여 입력
-"
+          validationMsg="8-16자의 영문/숫자/특수문자를 조합하여 입력"
         />
-        <TextInputBox
+        {errors?.joinPw?.type === 'required' && (
+          <Styled.ErrorMsg>비밀번호를 입력해주세요</Styled.ErrorMsg>
+        )}
+        {(errors?.joinPw?.type === 'maxLength' ||
+          errors?.joinPw?.type === 'minLength') && (
+          <Styled.ErrorMsg>입력 가능한 글자수가 틀렸습니다</Styled.ErrorMsg>
+        )}
+        <Inputs.TextInputBox
           width={48}
+          name="joinPwConfirm"
           option="password"
           placeholder="비밀번호 재확인"
-        />
-        <TextInputBox width={48} placeholder="이름" />
-        <Wrap>
-          <TextInputBox width={12} option="tel" placeholder="번호" />
-          <P>-</P>
-          <TextInputBox width={15} option="tel" />
-          <P>-</P>
-          <TextInputBox width={15} option="tel" />
-        </Wrap>
-        <Wrap>
-          <TextInputBox width={22} placeholder="이메일" />
-          <P>@</P>
+          hook={register('joinPwConfirm', {
+            required: true,
+            minLength: 8,
+            maxLength: 16,
+            pattern: regExpPw,
+            validate: (v) => v === joinPw.current
+          })}
+        />{' '}
+        {errors?.joinPwConfirm?.type === 'required' && (
+          <Styled.ErrorMsg>비밀번호를 다시 입력해주세요</Styled.ErrorMsg>
+        )}
+        {(errors?.joinPwConfirm?.type === 'maxLength' ||
+          errors?.joinPwConfirm?.type === 'minLength') && (
+          <Styled.ErrorMsg>입력 가능한 글자수가 틀렸습니다</Styled.ErrorMsg>
+        )}
+        {errors.joinPwConfirm && errors.joinPwConfirm.type === 'validate' ? (
+          <Styled.ErrorMsg>비밀번호가 일치하지 않습니다</Styled.ErrorMsg>
+        ) : null}
+        <Inputs.TextInputBox
+          width={48}
+          placeholder="이름"
+          hook={register('name', {
+            required: true,
+            min: 2,
+            pattern: /^[가-힣]+$/i
+          })}
+        />{' '}
+        {(errors?.name?.type === 'required' || errors?.name?.type) && (
+          <Styled.ErrorMsg>이름을 다시 입력해주세요</Styled.ErrorMsg>
+        )}
+        <Styled.Wrap>
+          <Inputs.TextInputBox
+            width={12}
+            option="tel"
+            placeholder="번호"
+            hook={register('phoneNum1', {
+              required: true,
+              minLength: 3,
+              maxLength: 3,
+              pattern: /[0-9]+$/i
+            })}
+          />
+          <Styled.P>-</Styled.P>
+          <Inputs.TextInputBox
+            width={15}
+            option="tel"
+            hook={register('phoneNum2', {
+              required: true,
+              maxLength: 4,
+              pattern: /[0-9]+$/i
+            })}
+          />
+          <Styled.P>-</Styled.P>
+          <Inputs.TextInputBox
+            width={15}
+            option="tel"
+            hook={register('phoneNum3', {
+              required: true,
+              maxLength: 4,
+              pattern: /[0-9]+$/i
+            })}
+          />{' '}
+        </Styled.Wrap>{' '}
+        {(errors?.phoneNum1 || errors?.phoneNum2 || errors?.phoneNum3) && (
+          <Styled.ErrorMsg>번호를 다시 입력해주세요</Styled.ErrorMsg>
+        )}
+        <Styled.Wrap>
+          <Inputs.TextInputBox
+            width={22}
+            placeholder="이메일"
+            hook={register('emailId', {
+              required: true,
+              pattern: regExpId
+            })}
+          />
+          <Styled.P>@</Styled.P>
           {/* 상단 select box에서 직접입력 선택 시 나타날 인풋박스 */}
-          {isOpen && <TextInputBox width={14} />}
-          <Select
+          {isOpen && (
+            <Inputs.TextInputBox
+              width={14}
+              hook={register('emailAddress', {
+                required: true,
+                pattern: /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+              })}
+            />
+          )}
+          <Styled.Select
             id="emailBox"
             name="emailBox"
             onChange={handleChange}
@@ -118,33 +217,40 @@ function Join() {
             <option value="@naver.com">naver.com</option>
             <option value="@yahoo.co.kr">yahoo.co.kr</option>
             <option value="direct">직접입력</option>
-          </Select>
-        </Wrap>
-      </Container>
-      <MarginB>
+          </Styled.Select>{' '}
+        </Styled.Wrap>{' '}
+        {errors?.emailId?.type && (
+          <Styled.ErrorMsg>이메일을 다시 입력해주세요</Styled.ErrorMsg>
+        )}
+        {errors?.emailAddress?.type && (
+          <Styled.ErrorMsg>이메일 주소를 다시 입력해주세요</Styled.ErrorMsg>
+        )}
+      </Styled.Container>
+      <Styled.JoinHeader>
         <input type="checkbox" />{' '}
-        <ExP>
+        <Styled.ExplainMsg>
           원두마켓의{' '}
           <Link href="/" passHref>
-            <A>이용약관</A>
+            <Styled.A>이용약관</Styled.A>
           </Link>{' '}
           및{' '}
           <Link href="/" passHref>
-            <A>개인정보처리방침</A>
+            <Styled.A>개인정보처리방침</Styled.A>
           </Link>
           에 대한 내용을 확인하였고 동의합니다.
-        </ExP>
-      </MarginB>
+        </Styled.ExplainMsg>
+      </Styled.JoinHeader>
       <Buttons.Custom
         width={48}
         height={6}
         fontSize={1.8}
         color="green"
         disabled={false}
+        onClick={handleSubmit(onSubmit)}
       >
         가입하기
       </Buttons.Custom>
-    </Main>
+    </Styled.Main>
   );
 }
 
