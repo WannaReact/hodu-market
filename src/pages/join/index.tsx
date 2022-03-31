@@ -79,19 +79,19 @@ function Join() {
           </Buttons.Custom>
         </Styled.Wrap>
         {/* 에러시 출력칸 */}
-        {errors?.joinId?.type === 'required' && (
+        {errors?.joinId?.type === 'required' ? (
           <Styled.ErrorMsg>아이디를 입력해주세요</Styled.ErrorMsg>
-        )}
-        {(errors?.joinId?.type === 'maxLength' ||
-          errors?.joinId?.type === 'minLength') && (
+        ) : null}
+        {errors?.joinId?.type === 'maxLength' ||
+        errors?.joinId?.type === 'minLength' ? (
           <Styled.ErrorMsg>입력 가능한 글자수가 틀렸습니다</Styled.ErrorMsg>
-        )}
-        {errors?.joinId?.type === 'pattern' && (
+        ) : null}
+        {errors?.joinId?.type === 'pattern' ? (
           <Styled.ErrorMsg>
             특수문자를 제외한 영어,숫자로 입력해주세요
             {console.log(errors?.joinId)}
           </Styled.ErrorMsg>
-        )}
+        ) : null}
         <Inputs.TextInputBox
           name="joinPw"
           width={48}
@@ -105,13 +105,13 @@ function Join() {
           placeholder="비밀번호"
           validationMsg="8-16자의 영문/숫자/특수문자를 조합하여 입력"
         />
-        {errors?.joinPw?.type === 'required' && (
+        {errors?.joinPw?.type === 'required' ? (
           <Styled.ErrorMsg>비밀번호를 입력해주세요</Styled.ErrorMsg>
-        )}
-        {(errors?.joinPw?.type === 'maxLength' ||
-          errors?.joinPw?.type === 'minLength') && (
+        ) : null}
+        {errors?.joinPw?.type === 'maxLength' ||
+        errors?.joinPw?.type === 'minLength' ? (
           <Styled.ErrorMsg>입력 가능한 글자수가 틀렸습니다</Styled.ErrorMsg>
-        )}
+        ) : null}
         <Inputs.TextInputBox
           width={48}
           name="joinPwConfirm"
@@ -125,13 +125,13 @@ function Join() {
             validate: (v) => v === joinPw.current
           })}
         />{' '}
-        {errors?.joinPwConfirm?.type === 'required' && (
+        {errors?.joinPwConfirm?.type === 'required' ? (
           <Styled.ErrorMsg>비밀번호를 다시 입력해주세요</Styled.ErrorMsg>
-        )}
-        {(errors?.joinPwConfirm?.type === 'maxLength' ||
-          errors?.joinPwConfirm?.type === 'minLength') && (
+        ) : null}
+        {errors?.joinPwConfirm?.type === 'maxLength' ||
+        errors?.joinPwConfirm?.type === 'minLength' ? (
           <Styled.ErrorMsg>입력 가능한 글자수가 틀렸습니다</Styled.ErrorMsg>
-        )}
+        ) : null}
         {errors.joinPwConfirm && errors.joinPwConfirm.type === 'validate' ? (
           <Styled.ErrorMsg>비밀번호가 일치하지 않습니다</Styled.ErrorMsg>
         ) : null}
@@ -144,9 +144,9 @@ function Join() {
             pattern: /^[가-힣]+$/i
           })}
         />{' '}
-        {(errors?.name?.type === 'required' || errors?.name?.type) && (
+        {errors?.name?.type === 'required' || errors?.name?.type ? (
           <Styled.ErrorMsg>이름을 다시 입력해주세요</Styled.ErrorMsg>
-        )}
+        ) : null}
         <Styled.Wrap>
           <Inputs.TextInputBox
             width={12}
@@ -180,9 +180,9 @@ function Join() {
             })}
           />{' '}
         </Styled.Wrap>{' '}
-        {(errors?.phoneNum1 || errors?.phoneNum2 || errors?.phoneNum3) && (
+        {errors?.phoneNum1 || errors?.phoneNum2 || errors?.phoneNum3 ? (
           <Styled.ErrorMsg>번호를 다시 입력해주세요</Styled.ErrorMsg>
-        )}
+        ) : null}
         <Styled.Wrap>
           <Inputs.TextInputBox
             width={22}
@@ -219,12 +219,12 @@ function Join() {
             <option value="direct">직접입력</option>
           </Styled.Select>{' '}
         </Styled.Wrap>{' '}
-        {errors?.emailId?.type && (
+        {errors?.emailId?.type ? (
           <Styled.ErrorMsg>이메일을 다시 입력해주세요</Styled.ErrorMsg>
-        )}
-        {errors?.emailAddress?.type && (
+        ) : null}
+        {errors?.emailAddress?.type ? (
           <Styled.ErrorMsg>이메일 주소를 다시 입력해주세요</Styled.ErrorMsg>
-        )}
+        ) : null}
       </Styled.Container>
       <Styled.JoinHeader>
         <input type="checkbox" />{' '}
