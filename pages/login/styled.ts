@@ -1,4 +1,4 @@
-import { TextInput } from 'components/Inputs';
+import { TextInput } from 'src/components/Inputs';
 import styled from 'styled-components';
 
 export const Main = styled.main`

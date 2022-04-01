@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-key */
-import { TextInput } from 'components/Inputs';
+import { TextInput } from 'src/components/Inputs';
 import React from 'react';
 import Link from 'next/link';
 import Logo from 'public/images/logo.svg';
-import ImageWrapper from 'components/utils/ImageWrapper';
+import ImageWrapper from '@utils/ImageWrapper';
 import { Buttons } from '../../components';
 import { Main, MbTextInput, Container, UL } from './styled';
 

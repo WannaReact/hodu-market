@@ -1,11 +1,15 @@
 import mongoose from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { CommentSchema } from 'models/Comment';
-import { ProductSchema } from 'models/Product';
-import { ReviewSchema } from 'models/Review';
-import { UserSchema } from 'models/User';
-import { InquirySchema } from 'models/Inquiry';
-import { CategorySchema } from 'models/Category';
+import { CommentSchema } from './models/Comment';
+import { ProductSchema } from './models/Product';
+import { ReviewSchema } from './models/Review';
+import { UserSchema } from './models/User';
+import { InquirySchema } from './models/Inquiry';
+import { CategorySchema } from './models/Category';
+import { OrderSchema } from './models/Order';
+import { CourierSchema } from './models/Courier';
+import { CouponTypeSchema } from './models/CouponType';
+import { CouponSchema } from './models/Coupon';
 
 const { MONGODB_URI } = process.env;
 
@@ -20,12 +24,17 @@ export default async (
 
   if (!global.mongoose) {
     global.mongoose = await mongoose.connect(MONGODB_URI);
+    global.orderNumber = [...Array(100000)].map((_, i) => i);
     mongoose.model('User', UserSchema);
     mongoose.model('Review', ReviewSchema);
     mongoose.model('Product', ProductSchema);
     mongoose.model('Comment', CommentSchema);
     mongoose.model('Inquiry', InquirySchema);
     mongoose.model('Category', CategorySchema);
+    mongoose.model('Order', OrderSchema);
+    mongoose.model('Courier', CourierSchema);
+    mongoose.model('Coupon', CouponSchema);
+    mongoose.model('CouponType', CouponTypeSchema);
   }
   return next();
 };

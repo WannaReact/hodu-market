@@ -1,4 +1,4 @@
-import { COLOR } from 'src/shared/constants';
+import { COLOR } from '@shared/constants';
 import styled, { keyframes } from 'styled-components';
 
 export interface MediaQuery {
