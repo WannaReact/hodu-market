@@ -17,8 +17,9 @@ interface JoinInputs {
   phoneNum3: number;
   emailId: string;
   emailAddress?: string;
+  agreeCheck: string;
 }
-const onSubmit: SubmitHandler<JoinInputs> = (data) => console.log(data);
+
 const regExpId = /^[A-Za-z0-9]+$/i;
 const regExpPw = /^(?=.*[a-zA-Z])((?=.*d)|(?=.*W)).{8,16}$/i;
 
@@ -26,17 +27,27 @@ function Join() {
   const {
     register,
     handleSubmit,
+    getValues,
     watch,
     trigger,
     formState: { errors }
   } = useForm<JoinInputs>({ mode: 'onChange' });
+  const onSubmit: SubmitHandler<JoinInputs> = (data) => {
+    const values = getValues();
+    console.log('서브밋 ! ');
+    console.log(data);
+  };
   const joinPw = useRef('');
   joinPw.current = watch('joinPw');
   // name joinPw element 관찰
 
   console.log(watch('joinId'));
-  const [isOpen, setIsOpen] = useState(false);
+  const [isDirectOpen, setIsOpen] = useState(false);
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const aaa = getValues();
+    console.log(aaa);
+    console.log(e.currentTarget.value);
+    // 직접 입력일 때 새로운 input 버튼 보여주기
     if (e.currentTarget.value === 'direct') {
       setIsOpen(true);
     } else {
@@ -194,7 +205,7 @@ function Join() {
           />
           <Styled.P>@</Styled.P>
           {/* 상단 select box에서 직접입력 선택 시 나타날 인풋박스 */}
-          {isOpen && (
+          {isDirectOpen && (
             <Inputs.TextInputBox
               width={14}
               hook={register('emailAddress', {
@@ -207,7 +218,7 @@ function Join() {
             id="emailBox"
             name="emailBox"
             onChange={handleChange}
-            isOpen={isOpen}
+            isOpen={isDirectOpen}
           >
             <option value="">선택해주세요</option>
             <option value="@gamil.com">gmail.com</option>
@@ -227,7 +238,12 @@ function Join() {
         ) : null}
       </Styled.Container>
       <Styled.JoinHeader>
-        <input type="checkbox" />{' '}
+        <input
+          type="checkbox"
+          {...register('agreeCheck', {
+            required: true
+          })}
+        />{' '}
         <Styled.ExplainMsg>
           원두마켓의{' '}
           <Link href="/" passHref>
@@ -238,7 +254,10 @@ function Join() {
             <Styled.A>개인정보처리방침</Styled.A>
           </Link>
           에 대한 내용을 확인하였고 동의합니다.
-        </Styled.ExplainMsg>
+        </Styled.ExplainMsg>{' '}
+        {errors?.agreeCheck?.type === 'required' ? (
+          <Styled.ErrorMsg>사용약관에 동의해주세요</Styled.ErrorMsg>
+        ) : null}
       </Styled.JoinHeader>
       <Buttons.Custom
         width={48}
