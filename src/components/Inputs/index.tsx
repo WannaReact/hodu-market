@@ -74,6 +74,7 @@ export function TextInputBoxComponent({
         maxLength={maxLength}
         value={value}
         placeholder={placeholder}
+        hasOption={option !== 'none'}
         onChange={handleChange}
       />
       {validationMsg && (

@@ -7,6 +7,7 @@ interface validationProps {
 }
 interface inputProps {
   width?: number;
+  hasOption?: boolean;
 }
 
 export const Input = styled.input<inputProps>`
@@ -28,7 +29,8 @@ export const Box = styled.div<inputProps>`
 export const InputBox = styled.input<inputProps>`
   width: 100%;
   height: 5.4rem;
-  padding: 2rem 7rem 2rem 1.6rem;
+  padding: 2rem ${({ hasOption }) => (hasOption ? '7rem' : '1.6rem')} 2rem
+    1.6rem;
   margin-top: 0.8rem;
   border: 1px solid ${COLOR.greyC4};
   border-radius: 0.5rem;
@@ -36,7 +38,7 @@ export const InputBox = styled.input<inputProps>`
   &:focus {
     border: 1px solid ${COLOR.accentColor};
   }
-  &:focus + div {
+  &:focus + .unit {
     border: 1px solid ${COLOR.accentColor};
     background-color: ${COLOR.accentColor};
   }
@@ -75,7 +77,7 @@ export const CheckWrapper = styled(ImageWrapper)`
   right: 1.6rem;
 `;
 
-export const Unit = styled.div`
+export const Unit = styled.div.attrs({ className: 'unit' })`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,5 +89,6 @@ export const Unit = styled.div`
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   background-color: ${COLOR.greyC4};
+  font-size: 1.6rem;
   color: ${COLOR.white};
 `;
