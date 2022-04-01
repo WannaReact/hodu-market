@@ -19,7 +19,7 @@ function Login() {
     handleSubmit,
     watch,
     formState: { errors }
-  } = useForm<LoginInputs>();
+  } = useForm<LoginInputs>({ mode: 'onChange' });
   console.log(watch('loginId'));
   return (
     <Styled.Main>
