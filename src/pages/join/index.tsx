@@ -17,13 +17,14 @@ interface JoinInputs {
   phoneNum3: number;
   emailId: string;
   emailAddress?: string;
-  agreeCheck: string;
+  agreeCheck: boolean;
 }
 
 const regExpId = /^[A-Za-z0-9]+$/i;
 const regExpPw = /^(?=.*[a-zA-Z])((?=.*d)|(?=.*W)).{8,16}$/i;
 
 function Join() {
+  const [optionValue, setOptionValue] = useState<string>('');
   const {
     register,
     handleSubmit,
@@ -31,21 +32,38 @@ function Join() {
     watch,
     trigger,
     formState: { errors }
-  } = useForm<JoinInputs>({ mode: 'onChange' });
+  } = useForm<JoinInputs>({
+    mode: 'onChange'
+    // defaultValues: {
+    //   joinId: 'aadfa',
+    //   joinPw: 'aabbccaabbcc',
+    //   joinPwConfirm: 'aabbccaabbcc',
+    //   name: '나희',
+    //   phoneNum1: +100,
+    //   phoneNum2: +1000,
+    //   phoneNum3: +1000,
+    //   emailId: 'string',
+    //   emailAddress: 'string.co',
+    //   agreeCheck: true
+    // }
+  });
+
   const onSubmit: SubmitHandler<JoinInputs> = (data) => {
-    const values = getValues();
+    // const values = getValues();
     console.log('서브밋 ! ');
+    // console.log(values);
     console.log(data);
+    console.log(errors);
   };
   const joinPw = useRef('');
   joinPw.current = watch('joinPw');
   // name joinPw element 관찰
-
+  console.log(' id 호출');
   console.log(watch('joinId'));
+
   const [isDirectOpen, setIsOpen] = useState(false);
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const aaa = getValues();
-    console.log(aaa);
+    console.log('이메일 input 값 확인하자');
     console.log(e.currentTarget.value);
     // 직접 입력일 때 새로운 input 버튼 보여주기
     if (e.currentTarget.value === 'direct') {
@@ -61,7 +79,7 @@ function Join() {
           <Logo viewBox="0 0 156 38" />
         </ImageWrapper>
       </Styled.JoinHeader>
-      <Styled.Container>
+      <Styled.Container id="join" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="sr-only">회원가입</h1>
         <Styled.Wrap>
           <Inputs.TextInputBox
@@ -105,12 +123,13 @@ function Join() {
         ) : null}
         <Inputs.TextInputBox
           name="joinPw"
-          width={48}
+          width={48} isValid={Boolean(errors?.password)}
           hook={register('joinPw', {
             required: true,
             minLength: 8,
             maxLength: 16,
-            pattern: regExpPw
+            pattern: regExpPw,
+            }
           })}
           option="password"
           placeholder="비밀번호"
@@ -260,12 +279,12 @@ function Join() {
         ) : null}
       </Styled.JoinHeader>
       <Buttons.Custom
+        form="join"
         width={48}
         height={6}
         fontSize={1.8}
         color="green"
         disabled={false}
-        onClick={handleSubmit(onSubmit)}
       >
         가입하기
       </Buttons.Custom>

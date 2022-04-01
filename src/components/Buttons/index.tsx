@@ -12,6 +12,7 @@ interface ICustomButtonProps extends IButtonProps {
   height: 3 | 4 | 5 | 5.4 | 6 | 6.8;
   fontSize: number;
   color: 'green' | 'dark' | 'white';
+  form?: string;
   disabled: boolean;
 }
 
@@ -25,6 +26,7 @@ interface IMenuButtonProps extends IButtonProps {
 }
 
 export function Custom({
+  form,
   disabled,
   width,
   height,
@@ -36,6 +38,7 @@ export function Custom({
 }: ICustomButtonProps) {
   return (
     <Styled.Custom
+      form={form}
       onClick={onClick}
       disabled={disabled}
       width={width}

@@ -12,6 +12,9 @@ interface ICustomProps {
 export const Custom = styled.button<ICustomProps>`
   width: ${(props) => props.width}rem;
   height: ${(props) => props.height}rem;
+  &:disabled {
+    background-color: ${COLOR.greyC4};
+  }
   ${(props) => {
     if (props.disabled) {
       return `
