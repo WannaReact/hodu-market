@@ -25,7 +25,7 @@ handler.post(async (req, res) => {
     await User.findByIdAndUpdate(userId, { $push: { coupons: _id } });
     success(res);
   } else {
-    fail(res);
+    fail(res, '쿠폰종류ID가 유효하지 않습니다.');
   }
 });
 

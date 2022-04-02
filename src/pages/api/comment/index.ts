@@ -20,7 +20,7 @@ handler.post(async (req, res) => {
     await Review.findByIdAndUpdate(reviewId, { $push: { comments: _id } });
     success(res);
   } else {
-    fail(res);
+    fail(res, '회원ID가 유효하지 않습니다.');
   }
 });
 
