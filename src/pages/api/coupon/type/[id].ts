@@ -15,10 +15,15 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body,
+    body: { couponName, categories = [], maxPrice, discount },
     query: { id }
   } = req;
-  await CouponType.findByIdAndUpdate(id, body);
+  await CouponType.findByIdAndUpdate(id, {
+    couponName,
+    categories,
+    maxPrice,
+    discount
+  });
   success(res);
 });
 

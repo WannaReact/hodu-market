@@ -15,18 +15,10 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body,
+    body: { courier, invoice },
     query: { id }
   } = req;
-  const { userId } = body;
-  const { userId: prevUserId } = await Order.findByIdAndUpdate(id, body);
-  if (userId.toString() !== prevUserId.toString()) {
-    await Promise.all([
-      userId && User.findByIdAndUpdate(userId, { $push: { orders: id } }),
-      prevUserId &&
-        User.findByIdAndUpdate(prevUserId, { $pull: { orders: id } })
-    ]);
-  }
+  await Order.findByIdAndUpdate(id, { courier, invoice });
   success(res);
 });
 

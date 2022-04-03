@@ -10,7 +10,6 @@ handler.put(async (req, res) => {
     body: { answer },
     query: { id }
   } = req;
-  console.log(answer, id);
   await Inquiry.findByIdAndUpdate(id, { answer });
   success(res);
 });

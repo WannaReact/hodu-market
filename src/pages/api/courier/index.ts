@@ -11,8 +11,10 @@ handler.get(async (req, res) => {
 });
 
 handler.post(async (req, res) => {
-  const { body } = req;
-  await new Courier(body).save();
+  const {
+    body: { courierName }
+  } = req;
+  await new Courier({ courierName }).save();
   success(res);
 });
 
