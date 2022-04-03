@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { DISCOUNT_MATCH } from './constants';
+import { CATEGORY_ENUM, DISCOUNT_MATCH } from './constants';
 
 export const CouponTypeSchema = new Schema(
   {
@@ -10,8 +10,12 @@ export const CouponTypeSchema = new Schema(
       maxlength: [50, '쿠폰 이름은 50자 이하까지 입력할 수 있습니다.']
     },
     categories: {
-      type: [Schema.Types.ObjectId],
-      ref: 'Category'
+      type: [
+        {
+          type: String,
+          enum: [CATEGORY_ENUM, '카테고리가 유효하지 않습니다.']
+        }
+      ]
     },
     maxPrice: {
       type: Number,

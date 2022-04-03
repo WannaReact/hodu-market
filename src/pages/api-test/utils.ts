@@ -229,36 +229,6 @@ export const apiList = [
     ]
   },
   {
-    url: '/category',
-    api: [
-      {
-        method: 'get',
-        button: '모든 카테고리 정보 조회하기'
-      },
-      {
-        method: 'post',
-        button: '카테고리 등록하기',
-        body: [['categoryName', '카테고리 이름']]
-      },
-      {
-        method: 'get',
-        button: 'ObjectId로 특정 카테고리 정보 조회하기',
-        param: ['카테고리ID', 'id']
-      },
-      {
-        method: 'put',
-        button: 'ObjectId로 특정 카테고리 정보 수정하기',
-        param: ['카테고리ID', 'id'],
-        body: [['categoryName', '카테고리 이름']]
-      },
-      {
-        method: 'delete',
-        button: 'ObjectId로 특정 카테고리 정보 삭제하기',
-        param: ['카테고리ID', 'id']
-      }
-    ]
-  },
-  {
     url: '/order',
     api: [
       {

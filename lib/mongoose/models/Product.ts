@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { DISCOUNT_MATCH, IMAGE_MATCH } from './constants';
+import { CATEGORY_ENUM, DISCOUNT_MATCH, IMAGE_MATCH } from './constants';
 
 export const ProductSchema = new Schema(
   {
@@ -29,8 +29,16 @@ export const ProductSchema = new Schema(
       min: [0, '재고량이 유효하지 않습니다.'],
       max: [100_000_000, '재고량이 유효하지 않습니다.']
     },
+    categories: {
+      type: [
+        {
+          type: String,
+          enum: [CATEGORY_ENUM, '카테고리가 유효하지 않습니다.']
+        }
+      ],
+      required: [true, '카테고리를 입력하세요.']
+    },
     options: [{ type: Schema.Types.ObjectId, ref: 'Option' }],
-    categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
     reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
     inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry' }]
   },
