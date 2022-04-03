@@ -6,7 +6,6 @@ import { ReviewSchema } from './models/Review';
 import { UserSchema } from './models/User';
 import { InquirySchema } from './models/Inquiry';
 import { OrderSchema } from './models/Order';
-import { CourierSchema } from './models/Courier';
 import { CouponTypeSchema } from './models/CouponType';
 import { CouponSchema } from './models/Coupon';
 
@@ -30,7 +29,6 @@ export default async (
     mongoose.model('Comment', CommentSchema);
     mongoose.model('Inquiry', InquirySchema);
     mongoose.model('Order', OrderSchema);
-    mongoose.model('Courier', CourierSchema);
     mongoose.model('Coupon', CouponSchema);
     mongoose.model('CouponType', CouponTypeSchema);
   }

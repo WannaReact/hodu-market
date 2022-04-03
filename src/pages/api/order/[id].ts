@@ -15,10 +15,10 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body: { courierId, invoice },
+    body: { courier, invoice },
     query: { id }
   } = req;
-  await Order.findByIdAndUpdate(id, { courierId, invoice });
+  await Order.findByIdAndUpdate(id, { courier, invoice });
   success(res);
 });
 

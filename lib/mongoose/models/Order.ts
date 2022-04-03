@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { KOREAN_NAME_MATCH } from './constants';
+import { COURIER_ENUM, KOREAN_NAME_MATCH } from './constants';
 
 export const OrderSchema = new Schema(
   {
@@ -31,8 +31,9 @@ export const OrderSchema = new Schema(
       min: [0, '가격이 유효하지 않습니다.'],
       max: [100_000_000, '가격이 유효하지 않습니다.']
     },
-    courierId: {
-      type: Schema.Types.ObjectId
+    courier: {
+      type: String,
+      enum: [COURIER_ENUM, '택배사명이 유효하지 않습니다.']
     },
     invoice: {
       type: Number

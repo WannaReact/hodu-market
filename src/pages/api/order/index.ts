@@ -19,7 +19,7 @@ handler.post(async (req, res) => {
       couponId,
       count,
       cost,
-      courierId,
+      courier,
       invoice,
       addressee
     }
@@ -38,7 +38,7 @@ handler.post(async (req, res) => {
       couponId,
       count,
       cost,
-      courierId,
+      courier,
       invoice,
       addressee
     }).save();

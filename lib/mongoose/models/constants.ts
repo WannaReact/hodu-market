@@ -22,3 +22,10 @@ export const CATEGORY_ENUM = [
   '시럽',
   '에이드'
 ];
+export const COURIER_ENUM = [
+  'CJ대한통운',
+  '롯데글로벌로지스',
+  '한진택배',
+  '우체국택배',
+  '로젠택배'
+];

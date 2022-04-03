@@ -271,36 +271,6 @@ export const apiList = [
     ]
   },
   {
-    url: '/courier',
-    api: [
-      {
-        method: 'get',
-        button: '모든 택배사 정보 조회하기'
-      },
-      {
-        method: 'post',
-        button: '택배사 정보 등록하기',
-        body: [['courierName', '택배사명']]
-      },
-      {
-        method: 'get',
-        button: '택배사명으로 특정 택배사 정보 조회하기',
-        param: ['택배사명', 'name']
-      },
-      {
-        method: 'put',
-        button: '택배사명으로 특정 택배사 정보 수정하기',
-        param: ['택배사명', 'name'],
-        body: [['courierName', '변경할 택배사명']]
-      },
-      {
-        method: 'delete',
-        button: '택배사명으로 특정 택배사 정보 삭제하기',
-        param: ['택배사명', 'name']
-      }
-    ]
-  },
-  {
     url: '/coupon',
     api: [
       {
