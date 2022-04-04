@@ -33,7 +33,10 @@ export const ProductSchema = new Schema(
       type: [
         {
           type: String,
-          enum: [CATEGORY_ENUM, '카테고리가 유효하지 않습니다.']
+          enum: {
+            values: CATEGORY_ENUM,
+            message: '카테고리가 유효하지 않습니다.'
+          }
         }
       ],
       required: [true, '카테고리를 입력하세요.']
