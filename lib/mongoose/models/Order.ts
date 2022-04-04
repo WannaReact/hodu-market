@@ -33,7 +33,10 @@ export const OrderSchema = new Schema(
     },
     courier: {
       type: String,
-      enum: [COURIER_ENUM, '택배사명이 유효하지 않습니다.']
+      enum: {
+        values: COURIER_ENUM,
+        message: '택배사명이 유효하지 않습니다.'
+      }
     },
     invoice: {
       type: Number
