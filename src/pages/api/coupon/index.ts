@@ -16,14 +16,15 @@ handler.post(async (req, res) => {
   } = req;
   const doesIdExist = await CouponType.exists({ _id: couponTypeId });
   if (doesIdExist) {
-    const { _id } = await new Coupon({
+    const coupon = await new Coupon({
       couponTypeId,
       userId,
       isUsed,
       expiryDate
     }).save();
+    const { _id } = coupon;
     await User.findByIdAndUpdate(userId, { $push: { coupons: _id } });
-    success(res);
+    success(res, coupon);
   } else {
     fail(res, '쿠폰종류ID가 유효하지 않습니다.');
   }

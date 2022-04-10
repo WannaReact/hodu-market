@@ -18,16 +18,21 @@ handler.put(async (req, res) => {
     body: { userName, nickname, phone, email },
     query: { id }
   } = req;
-  await User.findByIdAndUpdate(id, { userName, nickname, phone, email });
-  success(res);
+  const user = await User.findByIdAndUpdate(id, {
+    userName,
+    nickname,
+    phone,
+    email
+  });
+  success(res, user);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  await User.findByIdAndDelete(id);
-  success(res);
+  const user = await User.findByIdAndDelete(id);
+  success(res, user);
 });
 
 export default handler;

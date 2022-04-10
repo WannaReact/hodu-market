@@ -14,17 +14,18 @@ handler.post(async (req, res) => {
   const {
     body: { productId, userId, content, answer }
   } = req;
-  const { _id } = await new Inquiry({
+  const inquiry = await new Inquiry({
     productId,
     userId,
     content,
     answer
   }).save();
+  const { _id } = inquiry;
   await Promise.all([
     Product.findByIdAndUpdate(productId, { $push: { inquiries: _id } }),
     User.findByIdAndUpdate(userId, { $push: { inquiries: _id } })
   ]);
-  success(res);
+  success(res, inquiry);
 });
 
 export default handler;

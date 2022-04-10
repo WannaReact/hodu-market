@@ -18,20 +18,21 @@ handler.put(async (req, res) => {
     body: { content },
     query: { id }
   } = req;
-  await Inquiry.findByIdAndUpdate(id, { content });
-  success(res);
+  const inquiry = await Inquiry.findByIdAndUpdate(id, { content });
+  success(res, inquiry);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const { _id, productId, userId } = await Inquiry.findByIdAndDelete(id);
+  const inquiry = await Inquiry.findByIdAndDelete(id);
+  const { _id, productId, userId } = inquiry;
   await Promise.all([
     Product.findByIdAndUpdate(productId, { $pull: { inquiries: _id } }),
     User.findByIdAndUpdate(userId, { $pull: { inquiries: _id } })
   ]);
-  success(res);
+  success(res, inquiry);
 });
 
 export default handler;

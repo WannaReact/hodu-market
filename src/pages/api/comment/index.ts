@@ -16,9 +16,10 @@ handler.post(async (req, res) => {
   } = req;
   const doesIdExist = await User.exists({ _id: userId });
   if (doesIdExist) {
-    const { _id } = await new Comment({ reviewId, userId, content }).save();
+    const comment = await new Comment({ reviewId, userId, content }).save();
+    const { _id } = comment;
     await Review.findByIdAndUpdate(reviewId, { $push: { comments: _id } });
-    success(res);
+    success(res, comment);
   } else {
     fail(res, '회원ID가 유효하지 않습니다.');
   }
