@@ -31,9 +31,7 @@ export const CouponTypeSchema = new Schema(
       match: [DISCOUNT_MATCH, '할인액 또는 할인율이 유효하지 않습니다.']
     }
   },
-  {
-    timestamps: true
-  }
+  { timestamps: true, versionKey: false }
 );
 
 export default mongoose.models.CouponType ||

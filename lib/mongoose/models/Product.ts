@@ -45,7 +45,7 @@ export const ProductSchema = new Schema(
     reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
     inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry' }]
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 export default mongoose.models.Product ||

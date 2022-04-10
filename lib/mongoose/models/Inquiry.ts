@@ -21,7 +21,7 @@ export const InquirySchema = new Schema(
       maxlength: [500, '문의 내용 답변은 500자 이하까지 입력할 수 있습니다.']
     }
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 export default mongoose.models.Inquiry ||

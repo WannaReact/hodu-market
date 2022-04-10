@@ -17,7 +17,7 @@ export const CommentSchema = new Schema(
       maxlength: [150, '댓글 내용은 150자 이하까지 입력할 수 있습니다.']
     }
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 export default mongoose.models.Comment ||

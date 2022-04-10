@@ -55,7 +55,7 @@ export const UserSchema = new Schema(
     wishList: [{ type: Schema.Types.ObjectId, ref: 'WishList' }],
     coupons: [{ type: Schema.Types.ObjectId, ref: 'Coupon' }]
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);
