@@ -41,7 +41,6 @@ export const ProductSchema = new Schema(
       ],
       required: [true, '카테고리를 입력하세요.']
     },
-    options: [{ type: Schema.Types.ObjectId, ref: 'Option' }],
     reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
     inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry' }]
   },
