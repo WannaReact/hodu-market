@@ -15,14 +15,15 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body: { userName, nickname, phone, email },
+    body: { userName, nickname, phone, email, image },
     query: { id }
   } = req;
   const user = await User.findByIdAndUpdate(id, {
     userName,
     nickname,
     phone,
-    email
+    email,
+    image
   });
   success(res, user);
 });

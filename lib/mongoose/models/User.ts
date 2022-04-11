@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { KOREAN_NAME_MATCH } from './constants';
+import { IMAGE_MATCH, KOREAN_NAME_MATCH } from './constants';
 
 export const UserSchema = new Schema(
   {
@@ -42,6 +42,10 @@ export const UserSchema = new Schema(
         /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
         '이메일 형식에 맞게 입력해야 합니다.'
       ]
+    },
+    image: {
+      type: String,
+      match: [IMAGE_MATCH, '이미지 주소가 유효하지 않습니다.']
     },
     money: {
       type: Number,

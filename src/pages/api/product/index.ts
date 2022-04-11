@@ -12,10 +12,11 @@ handler.get(async (req, res) => {
 
 handler.post(async (req, res) => {
   const {
-    body: { productName, price, discount, stock, categories = [] }
+    body: { productName, image, price, discount, stock, categories = [] }
   } = req;
   const product = await new Product({
     productName,
+    image,
     price,
     discount,
     stock,

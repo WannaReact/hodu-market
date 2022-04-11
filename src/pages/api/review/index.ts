@@ -12,13 +12,14 @@ handler.get(async (req, res) => {
 
 handler.post(async (req, res) => {
   const {
-    body: { productId, userId, rating, content }
+    body: { productId, userId, rating, content, images }
   } = req;
   const review = await new Review({
     productId,
     userId,
     rating,
-    content
+    content,
+    images
   }).save();
   const { _id } = review;
   await Promise.all([

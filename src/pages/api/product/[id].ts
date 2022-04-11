@@ -18,11 +18,12 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body: { productName, price, discount, stock, categories },
+    body: { productName, image, price, discount, stock, categories },
     query: { id }
   } = req;
   const product = await Product.findByIdAndUpdate(id, {
     productName,
+    image,
     price,
     discount,
     stock,
