@@ -31,7 +31,7 @@ export const ReviewSchema = new Schema(
     ],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 export default mongoose.models.Review || mongoose.model('Review', ReviewSchema);

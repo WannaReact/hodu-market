@@ -18,31 +18,33 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body: { productName, price, discount, stock, categories },
+    body: { productName, images, price, discount, stock, categories },
     query: { id }
   } = req;
-  await Product.findByIdAndUpdate(id, {
+  const product = await Product.findByIdAndUpdate(id, {
     productName,
+    images,
     price,
     discount,
     stock,
     categories
   });
-  success(res);
+  success(res, product);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const { reviews, inquiries } = await Product.findByIdAndDelete(id);
+  const product = await Product.findByIdAndDelete(id);
+  const { reviews, inquiries } = product;
   await Promise.all([
     ...reviews.map((reviewId: string) => Review.findByIdAndDelete(reviewId)),
     ...inquiries.map((inquiryId: string) =>
       Inquiry.findByIdAndDelete(inquiryId)
     )
   ]);
-  success(res);
+  success(res, product);
 });
 
 export default handler;

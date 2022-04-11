@@ -12,19 +12,21 @@ handler.get(async (req, res) => {
 
 handler.post(async (req, res) => {
   const {
-    body: { productId, userId, rating, content }
+    body: { productId, userId, rating, content, images }
   } = req;
-  const { _id } = await new Review({
+  const review = await new Review({
     productId,
     userId,
     rating,
-    content
+    content,
+    images
   }).save();
+  const { _id } = review;
   await Promise.all([
     User.findByIdAndUpdate(userId, { $push: { reviews: _id } }),
     Product.findByIdAndUpdate(productId, { $push: { reviews: _id } })
   ]);
-  success(res);
+  success(res, review);
 });
 
 export default handler;

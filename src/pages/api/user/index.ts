@@ -14,8 +14,14 @@ handler.post(async (req, res) => {
   const {
     body: { userId, userName, nickname, phone, email }
   } = req;
-  await new User({ userId, userName, nickname, phone, email }).save();
-  success(res);
+  const users = await new User({
+    userId,
+    userName,
+    nickname,
+    phone,
+    email
+  }).save();
+  success(res, users);
 });
 
 export default handler;

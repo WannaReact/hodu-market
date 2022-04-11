@@ -1,5 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
-import { COURIER_ENUM, KOREAN_NAME_MATCH } from './constants';
+import {
+  COURIER_ENUM,
+  KOREAN_NAME_MATCH,
+  ORDER_STATUS_ENUM
+} from './constants';
 
 export const OrderSchema = new Schema(
   {
@@ -7,6 +11,11 @@ export const OrderSchema = new Schema(
       type: Number,
       unique: true,
       required: [true, '주문번호가 입력되지 않았습니다.']
+    },
+    status: {
+      type: String,
+      required: [true, '주문상태가 입력되지 않았습니다.'],
+      enum: [ORDER_STATUS_ENUM, '주문상태가 유효하지 않습니다.']
     },
     productId: {
       type: Schema.Types.ObjectId,
@@ -49,7 +58,7 @@ export const OrderSchema = new Schema(
       ]
     }
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 export default mongoose.models.Order || mongoose.model('Order', OrderSchema);

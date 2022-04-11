@@ -18,17 +18,18 @@ handler.put(async (req, res) => {
     body: { content },
     query: { id }
   } = req;
-  await Comment.findByIdAndUpdate(id, { content });
-  success(res);
+  const comment = await Comment.findByIdAndUpdate(id, { content });
+  success(res, comment);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const { reviewId } = await Comment.findByIdAndDelete(id);
+  const comment = await Comment.findByIdAndDelete(id);
+  const { reviewId } = comment;
   await Review.findByIdAndUpdate(reviewId, { $pull: { comments: id } });
-  success(res);
+  success(res, comment);
 });
 
 export default handler;

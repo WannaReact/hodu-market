@@ -31,8 +31,9 @@ handler.post(async (req, res) => {
     ])
   ).every((result) => result);
   if (doesIdExist) {
-    const { _id } = await new Order({
+    const order = await new Order({
       orderNumber: orderNumGen(),
+      status: '결제완료',
       productId,
       userId,
       couponId,
@@ -42,8 +43,9 @@ handler.post(async (req, res) => {
       invoice,
       addressee
     }).save();
+    const { _id } = order;
     await User.findByIdAndUpdate(userId, { $push: { options: _id } });
-    success(res);
+    success(res, order);
   } else {
     fail(res, '상품ID 또는 쿠폰ID가 유효하지 않습니다.');
   }

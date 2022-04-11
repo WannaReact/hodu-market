@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { KOREAN_NAME_MATCH } from './constants';
+import { IMAGE_MATCH, KOREAN_NAME_MATCH } from './constants';
 
 export const UserSchema = new Schema(
   {
@@ -43,6 +43,10 @@ export const UserSchema = new Schema(
         '이메일 형식에 맞게 입력해야 합니다.'
       ]
     },
+    image: {
+      type: String,
+      match: [IMAGE_MATCH, '이미지 주소가 유효하지 않습니다.']
+    },
     money: {
       type: Number,
       default: 1000,
@@ -55,7 +59,7 @@ export const UserSchema = new Schema(
     wishList: [{ type: Schema.Types.ObjectId, ref: 'WishList' }],
     coupons: [{ type: Schema.Types.ObjectId, ref: 'Coupon' }]
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);

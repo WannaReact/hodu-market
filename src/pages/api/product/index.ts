@@ -12,16 +12,17 @@ handler.get(async (req, res) => {
 
 handler.post(async (req, res) => {
   const {
-    body: { productName, price, discount, stock, categories = [] }
+    body: { productName, images, price, discount, stock, categories = [] }
   } = req;
-  await new Product({
+  const product = await new Product({
     productName,
+    images,
     price,
     discount,
     stock,
     categories
   }).save();
-  success(res);
+  success(res, product);
 });
 
 export default handler;

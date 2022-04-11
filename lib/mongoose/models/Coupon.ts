@@ -20,9 +20,7 @@ export const CouponSchema = new Schema(
       type: Date
     }
   },
-  {
-    timestamps: true
-  }
+  { timestamps: true, versionKey: false }
 );
 
 export default mongoose.models.Coupon || mongoose.model('Coupon', CouponSchema);

@@ -15,20 +15,21 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body: { courier, invoice },
+    body: { status, courier, invoice },
     query: { id }
   } = req;
-  await Order.findByIdAndUpdate(id, { courier, invoice });
-  success(res);
+  const order = await Order.findByIdAndUpdate(id, { status, courier, invoice });
+  success(res, order);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const { userId } = await Order.findByIdAndDelete(id);
+  const order = await Order.findByIdAndDelete(id);
+  const { userId } = order;
   await User.findByIdAndUpdate(userId, { $pull: { orders: id } });
-  success(res);
+  success(res, order);
 });
 
 export default handler;

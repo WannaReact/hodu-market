@@ -10,16 +10,18 @@ handler.put(async (req, res) => {
     body: { answer },
     query: { id }
   } = req;
-  await Inquiry.findByIdAndUpdate(id, { answer });
-  success(res);
+  const inquiry = await Inquiry.findByIdAndUpdate(id, { answer });
+  success(res, inquiry);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  await Inquiry.findByIdAndUpdate(id, { $unset: { answer: 1 } });
-  success(res);
+  const inquiry = await Inquiry.findByIdAndUpdate(id, {
+    $unset: { answer: 1 }
+  });
+  success(res, inquiry);
 });
 
 export default handler;
