@@ -33,6 +33,7 @@ handler.post(async (req, res) => {
   if (doesIdExist) {
     const order = await new Order({
       orderNumber: orderNumGen(),
+      status: '결제완료',
       productId,
       userId,
       couponId,

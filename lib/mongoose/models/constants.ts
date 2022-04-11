@@ -22,6 +22,16 @@ export const CATEGORY_ENUM = [
   '시럽',
   '에이드'
 ];
+export const ORDER_STATUS_ENUM = [
+  '결제완료',
+  '발송대기',
+  '배송중',
+  '배송완료',
+  '구매확정',
+  '취소요청',
+  '반품요청',
+  '교환요청'
+];
 export const COURIER_ENUM = [
   'CJ대한통운',
   '롯데글로벌로지스',
