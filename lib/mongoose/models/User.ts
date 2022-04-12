@@ -12,6 +12,10 @@ export const UserSchema = new Schema(
         '아이디는 4 ~ 16자의 영문 소문자, 숫자, _ 조합으로 입력해야 합니다.'
       ]
     },
+    password: {
+      type: String,
+      required: [true, '비밀번호를 입력하세요.']
+    },
     userName: {
       type: String,
       required: [true, '이름을 입력하세요.'],
