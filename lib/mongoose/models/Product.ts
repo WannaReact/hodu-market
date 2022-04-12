@@ -43,8 +43,8 @@ export const ProductSchema = new Schema(
       ],
       required: [true, '카테고리를 입력하세요.']
     },
-    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
-    inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry' }]
+    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review', unique: true }],
+    inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry', unique: true }]
   },
   { timestamps: true, versionKey: false }
 );

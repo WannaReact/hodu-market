@@ -9,6 +9,7 @@ export const ReviewSchema = new Schema(
     },
     userId: {
       type: Schema.Types.ObjectId,
+      ref: 'User',
       required: [true, '회원ID가 입력되지 않았습니다.']
     },
     rating: {
@@ -29,7 +30,7 @@ export const ReviewSchema = new Schema(
         match: [IMAGE_MATCH, '이미지 주소가 유효하지 않습니다.']
       }
     ],
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', unique: true }]
   },
   { timestamps: true, versionKey: false }
 );

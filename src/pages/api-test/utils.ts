@@ -21,6 +21,7 @@ export const apiList = [
         button: '회원 등록하기',
         body: [
           ['userId', '아이디(4~16자)'],
+          ['password', '비밀번호'],
           ['userName', '이름(2~8자)'],
           ['nickname', '닉네임(2~8자)'],
           ['phone', '전화번호'],

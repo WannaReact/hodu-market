@@ -9,8 +9,32 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const review = await Review.findById(id).populate('comments');
-  success(res, review);
+  const {
+    _doc: { userId: user, comments, ...others }
+  } = await Review.findById(id)
+    .populate('userId')
+    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'userId',
+        model: 'User'
+      }
+    });
+  success(res, {
+    user,
+    comments: comments.map(
+      ({
+        _doc: { userId: commentUser, ...commentOthers }
+      }: {
+        _doc: { userId: string };
+      }) => ({
+        user: commentUser,
+        ...commentOthers
+      })
+    ),
+    ...others
+  });
 });
 
 handler.put(async (req, res) => {

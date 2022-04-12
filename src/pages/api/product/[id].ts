@@ -11,6 +11,13 @@ handler.get(async (req, res) => {
   } = req;
   const product = await Product.findById(id)
     .populate('reviews')
+    .populate({
+      path: 'reviews',
+      populate: {
+        path: 'comments',
+        model: 'Comment'
+      }
+    })
     .populate('inquiries')
     .populate('categories');
   success(res, product);

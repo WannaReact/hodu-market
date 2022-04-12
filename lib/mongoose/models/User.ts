@@ -12,6 +12,10 @@ export const UserSchema = new Schema(
         '아이디는 4 ~ 16자의 영문 소문자, 숫자, _ 조합으로 입력해야 합니다.'
       ]
     },
+    password: {
+      type: String,
+      required: [true, '비밀번호를 입력하세요.']
+    },
     userName: {
       type: String,
       required: [true, '이름을 입력하세요.'],
@@ -53,11 +57,11 @@ export const UserSchema = new Schema(
       min: [0, '보유 금액이 유효하지 않습니다.'],
       max: [Number.MAX_SAFE_INTEGER, '보유 금액이 유효하지 않습니다.']
     },
-    orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
-    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
-    inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry' }],
-    wishList: [{ type: Schema.Types.ObjectId, ref: 'WishList' }],
-    coupons: [{ type: Schema.Types.ObjectId, ref: 'Coupon' }]
+    orders: [{ type: Schema.Types.ObjectId, ref: 'Order', unique: true }],
+    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review', unique: true }],
+    inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry', unique: true }],
+    wishList: [{ type: Schema.Types.ObjectId, ref: 'Product', unique: true }],
+    coupons: [{ type: Schema.Types.ObjectId, ref: 'Coupon', unique: true }]
   },
   { timestamps: true, versionKey: false }
 );
