@@ -9,8 +9,10 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const review = await Comment.findById(id);
-  success(res, review);
+  const {
+    _doc: { reviewId: review, userId: user, ...others }
+  } = await Comment.findById(id);
+  success(res, { review, user, ...others });
 });
 
 handler.put(async (req, res) => {

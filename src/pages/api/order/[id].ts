@@ -9,8 +9,13 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const product = await Order.findById(id);
-  success(res, product);
+  const {
+    _doc: { productId: product, userId: user, couponId: coupon, ...others }
+  } = await Order.findById(id)
+    .populate('productId')
+    .populate('userId')
+    .populate('couponId');
+  success(res, { product, user, coupon, ...others });
 });
 
 handler.put(async (req, res) => {

@@ -26,14 +26,17 @@ export const OrderSchema = new Schema(
     },
     productId: {
       type: Schema.Types.ObjectId,
+      ref: 'Product',
       required: [true, '상품ID가 입력되지 않았습니다.']
     },
     userId: {
       type: Schema.Types.ObjectId,
+      ref: 'User',
       required: [true, '회원ID가 입력되지 않았습니다.']
     },
     couponId: {
-      type: Schema.Types.ObjectId
+      type: Schema.Types.ObjectId,
+      ref: 'Coupon'
     },
     count: {
       type: Number,

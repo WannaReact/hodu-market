@@ -4,10 +4,12 @@ export const CommentSchema = new Schema(
   {
     reviewId: {
       type: Schema.Types.ObjectId,
+      ref: 'Review',
       required: [true, '리뷰ID가 입력되지 않았습니다.']
     },
     userId: {
       type: Schema.Types.ObjectId,
+      ref: 'User',
       required: [true, '회원ID가 입력되지 않았습니다.']
     },
     content: {

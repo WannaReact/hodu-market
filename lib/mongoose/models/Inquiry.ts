@@ -8,6 +8,7 @@ export const InquirySchema = new Schema(
     },
     userId: {
       type: Schema.Types.ObjectId,
+      ref: 'User',
       required: [true, '회원ID가 입력되지 않았습니다.']
     },
     content: {

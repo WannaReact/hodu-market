@@ -9,8 +9,10 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const inquiry = await Inquiry.findById(id);
-  success(res, inquiry);
+  const {
+    _doc: { userId: user, ...others }
+  } = await Inquiry.findById(id);
+  success(res, { user, ...others });
 });
 
 handler.put(async (req, res) => {
