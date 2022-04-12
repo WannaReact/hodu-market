@@ -53,11 +53,11 @@ export const UserSchema = new Schema(
       min: [0, '보유 금액이 유효하지 않습니다.'],
       max: [Number.MAX_SAFE_INTEGER, '보유 금액이 유효하지 않습니다.']
     },
-    orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
-    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
-    inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry' }],
-    wishList: [{ type: Schema.Types.ObjectId, ref: 'WishList' }],
-    coupons: [{ type: Schema.Types.ObjectId, ref: 'Coupon' }]
+    orders: [{ type: Schema.Types.ObjectId, ref: 'Order', unique: true }],
+    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review', unique: true }],
+    inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry', unique: true }],
+    wishList: [{ type: Schema.Types.ObjectId, ref: 'WishList', unique: true }],
+    coupons: [{ type: Schema.Types.ObjectId, ref: 'Coupon', unique: true }]
   },
   { timestamps: true, versionKey: false }
 );

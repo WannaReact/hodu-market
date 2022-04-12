@@ -29,7 +29,7 @@ export const ReviewSchema = new Schema(
         match: [IMAGE_MATCH, '이미지 주소가 유효하지 않습니다.']
       }
     ],
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', unique: true }]
   },
   { timestamps: true, versionKey: false }
 );
