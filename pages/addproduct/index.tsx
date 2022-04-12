@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import ImgSlide from 'components/AddProduct/ImgSlide';
 import EditorModal from 'components/AddProduct/EditorModal';
+import {
+  SelectContainer,
+  SelectButton,
+  SelectBox,
+  SelectList
+} from 'components/SelectBox';
+import SellerLayout from 'components/layouts/SellerLayout';
 import { TextInputBox } from '../../components/Inputs';
 import { Buttons } from '../../components';
 
@@ -10,26 +18,51 @@ function AddproductPage() {
   const [text, setText] = useState('');
   const [isModal, setIsModal] = useState(false);
   // const [modalImg, setModalImg] = useState<string[]>([]);
-
-  console.log(text);
+  const [isSelect, setIsSelect] = useState(false);
+  const [contentSelect, setContentSelect] = useState('카테고리 등록');
+  const router = useRouter();
+  const menu = router.pathname;
+  const arr: string[] = ['헤이', '하이', '바이', '나도'];
 
   const addModalImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
-      const imgUrl = URL.createObjectURL(i);
-      console.log(imgUrl);
-      setText((prev) => `${prev}<img src="${imgUrl}" />`);
-      setIsModal(false);
+    const selectImglength = event.target.files;
+    if (selectImglength) {
+      for (let i = 0; i < selectImglength?.length; i += 1) {
+        if (event.target.files && event.target.files[0]) {
+          const imgUrl = URL.createObjectURL(selectImglength[i]);
+          setText((prev) => `${prev}<img src="${imgUrl}"  />`);
+          setIsModal(false);
+        }
+      }
     }
   };
 
   return (
-    <>
-      <header>상품 등록</header>
+    <SellerLayout menu={menu}>
+      <p>상품 이미지</p>
       <main>
         <ViewBox>
           <ImgSlide />
           <InputBox>
+            <SelectButton
+              labelName="안녕"
+              contentSelect={contentSelect}
+              onClick={() => setIsSelect((prev) => !prev)}
+            />
+            <SelectContainer>
+              <SelectBox isSelect={isSelect}>
+                {arr.map((item) => {
+                  return (
+                    <SelectList
+                      key={item}
+                      onClick={() => setContentSelect(item)}
+                    >
+                      {item}
+                    </SelectList>
+                  );
+                })}
+              </SelectBox>
+            </SelectContainer>
             <TextInputBox labelName="카테고리" maxLength={20} />
             <TextInputBox labelName="상품명" maxLength={20} option="limit" />
             <TextInputBox labelName="판매가" />
@@ -84,7 +117,7 @@ function AddproductPage() {
           />
         </EditorModal>
       </main>
-    </>
+    </SellerLayout>
   );
 }
 
