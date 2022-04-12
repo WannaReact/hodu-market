@@ -13,9 +13,16 @@ export const OrderSchema = new Schema(
       required: [true, '주문번호가 입력되지 않았습니다.']
     },
     status: {
-      type: String,
-      required: [true, '주문상태가 입력되지 않았습니다.'],
-      enum: [ORDER_STATUS_ENUM, '주문상태가 유효하지 않습니다.']
+      type: [
+        {
+          type: String,
+          enum: {
+            values: ORDER_STATUS_ENUM,
+            message: '주문상태가 유효하지 않습니다.'
+          }
+        }
+      ],
+      required: [true, '주문상태가 입력되지 않았습니다.']
     },
     productId: {
       type: Schema.Types.ObjectId,
