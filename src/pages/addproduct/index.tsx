@@ -10,6 +10,7 @@ import {
   SelectBox,
   SelectList
 } from 'src/components/SelectBox';
+import { CATEGORY_ENUM } from 'lib/mongoose/models/constants';
 import SellerLayout from 'src/components/layouts/SellerLayout';
 import { TextInputBox } from '../../components/Inputs';
 import { Buttons } from '../../components';
@@ -22,7 +23,6 @@ function AddproductPage() {
   const [contentSelect, setContentSelect] = useState('카테고리 등록');
   const router = useRouter();
   const menu = router.pathname;
-  const arr: string[] = ['헤이', '하이', '바이', '나도'];
 
   const addModalImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectImglength = event.target.files;
@@ -61,7 +61,7 @@ function AddproductPage() {
             />
             <SelectContainer>
               <SelectBox isSelect={isSelect}>
-                {arr.map((item) => {
+                {CATEGORY_ENUM.map((item) => {
                   return (
                     <SelectList
                       key={item}
