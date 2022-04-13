@@ -1,25 +1,39 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import { TextInputBox } from '../../src/components/Inputs';
+import ImgSlide from 'src/components/AddProduct/ImgSlide';
+import EditorModal from 'src/components/AddProduct/EditorModal';
+import {
+  SelectContainer,
+  SelectButton,
+  SelectBox,
+  SelectList
+} from 'src/components/SelectBox';
+import SellerLayout from 'src/components/layouts/SellerLayout';
+import { TextInputBox } from '../../components/Inputs';
 import { Buttons } from '../../components';
 
-interface Custom {
-  img: any;
-}
-
-interface ImgLink {
-  link: string;
-}
-
 function AddproductPage() {
-  const [createObjectURL, setCreateObjectURL] = useState<string[]>([]);
+  const [text, setText] = useState('');
+  const [isModal, setIsModal] = useState(false);
+  // const [modalImg, setModalImg] = useState<string[]>([]);
+  const [isSelect, setIsSelect] = useState(false);
+  const [contentSelect, setContentSelect] = useState('카테고리 등록');
+  const router = useRouter();
+  const menu = router.pathname;
+  const arr: string[] = ['헤이', '하이', '바이', '나도'];
 
-  const uploadToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
-
-      setCreateObjectURL([...createObjectURL, URL.createObjectURL(i)]);
+  const addModalImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectImglength = event.target.files;
+    if (selectImglength) {
+      for (let i = 0; i < selectImglength?.length; i += 1) {
+        if (event.target.files && event.target.files[0]) {
+          const imgUrl = URL.createObjectURL(selectImglength[i]);
+          setText((prev) => `${prev}<img src="${imgUrl}"  />`);
+          setIsModal(false);
+        }
+      }
     }
   };
 
@@ -34,20 +48,31 @@ function AddproductPage() {
   };
 
   return (
-    <>
-      <header>상품 등록</header>
+    <SellerLayout menu={menu}>
+      <p>상품 이미지</p>
       <main>
         <ViewBox>
-          <ImageBox>
-            <Image htmlFor="img" img={createObjectURL[0]} />
-            <ImageInput type="file" id="img" onChange={uploadToClient} />
-            <ImgListBox>
-              {createObjectURL.map((item) => {
-                return <Item link={item} key={`img+${item}`} />;
-              })}
-            </ImgListBox>
-          </ImageBox>
+          <ImgSlide />
           <InputBox>
+            <SelectButton
+              labelName="안녕"
+              contentSelect={contentSelect}
+              onClick={() => setIsSelect((prev) => !prev)}
+            />
+            <SelectContainer>
+              <SelectBox isSelect={isSelect}>
+                {arr.map((item) => {
+                  return (
+                    <SelectList
+                      key={item}
+                      onClick={() => setContentSelect(item)}
+                    >
+                      {item}
+                    </SelectList>
+                  );
+                })}
+              </SelectBox>
+            </SelectContainer>
             <TextInputBox labelName="카테고리" maxLength={20} />
             <TextInputBox labelName="상품명" maxLength={20} option="limit" />
             <TextInputBox labelName="판매가" />
@@ -63,9 +88,10 @@ function AddproductPage() {
             </Buttons.Custom>
           </InputBox>
         </ViewBox>
-
         <Editor
           apiKey="velrv8dvpig61i0ewv03ljv8jsy1rwysgrwh814cutgpmd6k"
+          value={text}
+          onEditorChange={setText}
           init={{
             language: 'ko',
             height: 500,
@@ -84,57 +110,44 @@ function AddproductPage() {
               editor.ui.registry.addButton('add_image', {
                 text: '이미지추가',
                 onAction: () => {
-                  const $iframe = document.querySelector(
-                    '.tox-edit-area__iframe'
-                  ) as HTMLIFrameElement;
-                  if (!$iframe) {
-                    return;
-                  }
-                  const $iframeDOM =
-                    $iframe.contentWindow?.document.getElementById('tinymce');
-
-                  selectIMG($iframeDOM);
+                  setIsModal(true);
                 }
               });
             }
           }}
         />
+        <EditorModal isModal={isModal} setIsModal={setIsModal}>
+          <ImageLabel htmlFor="modalImg">상품추가</ImageLabel>
+          <ImageInput
+            type="file"
+            id="modalImg"
+            multiple
+            accept="image/*"
+            onChange={addModalImg}
+          />
+        </EditorModal>
       </main>
-    </>
+    </SellerLayout>
   );
 }
 
-const ImgListBox = styled.ul`
+const ViewBox = styled.div`
   display: flex;
+  margin-bottom: 20px;
 `;
 
-const Item = styled.li<ImgLink>`
-  padding: 20px 20px;
-  background-image: url(${(props) => props.link});
-  background-size: 100% 100%;
-`;
-
-const Image = styled.label<Custom>`
-  display: inline-block;
-  padding: 200px 200px;
-  background-image: url(${(props) => props.img});
-  background-size: 100% 100%;
-  position: relative;
-  background-color: #eee;
-  &::after {
-    display: block;
-    content: '';
-    background: ${(props) =>
-      props.img ? null : 'url(images/img-button.png) no-repeat'};
-    background-size: 50px, 50px;
-    width: 50px;
-    height: 50px;
-    /* border-radius: 40px; */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+const InputBox = styled.div`
+  flex-basis: 70%;
+  margin-left: 40px;
+  & input {
+    margin-bottom: 10px;
   }
+`;
+
+const ImageLabel = styled.label`
+  display: block;
+  background-color: white;
+  margin: 5px 5px 0px;
 `;
 
 const ImageInput = styled.input`
@@ -144,21 +157,6 @@ const ImageInput = styled.input`
   height: 1px;
   margin: -1px;
   overflow: hidden;
-`;
-
-const ViewBox = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-`;
-
-const ImageBox = styled.div``;
-
-const InputBox = styled.div`
-  flex-basis: 70%;
-  margin-left: 40px;
-  & input {
-    margin-bottom: 10px;
-  }
 `;
 
 export default AddproductPage;
