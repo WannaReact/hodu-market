@@ -44,8 +44,9 @@ function AddproductPage() {
         <ViewBox>
           <ImgSlide />
           <InputBox>
+            <TextInputBox labelName="상품명" maxLength={20} />
             <SelectButton
-              labelName="안녕"
+              labelName="카테고리"
               contentSelect={contentSelect}
               onClick={() => setIsSelect((prev) => !prev)}
             />
@@ -63,10 +64,11 @@ function AddproductPage() {
                 })}
               </SelectBox>
             </SelectContainer>
-            <TextInputBox labelName="카테고리" maxLength={20} />
-            <TextInputBox labelName="상품명" maxLength={20} option="limit" />
-            <TextInputBox labelName="판매가" />
-            <TextInputBox labelName="할인가" />
+            <InputFlexBox>
+              <TextInputBox labelName="판매가" option="unit" unit="원" />
+              <TextInputBox labelName="할인가" option="unit" unit="원" />
+            </InputFlexBox>
+
             <Buttons.Custom
               width={22}
               height={5}
@@ -76,6 +78,10 @@ function AddproductPage() {
             >
               배송,소포,등기
             </Buttons.Custom>
+            <InputFlexBox>
+              <TextInputBox labelName="기본 배송비" option="unit" unit="원" />
+              <TextInputBox labelName="재고" option="unit" unit="원" />
+            </InputFlexBox>
           </InputBox>
         </ViewBox>
         <Editor
@@ -129,8 +135,20 @@ const ViewBox = styled.div`
 const InputBox = styled.div`
   flex-basis: 70%;
   margin-left: 40px;
-  & input {
+  & input,
+  div {
     margin-bottom: 10px;
+  }
+  & > button {
+    margin-bottom: 10px;
+  }
+`;
+
+const InputFlexBox = styled.div`
+  display: flex;
+  & > div {
+    margin-right: 20px;
+    flex-basis: 25%;
   }
 `;
 
