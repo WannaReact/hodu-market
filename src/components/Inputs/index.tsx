@@ -58,6 +58,10 @@ export function TextInputBoxComponent({
   type
 }: TextInputBoxProps) {
   const [value, setValue] = useState<string>('');
+  const format = useCallback((val: string) => {
+    const numbers = val.replace(/[^0-9]/g, '');
+    return numbers ? Number(numbers).toLocaleString('ko-kr') : '';
+  }, []);
   const handleChange = useCallback((e) => {
     setValue(e.target.value);
   }, []);
@@ -72,7 +76,7 @@ export function TextInputBoxComponent({
         type={option === 'password' ? 'password' : type}
         id={id}
         maxLength={maxLength}
-        value={value}
+        value={option === 'unit' ? format(value) : value}
         placeholder={placeholder}
         hasOption={option !== 'none'}
         onChange={handleChange}
