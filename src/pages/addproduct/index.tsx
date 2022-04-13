@@ -37,16 +37,6 @@ function AddproductPage() {
     }
   };
 
-  const selectIMG = ($dom: any) => {
-    const $imgBox = document.createElement('div');
-    $imgBox.style.width = '60px';
-    $imgBox.style.height = '60px';
-    $imgBox.style.backgroundImage = 'images/img-button.png';
-    $imgBox.style.backgroundRepeat = 'no-repeat';
-
-    $dom.appendChild($imgBox);
-  };
-
   return (
     <SellerLayout menu={menu}>
       <p>상품 이미지</p>
