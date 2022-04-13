@@ -30,7 +30,9 @@ function AddproductPage() {
       for (let i = 0; i < selectImglength?.length; i += 1) {
         if (event.target.files && event.target.files[0]) {
           const imgUrl = URL.createObjectURL(selectImglength[i]);
-          setText((prev) => `${prev}<img src="${imgUrl}"  />`);
+          setText(
+            (prev) => `${prev}<img src="${imgUrl}"  style="width:100%"/>`
+          );
           setIsModal(false);
         }
       }
@@ -90,7 +92,7 @@ function AddproductPage() {
           onEditorChange={setText}
           init={{
             language: 'ko',
-            height: 500,
+            height: 700,
             menubar: false,
             plugins: [
               'advlist autolink lists link image charmap print preview anchor',
@@ -155,7 +157,12 @@ const InputFlexBox = styled.div`
 const ImageLabel = styled.label`
   display: block;
   background-color: white;
-  margin: 5px 5px 0px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+  width: 100px;
+  margin: 30px auto;
 `;
 
 const ImageInput = styled.input`
