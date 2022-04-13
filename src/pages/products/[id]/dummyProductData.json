@@ -1,0 +1,196 @@
+{
+  "productId": 1,
+  "name": "딥러닝 개발자 무릎 담요",
+  "price": 17500,
+  "discountRate": 18,
+  "stock": 38,
+  "images": [
+    "/images/product-img-small-1.png",
+    "/images/product-img-small-2.png",
+    "/images/product-img-small-3.png",
+    "/images/product-img-small-4.png",
+    "/images/product-img-small-5.png"
+  ],
+  "reviews": [
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 4,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 2,
+      "author": "junhong",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 3,
+      "date": "2022. 02. 22",
+      "content": "대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용. 주화입마에 빠진다..... 운기조식이 필요하다.... 오오오오오오",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 3,
+      "author": "nahee",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 5,
+      "date": "2022. 02. 22",
+      "content": "대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용. 주화입마에 빠진다..... 운기조식이 필요하다.... 오오오오오오",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 4,
+      "author": "jungmin",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 4,
+      "date": "2022. 02. 22",
+      "content": "대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용. 주화입마에 빠진다..... 운기조식이 필요하다.... 오오오오오오",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 5,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 2,
+      "date": "2022. 02. 22",
+      "content": "대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용. 대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용.대충 리뷰 내용. 주화입마에 빠진다..... 운기조식이 필요하다.... 오오오오오오",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 3,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 2,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 4,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 5,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 1,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 4,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 2,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 5,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 3,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 4,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 1,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 2,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 5,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 3,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    },
+    {
+      "reviewId": 1,
+      "author": "chungu",
+      "authorImg": "/images/seller-productIMG.png",
+      "rating": 4,
+      "date": "2022. 03. 28",
+      "content": "리뷰 내용",
+      "reviewImg": "/images/product-img-lg.png"
+    }
+  ]
+}

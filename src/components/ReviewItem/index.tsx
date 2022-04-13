@@ -1,41 +1,68 @@
 import { useState } from 'react';
-import ImageWrapper from 'src/utils/ImageWrapper';
 import Image from 'next/image';
-import StarRating from 'src/components/StarRating';
+import ImageWrapper from '@utils/ImageWrapper';
+import StarRating from '../StarRating';
+import { CommentList } from '../CommentList';
 import * as Styled from './styled';
-import ReviewImage from '../../public/images/product-img-lg.png';
 
-export function ReviewItem() {
-  const [rating, setRating] = useState(0);
+interface IReviewItemProps {
+  reviewId: number;
+  author: string;
+  authorImg: string;
+  rating: number;
+  date: string;
+  content: string;
+  reviewImg: string;
+}
+
+export function ReviewItem({
+  reviewId,
+  author,
+  authorImg,
+  rating,
+  date,
+  content,
+  reviewImg
+}: IReviewItemProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <Styled.ReviewContainer>
       <Styled.ReviewInfo>
         <ImageWrapper width="4rem" height="4rem" imgStyle="border-radius: 50%;">
-          <Image src={ReviewImage} layout="fill" />
+          <Image src={authorImg} layout="fill" />
         </ImageWrapper>
         <div>
-          <Styled.RateWrapper>
-            <StarRating rating={3} forDisplay />
-          </Styled.RateWrapper>
-          <Styled.RateWrapper>
-            <StarRating
-              rating={rating}
-              forDisplay={false}
-              setRating={setRating}
-            />
-          </Styled.RateWrapper>
-          <Styled.Author>chungu</Styled.Author>
-          <Styled.Date>2022. 02. 22</Styled.Date>
+          <Styled.RatingWrapper>
+            <StarRating rating={rating} readOnly />
+          </Styled.RatingWrapper>
+          <Styled.Author>{author}</Styled.Author>
+          <Styled.Date>{date}</Styled.Date>
         </div>
       </Styled.ReviewInfo>
-      <Styled.ReviewContent>
-        <Styled.ReviewText>대충 리뷰 내용</Styled.ReviewText>
-        <Styled.ExpansionButton>더보기</Styled.ExpansionButton>
+      <Styled.ReviewContent isOpen={isOpen}>
+        <Styled.ReviewText isOpen={isOpen}>{content}</Styled.ReviewText>
+        {isOpen && (
+          <>
+            <ImageWrapper width="40rem" height="40rem">
+              <Image src={reviewImg} layout="fill" />
+            </ImageWrapper>
+            <CommentList reviewId={reviewId} />
+          </>
+        )}
+        <Styled.ExpansionButton onClick={handleClick} isOpen={isOpen}>
+          {isOpen ? '접 기' : '더보기'}
+        </Styled.ExpansionButton>
       </Styled.ReviewContent>
-      <ImageWrapper width="8rem" height="8rem">
-        <Image src={ReviewImage} layout="fill" />
-      </ImageWrapper>
+      {!isOpen && (
+        <ImageWrapper width="8rem" height="8rem">
+          <Image src={reviewImg} layout="fill" />
+        </ImageWrapper>
+      )}
     </Styled.ReviewContainer>
   );
 }

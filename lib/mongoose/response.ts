@@ -2,7 +2,7 @@ import { NextApiResponse } from 'next';
 
 export interface Response {
   success: boolean;
-  message?: string;
+  message?: string | string[];
 }
 
 export interface Success extends Response {
@@ -18,7 +18,7 @@ export const success = (
 
 export const fail = (
   res: NextApiResponse<Response | Success>,
-  message?: string
+  message?: string | string[]
 ) => {
   res.json({ success: false, message });
 };

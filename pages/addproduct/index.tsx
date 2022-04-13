@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import ImgSlide from 'components/AddProduct/ImgSlide';
-import EditorModal from 'components/AddProduct/EditorModal';
+import ImgSlide from 'src/components/AddProduct/ImgSlide';
+import EditorModal from 'src/components/AddProduct/EditorModal';
 import {
   SelectContainer,
   SelectButton,
   SelectBox,
   SelectList
-} from 'components/SelectBox';
-import SellerLayout from 'components/layouts/SellerLayout';
+} from 'src/components/SelectBox';
+import SellerLayout from 'src/components/layouts/SellerLayout';
 import { TextInputBox } from '../../components/Inputs';
 import { Buttons } from '../../components';
 
@@ -35,6 +35,16 @@ function AddproductPage() {
         }
       }
     }
+  };
+
+  const selectIMG = ($dom: any) => {
+    const $imgBox = document.createElement('div');
+    $imgBox.style.width = '60px';
+    $imgBox.style.height = '60px';
+    $imgBox.style.backgroundImage = 'images/img-button.png';
+    $imgBox.style.backgroundRepeat = 'no-repeat';
+
+    $dom.appendChild($imgBox);
   };
 
   return (

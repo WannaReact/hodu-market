@@ -6,7 +6,7 @@ import Cart from 'public/images/icon-shopping-cart.svg';
 import User from 'public/images/icon-user.svg';
 import List from 'public/images/icon-list.svg';
 import Search from 'public/images/icon-search.svg';
-import useBreakpoint from 'src/hooks/useBreakpoint';
+import useBreakpoint from '@hooks/useBreakpoint';
 import SearchBar from './SearchBar';
 import * as Styled from './styled';
 import MenuItem from './MenuItem';
