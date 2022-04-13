@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import profileImg from '../../public/images/seller-profileIMG.png';
+import profileImg from 'public/images/seller-profileIMG.png';
 import * as Styled from './styled';
 
 function SellProduct() {
