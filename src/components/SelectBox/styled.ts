@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from 'shared/constants';
+import { COLOR } from '@shared/constants';
 
 interface inputProps {
   width?: number;

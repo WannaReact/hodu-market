@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import profileImg from 'public/images/seller-productIMG.png';
 import * as Styled from './styled';
-import profileImg from '../../public/images/seller-productIMG.png';
 
 function QuestionTr() {
   const [showComment, setShowComment] = useState(false);
