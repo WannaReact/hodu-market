@@ -1,4 +1,4 @@
-import { COLOR } from '@shared/constants';
+import { COLOR, NAV_HEIGHT, NAV_WIDTH } from '@shared/constants';
 import styled, { keyframes } from 'styled-components';
 
 const dropdownAnimation = keyframes`
@@ -23,8 +23,8 @@ export const NavBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 140.4rem;
-  height: 10rem;
+  max-width: ${NAV_WIDTH + 12}rem;
+  height: ${NAV_HEIGHT}rem;
   padding: 2.5rem 6rem;
   margin: 0 auto;
 

@@ -10,3 +10,6 @@ export const COLOR = {
   lightGreen: '#effff3',
   red: '#EB5757'
 };
+
+export const NAV_WIDTH = 128.4;
+export const NAV_HEIGHT = 10;
