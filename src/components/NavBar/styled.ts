@@ -1,17 +1,6 @@
 import { COLOR } from '@shared/constants';
 import styled, { keyframes } from 'styled-components';
 
-export interface MediaQuery {
-  isDesktopBig: boolean;
-  isDesktopMedium: boolean;
-  isDesktopSmall: boolean;
-  isMobile: boolean;
-}
-
-interface MediaQueryProps {
-  mediaQuery: MediaQuery;
-}
-
 const dropdownAnimation = keyframes`
   0% {
     clip: rect(0, 100vw, 0, 0)
@@ -21,29 +10,26 @@ const dropdownAnimation = keyframes`
   }
 `;
 
-export const NavBarContainer = styled.nav<MediaQueryProps>`
+export const Nav = styled.nav`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100vw;
+  background-color: ${COLOR.white};
+`;
+
+export const NavBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  top: 0;
-  left: 50%;
-  z-index: 10;
-  width: 100vw;
-  height: ${({ mediaQuery: { isMobile } }) => (isMobile ? '5rem' : '10rem')};
-  padding: ${({ mediaQuery: { isMobile } }) => (isMobile ? 0 : '2.5rem')}
-    ${({ mediaQuery: { isDesktopSmall, isMobile } }) =>
-      isDesktopSmall || isMobile ? '2rem' : '6rem'};
-  background-color: ${COLOR.white};
-  transform: translateX(-50%);
+  max-width: 140.4rem;
+  height: 10rem;
+  padding: 2.5rem 6rem;
+  margin: 0 auto;
 
   & > * {
     flex-shrink: 0;
-  }
-
-  @media screen and (min-width: 1296px) {
-    max-width: 184rem;
-    margin: 0 auto;
   }
 `;
 
@@ -54,24 +40,16 @@ export const NavBarTitle = styled.span`
   white-space: nowrap;
 `;
 
-export const LogoWrapper = styled.a<MediaQueryProps>`
+export const LogoWrapper = styled.a`
   display: inline-flex;
   align-items: center;
-  ${({ mediaQuery: { isDesktopSmall, isMobile } }) =>
-    (isDesktopSmall || isMobile) &&
-    `
-    & svg {
-      width: 9rem;
-      height: 100%;
-    }`}
 `;
 
-export const LinkList = styled.ul<MediaQueryProps>`
+export const LinkList = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: ${({ mediaQuery: { isDesktopBig } }) =>
-    isDesktopBig ? '3.4rem' : '2rem'};
+  gap: 3.4rem;
 `;
 
 export const DropdownMenu = styled.div`
@@ -85,17 +63,11 @@ export const DropdownMenu = styled.div`
   }
 `;
 
-export const MenuList = styled.ul<MediaQueryProps>`
+export const MenuList = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 4.9rem;
-  ${({ mediaQuery }) =>
-    mediaQuery?.isMobile &&
-    `
-    width: 100vw;
-    padding: 0 1rem;
-  `}
 `;
 
 export const MenuListItem = styled.li`
