@@ -5,24 +5,22 @@ export const CouponSchema = new Schema(
     couponTypeId: {
       type: Schema.Types.ObjectId,
       ref: 'CouponType',
-      required: true
+      required: [true, '쿠폰종류ID가 입력되지 않았습니다.']
     },
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+      required: [true, '회원ID가 입력되지 않았습니다.']
     },
     isUsed: {
       type: Boolean,
-      required: true
+      required: [true, '쿠폰 사용 여부가 입력되지 않았습니다.']
     },
     expiryDate: {
       type: Date
     }
   },
-  {
-    timestamps: true
-  }
+  { timestamps: true, versionKey: false }
 );
 
 export default mongoose.models.Coupon || mongoose.model('Coupon', CouponSchema);

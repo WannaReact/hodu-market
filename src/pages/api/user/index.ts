@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 import { success } from 'lib/mongoose/response';
 import createHandler from 'lib/mongoose/createHandler';
 
@@ -11,9 +12,18 @@ handler.get(async (req, res) => {
 });
 
 handler.post(async (req, res) => {
-  const { body } = req;
-  await new User(body).save();
-  success(res);
+  const {
+    body: { userId, password, userName, nickname, phone, email }
+  } = req;
+  const users = await new User({
+    userId,
+    password: await bcrypt.hash(password, 10),
+    userName,
+    nickname,
+    phone,
+    email
+  }).save();
+  success(res, users);
 });
 
 export default handler;

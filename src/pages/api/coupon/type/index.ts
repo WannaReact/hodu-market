@@ -11,9 +11,16 @@ handler.get(async (req, res) => {
 });
 
 handler.post(async (req, res) => {
-  const { body } = req;
-  await new CouponType(body).save();
-  success(res);
+  const {
+    body: { couponName, categories = [], maxPrice, discount }
+  } = req;
+  const couponType = await new CouponType({
+    couponName,
+    categories,
+    maxPrice,
+    discount
+  }).save();
+  success(res, couponType);
 });
 
 export default handler;

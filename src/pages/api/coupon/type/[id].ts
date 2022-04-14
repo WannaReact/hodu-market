@@ -15,19 +15,24 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body,
+    body: { couponName, categories = [], maxPrice, discount },
     query: { id }
   } = req;
-  await CouponType.findByIdAndUpdate(id, body);
-  success(res);
+  const couponType = await CouponType.findByIdAndUpdate(id, {
+    couponName,
+    categories,
+    maxPrice,
+    discount
+  });
+  success(res, couponType);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  await CouponType.findByIdAndDelete(id);
-  success(res);
+  const couponType = await CouponType.findByIdAndDelete(id);
+  success(res, couponType);
 });
 
 export default handler;

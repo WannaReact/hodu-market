@@ -9,34 +9,32 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const product = await Order.findById(id);
-  success(res, product);
+  const {
+    _doc: { productId: product, userId: user, couponId: coupon, ...others }
+  } = await Order.findById(id)
+    .populate('productId')
+    .populate('userId')
+    .populate('couponId');
+  success(res, { product, user, coupon, ...others });
 });
 
 handler.put(async (req, res) => {
   const {
-    body,
+    body: { status, courier, invoice },
     query: { id }
   } = req;
-  const { userId } = body;
-  const { userId: prevUserId } = await Order.findByIdAndUpdate(id, body);
-  if (userId.toString() !== prevUserId.toString()) {
-    await Promise.all([
-      userId && User.findByIdAndUpdate(userId, { $push: { orders: id } }),
-      prevUserId &&
-        User.findByIdAndUpdate(prevUserId, { $pull: { orders: id } })
-    ]);
-  }
-  success(res);
+  const order = await Order.findByIdAndUpdate(id, { status, courier, invoice });
+  success(res, order);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const { userId } = await Order.findByIdAndDelete(id);
+  const order = await Order.findByIdAndDelete(id);
+  const { userId } = order;
   await User.findByIdAndUpdate(userId, { $pull: { orders: id } });
-  success(res);
+  success(res, order);
 });
 
 export default handler;

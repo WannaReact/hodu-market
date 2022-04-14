@@ -11,15 +11,22 @@ handler.get(async (req, res) => {
 });
 
 handler.post(async (req, res) => {
-  const { body } = req;
-  const { userId, productId } = body ?? {};
-  const { _id } = await new Review(body).save();
+  const {
+    body: { productId, userId, rating, content, images }
+  } = req;
+  const review = await new Review({
+    productId,
+    userId,
+    rating,
+    content,
+    images
+  }).save();
+  const { _id } = review;
   await Promise.all([
-    userId && User.findByIdAndUpdate(userId, { $push: { reviews: _id } }),
-    productId &&
-      Product.findByIdAndUpdate(productId, { $push: { reviews: _id } })
+    User.findByIdAndUpdate(userId, { $push: { reviews: _id } }),
+    Product.findByIdAndUpdate(productId, { $push: { reviews: _id } })
   ]);
-  success(res);
+  success(res, review);
 });
 
 export default handler;

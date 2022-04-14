@@ -9,8 +9,10 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const coupon = await Coupon.findById(id);
-  success(res, coupon);
+  const {
+    _doc: { couponTypeId: couponType, userId: user, ...others }
+  } = await Coupon.findById(id);
+  success(res, { couponType, user, ...others });
 });
 
 handler.put(async (req, res) => {
@@ -18,17 +20,18 @@ handler.put(async (req, res) => {
     body: { isUsed, expiryDate },
     query: { id }
   } = req;
-  await Coupon.findByIdAndUpdate(id, { isUsed, expiryDate });
-  success(res);
+  const coupon = await Coupon.findByIdAndUpdate(id, { isUsed, expiryDate });
+  success(res, coupon);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const { userId } = await Coupon.findByIdAndDelete(id);
+  const coupon = await Coupon.findByIdAndDelete(id);
+  const { userId } = coupon;
   await User.findByIdAndUpdate(userId, { $pull: { coupons: id } });
-  success(res);
+  success(res, coupon);
 });
 
 export default handler;

@@ -9,8 +9,10 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const review = await Comment.findById(id);
-  success(res, review);
+  const {
+    _doc: { reviewId: review, userId: user, ...others }
+  } = await Comment.findById(id);
+  success(res, { review, user, ...others });
 });
 
 handler.put(async (req, res) => {
@@ -18,17 +20,18 @@ handler.put(async (req, res) => {
     body: { content },
     query: { id }
   } = req;
-  await Comment.findByIdAndUpdate(id, { content });
-  success(res);
+  const comment = await Comment.findByIdAndUpdate(id, { content });
+  success(res, comment);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const { reviewId } = await Comment.findByIdAndDelete(id);
+  const comment = await Comment.findByIdAndDelete(id);
+  const { reviewId } = comment;
   await Review.findByIdAndUpdate(reviewId, { $pull: { comments: id } });
-  success(res);
+  success(res, comment);
 });
 
 export default handler;

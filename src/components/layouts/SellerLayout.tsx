@@ -1,8 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import plusIcon from 'public/images/icon-plus.png';
 import { Buttons } from '..';
-import plusIcon from '../../public/images/icon-plus.png';
 import * as Styled from './styled';
 
 interface ChildProps {
@@ -15,14 +15,22 @@ function SellerLayout({ menu, children }: ChildProps) {
     <Styled.Container>
       <Styled.Header>
         <h1>대시보드</h1>
-        <Link href="/addproduct" passHref>
-          <a>
-            <Buttons.MS color="green">
-              <Image src={plusIcon} width={32} height={32} />
-              상품 업로드
-            </Buttons.MS>
-          </a>
-        </Link>
+        {menu === '/addproduct' ? null : (
+          <Link href="/addproduct" passHref>
+            <a>
+              <Buttons.Custom
+                width={22}
+                height={6.8}
+                fontSize={2.4}
+                color="green"
+                disabled={false}
+              >
+                <Image src={plusIcon} width={32} height={32} />
+                상품 업로드
+              </Buttons.Custom>
+            </a>
+          </Link>
+        )}
       </Styled.Header>
       <Styled.MainContainer>
         <Styled.NavBar>
