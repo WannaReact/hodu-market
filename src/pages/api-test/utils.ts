@@ -60,6 +60,16 @@ export const apiList = [
             query: [['email', '이메일']]
           }
         ]
+      },
+      {
+        url: '/unique',
+        api: [
+          {
+            method: 'get',
+            button: '아이디 중복 확인',
+            query: [['id', '아이디']]
+          }
+        ]
       }
     ]
   },
