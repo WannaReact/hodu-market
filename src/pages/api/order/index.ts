@@ -4,7 +4,7 @@ import createHandler from 'lib/mongoose/createHandler';
 import orderNumGen from 'lib/mongoose/orderNumGen';
 
 const handler = createHandler();
-const { User, Product, Order, Coupon } = mongoose.models;
+const { User, Product, Order } = mongoose.models;
 
 handler.get(async (req, res) => {
   const orders = await Order.find({});
@@ -13,30 +13,15 @@ handler.get(async (req, res) => {
 
 handler.post(async (req, res) => {
   const {
-    body: {
-      productId,
-      userId,
-      couponId,
-      count,
-      cost,
-      courier,
-      invoice,
-      addressee
-    }
+    body: { productId, userId, count, cost, courier, invoice, addressee }
   } = req;
-  const doesIdExist = (
-    await Promise.allSettled([
-      Product.exists({ _id: productId }),
-      Coupon.exists({ _id: couponId })
-    ])
-  ).every((result) => result);
+  const doesIdExist = await Product.exists({ _id: productId });
   if (doesIdExist) {
     const order = await new Order({
       orderNumber: orderNumGen(),
       status: '결제완료',
       productId,
       userId,
-      couponId,
       count,
       cost,
       courier,
@@ -47,7 +32,7 @@ handler.post(async (req, res) => {
     await User.findByIdAndUpdate(userId, { $push: { options: _id } });
     success(res, order);
   } else {
-    fail(res, '상품ID 또는 쿠폰ID가 유효하지 않습니다.');
+    fail(res, '상품ID가 유효하지 않습니다.');
   }
 });
 

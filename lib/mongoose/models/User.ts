@@ -60,8 +60,7 @@ export const UserSchema = new Schema(
     orders: [{ type: Schema.Types.ObjectId, ref: 'Order', unique: true }],
     reviews: [{ type: Schema.Types.ObjectId, ref: 'Review', unique: true }],
     inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry', unique: true }],
-    wishList: [{ type: Schema.Types.ObjectId, ref: 'Product', unique: true }],
-    coupons: [{ type: Schema.Types.ObjectId, ref: 'Coupon', unique: true }]
+    wishList: [{ type: Schema.Types.ObjectId, ref: 'Product', unique: true }]
   },
   { timestamps: true, versionKey: false }
 );

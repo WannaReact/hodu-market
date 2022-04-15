@@ -6,8 +6,6 @@ import { ReviewSchema } from './models/Review';
 import { UserSchema } from './models/User';
 import { InquirySchema } from './models/Inquiry';
 import { OrderSchema } from './models/Order';
-import { CouponTypeSchema } from './models/CouponType';
-import { CouponSchema } from './models/Coupon';
 
 const { MONGODB_URI } = process.env;
 
@@ -29,8 +27,6 @@ export default async (
     mongoose.model('Comment', CommentSchema);
     mongoose.model('Inquiry', InquirySchema);
     mongoose.model('Order', OrderSchema);
-    mongoose.model('Coupon', CouponSchema);
-    mongoose.model('CouponType', CouponTypeSchema);
   }
   return next();
 };
