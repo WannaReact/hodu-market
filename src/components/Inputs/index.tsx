@@ -129,18 +129,24 @@ export function TextInputBoxComponent({
 TextInputComponent.defaultProps = {
   width: '100%',
   maxLength: '',
-  className: ''
+  minLength: '',
+  className: '',
+  hook: null,
+  name: ''
 };
 
 TextInputBoxComponent.defaultProps = {
   width: '100%',
   maxLength: '',
+  minLength: '',
   labelName: null,
   placeholder: '',
   option: 'none',
   validationMsg: '',
   unit: '',
-  type: 'text'
+  type: 'text',
+  hook: null,
+  name: ''
 };
 
 export const TextInput = React.memo(TextInputComponent);
