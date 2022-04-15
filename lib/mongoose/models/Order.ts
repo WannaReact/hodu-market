@@ -34,10 +34,6 @@ export const OrderSchema = new Schema(
       ref: 'User',
       required: [true, '회원ID가 입력되지 않았습니다.']
     },
-    couponId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Coupon'
-    },
     count: {
       type: Number,
       required: [true, '수량을 입력하세요.'],
