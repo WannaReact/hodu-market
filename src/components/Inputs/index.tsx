@@ -2,13 +2,14 @@ import { nanoid } from 'nanoid';
 import React, { useCallback, useState } from 'react';
 import Check from 'public/images/icon-check.svg';
 import { COLOR } from '@shared/constants';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import * as Styled from './styled';
 
 interface InputProps {
   width?: number;
   minLength?: number;
   maxLength?: number;
-  hook?: object;
+  hook?: UseFormRegisterReturn;
   name?: string;
 }
 
@@ -69,9 +70,13 @@ export function TextInputBoxComponent({
     const numbers = val.replace(/[^0-9]/g, '');
     return numbers ? Number(numbers).toLocaleString('ko-kr') : '';
   }, []);
-  const handleChange = useCallback((e) => {
-    setValue(e.target.value);
-  }, []);
+  const handleChange = useCallback(
+    (e) => {
+      setValue(e.target.value);
+      hook?.onChange(e);
+    },
+    [hook]
+  );
   const isValid: boolean = false;
   const id = nanoid();
 
@@ -87,8 +92,8 @@ export function TextInputBoxComponent({
         value={option === 'unit' ? format(value) : value}
         placeholder={placeholder}
         hasOption={option !== 'none'}
-        onChange={handleChange}
         {...hook}
+        onChange={handleChange}
       />
       {validationMsg && (
         <Styled.ValidationMsg option={option}>
@@ -129,18 +134,24 @@ export function TextInputBoxComponent({
 TextInputComponent.defaultProps = {
   width: '100%',
   maxLength: '',
-  className: ''
+  minLength: '',
+  className: '',
+  hook: null,
+  name: ''
 };
 
 TextInputBoxComponent.defaultProps = {
   width: '100%',
   maxLength: '',
+  minLength: '',
   labelName: null,
   placeholder: '',
   option: 'none',
   validationMsg: '',
   unit: '',
-  type: 'text'
+  type: 'text',
+  hook: null,
+  name: ''
 };
 
 export const TextInput = React.memo(TextInputComponent);
