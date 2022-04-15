@@ -6,7 +6,10 @@ import * as Styled from './styled';
 
 interface InputProps {
   width?: number;
+  minLength?: number;
   maxLength?: number;
+  hook?: object;
+  name?: string;
 }
 
 interface TextInputProps extends InputProps {
@@ -25,9 +28,9 @@ interface TextInputBoxProps extends InputProps {
 
 function TextInputComponent({
   width,
-  maxLength,
   placeholder,
-  className
+  className,
+  hook
 }: TextInputProps) {
   const id = nanoid();
   return (
@@ -41,7 +44,8 @@ function TextInputComponent({
         id={id}
         placeholder={placeholder}
         width={width}
-        maxLength={maxLength}
+        // maxLength={maxLength}
+        {...hook}
       />
     </>
   );
@@ -49,13 +53,16 @@ function TextInputComponent({
 
 export function TextInputBoxComponent({
   width,
+  minLength,
   maxLength,
   labelName,
   placeholder,
   option,
   validationMsg,
   unit,
-  type
+  type,
+  hook,
+  name
 }: TextInputBoxProps) {
   const [value, setValue] = useState<string>('');
   const format = useCallback((val: string) => {
@@ -65,7 +72,6 @@ export function TextInputBoxComponent({
   const handleChange = useCallback((e) => {
     setValue(e.target.value);
   }, []);
-  // 추후에 react-hook-form 적용하면 변경 필요
   const isValid: boolean = false;
   const id = nanoid();
 
@@ -75,11 +81,14 @@ export function TextInputBoxComponent({
       <Styled.InputBox
         type={option === 'password' ? 'password' : type}
         id={id}
+        name={name}
+        minLength={minLength}
         maxLength={maxLength}
         value={option === 'unit' ? format(value) : value}
         placeholder={placeholder}
         hasOption={option !== 'none'}
         onChange={handleChange}
+        {...hook}
       />
       {validationMsg && (
         <Styled.ValidationMsg option={option}>
