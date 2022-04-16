@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import ImgSlide from 'src/components/AddProduct/ImgSlide';
-import EditorModal from 'src/components/AddProduct/EditorModal';
+
 import {
   SelectContainer,
   SelectButton,
@@ -17,7 +17,6 @@ import { Buttons } from '../../components';
 
 function AddproductPage() {
   const [text, setText] = useState('');
-  const [isModal, setIsModal] = useState(false);
   // const [modalImg, setModalImg] = useState<string[]>([]);
   const [isSelect, setIsSelect] = useState(false);
   const [contentSelect, setContentSelect] = useState('카테고리 등록');
@@ -33,11 +32,11 @@ function AddproductPage() {
           setText(
             (prev) => `${prev}<img src="${imgUrl}"  style="width:100%"/>`
           );
-          setIsModal(false);
         }
       }
     }
   };
+  const inpEditor = useRef<HTMLInputElement>(null);
 
   return (
     <SellerLayout menu={menu}>
@@ -108,22 +107,22 @@ function AddproductPage() {
               editor.ui.registry.addButton('add_image', {
                 text: '이미지추가',
                 onAction: () => {
-                  setIsModal(true);
+                  if (inpEditor.current) {
+                    inpEditor.current.click();
+                  }
                 }
               });
             }
           }}
         />
-        <EditorModal isModal={isModal} setIsModal={setIsModal}>
-          <ImageLabel htmlFor="modalImg">상품추가</ImageLabel>
-          <ImageInput
-            type="file"
-            id="modalImg"
-            multiple
-            accept="image/*"
-            onChange={addModalImg}
-          />
-        </EditorModal>
+
+        <ImageInput
+          type="file"
+          multiple
+          accept="image/*"
+          onChange={addModalImg}
+          ref={inpEditor}
+        />
       </main>
     </SellerLayout>
   );
@@ -152,17 +151,6 @@ const InputFlexBox = styled.div`
     margin-right: 20px;
     flex-basis: 25%;
   }
-`;
-
-const ImageLabel = styled.label`
-  display: block;
-  background-color: white;
-  border: 1px solid #000;
-  border-radius: 10px;
-  text-align: center;
-  padding: 20px;
-  width: 100px;
-  margin: 30px auto;
 `;
 
 const ImageInput = styled.input`
