@@ -2,11 +2,15 @@ import { nanoid } from 'nanoid';
 import React, { useCallback, useState } from 'react';
 import Check from 'public/images/icon-check.svg';
 import { COLOR } from '@shared/constants';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import * as Styled from './styled';
 
 interface InputProps {
   width?: number;
+  minLength?: number;
   maxLength?: number;
+  hook?: UseFormRegisterReturn;
+  name?: string;
 }
 
 interface TextInputProps extends InputProps {
@@ -25,9 +29,9 @@ interface TextInputBoxProps extends InputProps {
 
 function TextInputComponent({
   width,
-  maxLength,
   placeholder,
-  className
+  className,
+  hook
 }: TextInputProps) {
   const id = nanoid();
   return (
@@ -41,7 +45,8 @@ function TextInputComponent({
         id={id}
         placeholder={placeholder}
         width={width}
-        maxLength={maxLength}
+        // maxLength={maxLength}
+        {...hook}
       />
     </>
   );
@@ -49,23 +54,29 @@ function TextInputComponent({
 
 export function TextInputBoxComponent({
   width,
+  minLength,
   maxLength,
   labelName,
   placeholder,
   option,
   validationMsg,
   unit,
-  type
+  type,
+  hook,
+  name
 }: TextInputBoxProps) {
   const [value, setValue] = useState<string>('');
   const format = useCallback((val: string) => {
     const numbers = val.replace(/[^0-9]/g, '');
     return numbers ? Number(numbers).toLocaleString('ko-kr') : '';
   }, []);
-  const handleChange = useCallback((e) => {
-    setValue(e.target.value);
-  }, []);
-  // 추후에 react-hook-form 적용하면 변경 필요
+  const handleChange = useCallback(
+    (e) => {
+      setValue(e.target.value);
+      hook?.onChange(e);
+    },
+    [hook]
+  );
   const isValid: boolean = false;
   const id = nanoid();
 
@@ -75,10 +86,13 @@ export function TextInputBoxComponent({
       <Styled.InputBox
         type={option === 'password' ? 'password' : type}
         id={id}
+        name={name}
+        minLength={minLength}
         maxLength={maxLength}
         value={option === 'unit' ? format(value) : value}
         placeholder={placeholder}
         hasOption={option !== 'none'}
+        {...hook}
         onChange={handleChange}
       />
       {validationMsg && (
@@ -120,18 +134,24 @@ export function TextInputBoxComponent({
 TextInputComponent.defaultProps = {
   width: '100%',
   maxLength: '',
-  className: ''
+  minLength: '',
+  className: '',
+  hook: null,
+  name: ''
 };
 
 TextInputBoxComponent.defaultProps = {
   width: '100%',
   maxLength: '',
+  minLength: '',
   labelName: null,
   placeholder: '',
   option: 'none',
   validationMsg: '',
   unit: '',
-  type: 'text'
+  type: 'text',
+  hook: null,
+  name: ''
 };
 
 export const TextInput = React.memo(TextInputComponent);

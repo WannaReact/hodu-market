@@ -3,8 +3,9 @@ import styled from 'styled-components';
 export const SearchForm = styled.form`
   flex: 1;
   position: relative;
-  max-width: 45rem;
-  padding-left: 5rem;
+  min-width: 23rem;
+  max-width: 33rem;
+  padding-left: 1rem;
 `;
 
 export const SearchInput = styled.input`

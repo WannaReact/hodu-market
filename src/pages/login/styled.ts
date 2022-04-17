@@ -1,4 +1,4 @@
-import { TextInput } from 'src/components/Inputs';
+import { COLOR } from '@shared/constants';
 import styled from 'styled-components';
 
 export const Main = styled.main`
@@ -6,27 +6,24 @@ export const Main = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   width: 100%;
   min-height: calc(100vh - 10rem);
   margin-top: 10rem;
 `;
-export const Container = styled.div`
+export const Container = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #e5e5e5;
-  padding: 1.5rem;
-  text-align: center;
+  border: 1px solid ${COLOR.greyC4};
   border-radius: 8px;
   width: 55rem;
   height: 28rem;
-  margin-top: 6rem;
-`;
-
-export const MbTextInput = styled(TextInput)`
-  margin-bottom: 3rem;
+  margin-top: 5rem;
+  & > div {
+    width: 48rem;
+    margin-bottom: 3rem;
+  }
 `;
 
 export const UL = styled.ul`
@@ -47,7 +44,14 @@ export const UL = styled.ul`
     height: 1.3rem;
     vertical-align: -0.1rem;
     border-radius: 0.05rem;
-    background-color: #000;
+    background-color: ${COLOR.black};
     margin-right: 0.5rem;
   }
+`;
+
+export const ErrorMsg = styled.p`
+  width: 48rem;
+  color: ${COLOR.red};
+  font-size: 1.2rem;
+  margin-top: 0.3rem;
 `;

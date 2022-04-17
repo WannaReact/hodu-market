@@ -4,6 +4,7 @@ import * as Styled from './styled';
 interface IButtonProps {
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  type?: 'submit' | 'button' | 'reset';
 }
 
 interface ICustomButtonProps extends IButtonProps {
@@ -11,6 +12,7 @@ interface ICustomButtonProps extends IButtonProps {
   height: 3 | 4 | 5 | 5.4 | 6 | 6.8;
   fontSize: number;
   color: 'green' | 'dark' | 'white';
+  form?: string;
   disabled: boolean;
 }
 
@@ -24,22 +26,26 @@ interface IMenuButtonProps extends IButtonProps {
 }
 
 export function Custom({
+  form,
   disabled,
   width,
   height,
   color,
   onClick,
   fontSize,
-  children
+  children,
+  type
 }: ICustomButtonProps) {
   return (
     <Styled.Custom
+      form={form}
       onClick={onClick}
       disabled={disabled}
       width={width}
       height={height}
       fontSize={fontSize}
       color={color}
+      type={type}
     >
       {children}
     </Styled.Custom>
