@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as Buttons from '../Buttons';
 import * as Styled from './styled';
 
-function QnaItem() {
+export function QnaItem() {
   const isSeller = false;
   const isAnswered = false;
   const [isOpen, setIsOpen] = useState(false);
@@ -53,5 +53,3 @@ function QnaItem() {
     </Styled.Question>
   );
 }
-
-export default QnaItem;
