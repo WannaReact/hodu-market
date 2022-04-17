@@ -89,7 +89,20 @@ const GlobalStyle = createGlobalStyle`
     clip: rect(0, 0, 0, 0);
   }
 
+  .ellipsis-single {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
+  .ellipsis-double {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 `;
 
 export default GlobalStyle;

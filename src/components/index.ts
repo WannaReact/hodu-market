@@ -7,3 +7,5 @@ export * from './TabMenu';
 export * from './PriceCalculator';
 export * from './ProductImage';
 export * from './Pagination';
+export * from './QnaList';
+export * from './QnaItem';

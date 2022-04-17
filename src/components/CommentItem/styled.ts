@@ -6,7 +6,7 @@ export const CommentItem = styled.li`
   justify-content: space-between;
   font-size: 1.4rem;
   line-height: 1.3;
-  padding: 0.5rem 3rem;
+  padding: 1rem 3rem;
   border-bottom: 0.1rem solid ${COLOR.greyC4};
 `;
 
