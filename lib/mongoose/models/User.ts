@@ -57,6 +57,21 @@ export const UserSchema = new Schema(
       min: [0, '보유 금액이 유효하지 않습니다.'],
       max: [Number.MAX_SAFE_INTEGER, '보유 금액이 유효하지 않습니다.']
     },
+    cart: [
+      {
+        product: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product',
+          required: [true, '상품이 입력되지 않았습니다.']
+        },
+        count: {
+          type: Number,
+          required: [true, '수량이 입려되지 않았습니다.'],
+          min: 1,
+          max: 99
+        }
+      }
+    ],
     orders: [{ type: Schema.Types.ObjectId, ref: 'Order', unique: true }],
     reviews: [{ type: Schema.Types.ObjectId, ref: 'Review', unique: true }],
     inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry', unique: true }],

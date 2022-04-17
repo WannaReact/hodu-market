@@ -240,6 +240,41 @@ export const apiList = [
     ]
   },
   {
+    url: '/cart',
+    api: [
+      {
+        method: 'get',
+        button: '회원ID로 장바구니 목록 조회하기',
+        param: ['회원ID', 'id']
+      },
+      {
+        method: 'post',
+        button: '장바구니 목록 추가하기',
+        param: ['회원ID', 'id'],
+        body: [
+          ['product', '상품ID'],
+          ['count', '수량']
+        ]
+      },
+      {
+        method: 'put',
+        button: '장바구니 목록 수정하기',
+        param: ['회원ID', 'id'],
+        body: [
+          ['cartItemId', '장바구니 목록ID'],
+          ['product', '상품ID'],
+          ['count', '수량']
+        ]
+      },
+      {
+        method: 'post',
+        button: '장바구니 목록 삭제하기',
+        param: ['회원ID', 'id'],
+        body: [['cartItemId', '장바구니 목록ID']]
+      }
+    ]
+  },
+  {
     url: '/order',
     api: [
       {
