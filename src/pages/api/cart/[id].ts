@@ -16,23 +16,15 @@ handler.get(async (req, res) => {
 handler.post(async (req, res) => {
   const {
     query: { id },
-    body: { product, count, cartItemId }
+    body: { product, count }
   } = req;
-  const user = cartItemId
-    ? await User.findByIdAndUpdate(
-        id,
-        {
-          $pull: { cart: { _id: cartItemId } }
-        },
-        { new: true }
-      )
-    : await User.findByIdAndUpdate(
-        id,
-        {
-          $push: { cart: { product, count } }
-        },
-        { new: true }
-      );
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      $push: { cart: { product, count } }
+    },
+    { new: true }
+  );
   if (user) {
     success(res, user.cart);
   } else {
@@ -43,12 +35,31 @@ handler.post(async (req, res) => {
 handler.put(async (req, res) => {
   const {
     query: { id },
-    body: { product, count, cartItemId }
+    body: { product, count, itemId }
   } = req;
   const user = await User.findOneAndUpdate(
-    { _id: id, 'cart._id': cartItemId },
+    { _id: id, 'cart._id': itemId },
     {
       $set: { 'cart.$.product': product, 'cart.$.count': count }
+    },
+    { new: true }
+  );
+  if (user) {
+    success(res, user.cart);
+  } else {
+    fail(res);
+  }
+});
+
+handler.delete(async (req, res) => {
+  const {
+    query: { id },
+    body: { itemId }
+  } = req;
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      $pull: { cart: { _id: itemId } }
     },
     { new: true }
   );

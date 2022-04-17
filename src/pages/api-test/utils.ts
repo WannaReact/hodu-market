@@ -261,16 +261,10 @@ export const apiList = [
         button: '장바구니 목록 수정하기',
         param: ['회원ID', 'id'],
         body: [
-          ['cartItemId', '장바구니 목록ID'],
+          ['itemId', '장바구니 목록ID'],
           ['product', '상품ID'],
           ['count', '수량']
         ]
-      },
-      {
-        method: 'post',
-        button: '장바구니 목록 삭제하기',
-        param: ['회원ID', 'id'],
-        body: [['cartItemId', '장바구니 목록ID']]
       }
     ]
   },
