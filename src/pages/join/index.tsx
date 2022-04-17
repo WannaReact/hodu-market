@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import { Buttons } from '@components';
-import { Inputs } from '@components';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { ChangeEvent, SyntheticEvent, useRef, useState } from 'react';
+import api from '@utils/api';
+import { Buttons, Inputs } from '@components';
 import ImageWrapper from '@utils/ImageWrapper';
 import Logo from 'public/images/logo.svg';
-import { ChangeEvent, useRef, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import * as Styled from './styled';
 
 interface JoinInputs {
@@ -17,6 +17,7 @@ interface JoinInputs {
   phoneNum3: number;
   emailId: string;
   emailAddress?: string;
+  emailSelectAdd?: string;
   agreeCheck: boolean;
 }
 
@@ -24,52 +25,97 @@ const regExpId = /^[A-Za-z0-9]+$/i;
 const regExpPw = /^(?=.*[a-zA-Z])((?=.*d)|(?=.*W)).{8,16}$/i;
 
 function Join() {
-  const [optionValue, setOptionValue] = useState<string>('');
   const {
     register,
     handleSubmit,
-    getValues,
     watch,
-    trigger,
     formState: { errors }
   } = useForm<JoinInputs>({
     mode: 'onChange'
-    // defaultValues: {
-    //   joinId: 'aadfa',
-    //   joinPw: 'aabbccaabbcc',
-    //   joinPwConfirm: 'aabbccaabbcc',
-    //   name: '나희',
-    //   phoneNum1: +100,
-    //   phoneNum2: +1000,
-    //   phoneNum3: +1000,
-    //   emailId: 'string',
-    //   emailAddress: 'string.co',
-    //   agreeCheck: true
-    // }
   });
 
-  const onSubmit: SubmitHandler<JoinInputs> = (data) => {
-    // const values = getValues();
-    console.log('서브밋 ! ');
-    // console.log(values);
-    console.log(data);
-    console.log(errors);
-  };
   const joinPw = useRef('');
   joinPw.current = watch('joinPw');
   // name joinPw element 관찰
-  console.log(' id 호출');
-  console.log(watch('joinId'));
-
+  // const emailList = [
+  //   '주소',
+  //   'gamil.com',
+  //   'hanmail.net',
+  //   'hotmail.com',
+  //   'nate.com',
+  //   'naver.com',
+  //   'yahoo.co.kr',
+  //   'direct'
+  // ];
+  const [isIdPossible, setIsIdPossible] = useState(false);
   const [isDirectOpen, setIsOpen] = useState(false);
+  // const [emailAddSelected, setEmailAddSelected] = useState('');
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     console.log('이메일 input 값 확인하자');
     console.log(e.currentTarget.value);
+    // setEmailAddSelected(e.target.value);
     // 직접 입력일 때 새로운 input 버튼 보여주기
     if (e.currentTarget.value === 'direct') {
       setIsOpen(true);
     } else {
       setIsOpen(false);
+    }
+  };
+
+  const handleIdCheck = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    const fetcher = await api.get(`/user/unique?id=dddaa`);
+    console.log(fetcher);
+    console.log(fetcher.data.isUnique);
+    // const fetcher = (url) => axios.get(url).then((res) => res.data);
+    // const { data, error } = useSWR('/api/data', fetcher);
+    // console.log(fetcher.status);
+    if (!fetcher.data.isUnique) {
+      alert('이미 아이디가 존재합니다');
+      // form 제출 막는 것 구현하기
+    } else {
+      setIsIdPossible(true);
+    }
+    // 서버 에러 분기처리해야함
+    console.log(e);
+    // 현재 인풋의 아이디값 읽어오기
+  };
+  const onSubmit: SubmitHandler<JoinInputs> = async (data) => {
+    if (isIdPossible) {
+      console.log(data);
+      const {
+        joinId,
+        name,
+        phoneNum1,
+        phoneNum2,
+        phoneNum3,
+        emailId,
+        emailAddress,
+        emailSelectAdd
+      } = data;
+      try {
+        console.log(emailSelectAdd);
+        console.log('------');
+        console.log(emailAddress);
+        console.log(data.emailId);
+        const totalEmail =
+          emailAddress === undefined ? `${emailId}@${emailAddress}` : 33;
+        const response = await api.post('/user', {
+          userId: joinId,
+          password: data.joinPw,
+          userName: name,
+          nickname: joinId,
+          phone: `${phoneNum1}-${phoneNum2}-${phoneNum3}`,
+          email: totalEmail
+        });
+        console.log(response);
+      } catch (e) {
+        console.log('failed..');
+      } finally {
+        console.log('finally check');
+      }
+    } else {
+      alert('아이디 중복확인이 필요합니다');
     }
   };
   return (
@@ -100,9 +146,7 @@ function Join() {
             color="green"
             disabled={false}
             type="button"
-            onClick={() => {
-              trigger('joinId');
-            }}
+            onClick={handleIdCheck}
           >
             중복확인
           </Buttons.Custom>
@@ -123,13 +167,13 @@ function Join() {
         ) : null}
         <Inputs.TextInputBox
           name="joinPw"
-          width={48} isValid={Boolean(errors?.password)}
+          width={48}
+          // isValid={Boolean(errors?.password)}
           hook={register('joinPw', {
             required: true,
             minLength: 8,
             maxLength: 16,
-            pattern: regExpPw,
-            }
+            pattern: regExpPw
           })}
           option="password"
           placeholder="비밀번호"
@@ -234,11 +278,18 @@ function Join() {
             />
           )}
           <Styled.Select
+            {...register('emailSelectAdd')}
             id="emailBox"
             name="emailBox"
             onChange={handleChange}
             isOpen={isDirectOpen}
           >
+            {/* { */}
+            {/* // emailList.map((item: string) => ( */}
+            {/* //   <option value={item} key={nanoid()}> */}
+            {/* //     {item} */}
+            {/* //   </option> */}
+            {/* } */}
             <option value="">선택해주세요</option>
             <option value="@gamil.com">gmail.com</option>
             <option value="@hanmail.net">hanmail.net</option>
@@ -247,8 +298,8 @@ function Join() {
             <option value="@naver.com">naver.com</option>
             <option value="@yahoo.co.kr">yahoo.co.kr</option>
             <option value="direct">직접입력</option>
-          </Styled.Select>{' '}
-        </Styled.Wrap>{' '}
+          </Styled.Select>
+        </Styled.Wrap>
         {errors?.emailId?.type ? (
           <Styled.ErrorMsg>이메일을 다시 입력해주세요</Styled.ErrorMsg>
         ) : null}
