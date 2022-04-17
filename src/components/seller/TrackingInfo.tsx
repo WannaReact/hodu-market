@@ -3,7 +3,7 @@ import * as Styled from './styled';
 function TrackingInfo() {
   return (
     <table style={{ width: '100%' }}>
-      <thead>
+      <Styled.THead>
         <Styled.Tr>
           <Styled.HeadTd flex={10}>배송상태</Styled.HeadTd>
           <Styled.HeadTd flex={20}>주문번호</Styled.HeadTd>
@@ -15,7 +15,7 @@ function TrackingInfo() {
           <Styled.HeadTd flex={10}>수취인명</Styled.HeadTd>
           <Styled.HeadTd flex={10}>정보확인</Styled.HeadTd>
         </Styled.Tr>
-      </thead>
+      </Styled.THead>
       <tbody>
         <Styled.Tr>
           <Styled.BodyTd flex={10}>배송준비</Styled.BodyTd>

@@ -7,55 +7,43 @@ import ClaimProduct from '../../components/seller/ClaimProduct';
 import Questions from '../../components/seller/Questions';
 import Reviews from '../../components/seller/Reviews';
 
+const menuText = {
+  sale: '판매중인 상품',
+  order: '주문',
+  tracking: '배송',
+  claim: '취소/교환/환불',
+  question: '문의',
+  review: '리뷰',
+  total: '통계'
+};
+
 function Dynamic() {
   const router = useRouter();
   const { menu } = router.query;
-  switch (menu) {
-    case 'sale':
-      return (
-        <SellerLayout menu={menu}>
-          <SellProduct />
-        </SellerLayout>
-      );
-    case 'order':
-      return (
-        <SellerLayout menu={menu}>
-          <OrderCheck />
-        </SellerLayout>
-      );
-    case 'tracking':
-      return (
-        <SellerLayout menu={menu}>
-          <TrackingInfo />
-        </SellerLayout>
-      );
-    case 'claim':
-      return (
-        <SellerLayout menu={menu}>
-          <ClaimProduct />
-        </SellerLayout>
-      );
-    case 'review':
-      return (
-        <SellerLayout menu={menu}>
-          <Reviews />
-        </SellerLayout>
-      );
-    case 'question':
-      return (
-        <SellerLayout menu={menu}>
-          <Questions />
-        </SellerLayout>
-      );
-    case 'total':
-      return (
-        <SellerLayout menu={menu}>
-          <h1>준비중입니다</h1>
-        </SellerLayout>
-      );
-    default:
-      return null;
-  }
+  return (
+    <SellerLayout menu={menu} menuText={menuText} header={<h1>대시보드</h1>}>
+      {(() => {
+        switch (menu) {
+          case 'sale':
+            return <SellProduct />;
+          case 'order':
+            return <OrderCheck />;
+          case 'tracking':
+            return <TrackingInfo />;
+          case 'claim':
+            return <ClaimProduct />;
+          case 'review':
+            return <Reviews />;
+          case 'question':
+            return <Questions />;
+          case 'total':
+            return <h1>준비중입니다</h1>;
+          default:
+            return null;
+        }
+      })()}
+    </SellerLayout>
+  );
 }
 
 export default Dynamic;

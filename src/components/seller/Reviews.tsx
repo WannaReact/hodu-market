@@ -6,7 +6,7 @@ function Reviews() {
 
   return (
     <table style={{ width: '100%' }}>
-      <thead>
+      <Styled.THead>
         <Styled.Tr className="test">
           <Styled.HeadTd flex={30}>상품정보</Styled.HeadTd>
           <Styled.HeadTd flex={10}>작성자</Styled.HeadTd>
@@ -14,7 +14,7 @@ function Reviews() {
           <Styled.HeadTd flex={10}>처리 상태</Styled.HeadTd>
           <Styled.HeadTd flex={10}>쓰기/편집</Styled.HeadTd>
         </Styled.Tr>
-      </thead>
+      </Styled.THead>
       <Styled.TbodyTest>
         {data.map((i) => {
           return <ReviewTr key={i} />;

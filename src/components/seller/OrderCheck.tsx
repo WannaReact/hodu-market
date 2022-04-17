@@ -3,7 +3,7 @@ import * as Styled from './styled';
 function OrderCheck() {
   return (
     <table style={{ width: '100%' }}>
-      <thead>
+      <Styled.THead>
         <Styled.Tr>
           <Styled.HeadTd flex={10}>주문상태</Styled.HeadTd>
           <Styled.HeadTd flex={20}>주문번호</Styled.HeadTd>
@@ -12,7 +12,7 @@ function OrderCheck() {
           <Styled.HeadTd flex={20}>입금기한</Styled.HeadTd>
           <Styled.HeadTd flex={10}>주문확인</Styled.HeadTd>
         </Styled.Tr>
-      </thead>
+      </Styled.THead>
       <tbody>
         <Styled.Tr>
           <Styled.BodyTd flex={10}>결제대기</Styled.BodyTd>

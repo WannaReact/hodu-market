@@ -5,14 +5,14 @@ import * as Styled from './styled';
 function SellProduct() {
   return (
     <table style={{ width: '100%' }}>
-      <thead>
+      <Styled.THead>
         <Styled.Tr>
           <Styled.HeadTd flex={60}>상품정보</Styled.HeadTd>
           <Styled.HeadTd flex={20}>판매가격</Styled.HeadTd>
           <Styled.HeadTd flex={10}>수정</Styled.HeadTd>
           <Styled.HeadTd flex={10}>삭제</Styled.HeadTd>
         </Styled.Tr>
-      </thead>
+      </Styled.THead>
       <tbody>
         <Styled.Tr>
           <Styled.BodyTd hasProfile flex={60}>
