@@ -40,7 +40,7 @@ export function CommentList({ reviewId }: ICommentListProps) {
     });
     setCommentsData(data?.comments);
     setIsLoading(false);
-  }, []);
+  }, [reviewId]);
 
   return (
     <Styled.CommentSection>
@@ -52,7 +52,7 @@ export function CommentList({ reviewId }: ICommentListProps) {
             <>
               <ul>
                 {commentsData
-                  ?.slice(offset, offset + itemsPerPage)
+                  .slice(offset, offset + itemsPerPage)
                   .map((comment) => (
                     <CommentItem key={nanoid()} {...comment} />
                   ))}
@@ -60,7 +60,7 @@ export function CommentList({ reviewId }: ICommentListProps) {
               {commentsData.length > itemsPerPage && (
                 <Styled.PaginationWrapper>
                   <Pagination
-                    totalItemCount={commentsData!.length}
+                    totalItemCount={commentsData.length}
                     itemsPerPage={itemsPerPage}
                     pageNum={pageNum}
                     setPageNum={setPageNum}
