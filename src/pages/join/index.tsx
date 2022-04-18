@@ -49,11 +49,11 @@ function Join() {
   // ];
   const [isIdPossible, setIsIdPossible] = useState(false);
   const [isDirectOpen, setIsOpen] = useState(false);
-  // const [emailAddSelected, setEmailAddSelected] = useState('');
+  const [emailAddSelected, setEmailAddSelected] = useState('');
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     console.log('이메일 input 값 확인하자');
     console.log(e.currentTarget.value);
-    // setEmailAddSelected(e.target.value);
+    setEmailAddSelected(e.target.value);
     // 직접 입력일 때 새로운 input 버튼 보여주기
     if (e.currentTarget.value === 'direct') {
       setIsOpen(true);
@@ -90,16 +90,17 @@ function Join() {
         phoneNum2,
         phoneNum3,
         emailId,
-        emailAddress,
-        emailSelectAdd
+        emailAddress
       } = data;
       try {
-        console.log(emailSelectAdd);
+        console.log(emailAddSelected);
         console.log('------');
-        console.log(emailAddress);
+        console.log(Boolean(emailAddress));
         console.log(data.emailId);
         const totalEmail =
-          emailAddress === undefined ? `${emailId}@${emailAddress}` : 33;
+          Boolean(emailAddress) === true
+            ? `${emailId}@${emailAddress}`
+            : `${emailId}@${emailAddSelected}`;
         const response = await api.post('/user', {
           userId: joinId,
           password: data.joinPw,
@@ -273,7 +274,7 @@ function Join() {
               width={14}
               hook={register('emailAddress', {
                 required: true,
-                pattern: /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+                pattern: /[0-9a-zA-Z]([-.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
               })}
             />
           )}
@@ -291,12 +292,12 @@ function Join() {
             {/* //   </option> */}
             {/* } */}
             <option value="">선택해주세요</option>
-            <option value="@gamil.com">gmail.com</option>
-            <option value="@hanmail.net">hanmail.net</option>
-            <option value="@hotmail.com">hotmail.com</option>
+            <option value="gamil.com">gmail.com</option>
+            <option value="hanmail.net">hanmail.net</option>
+            <option value="hotmail.com">hotmail.com</option>
             <option value="nate.com">nate.com</option>
-            <option value="@naver.com">naver.com</option>
-            <option value="@yahoo.co.kr">yahoo.co.kr</option>
+            <option value="naver.com">naver.com</option>
+            <option value="yahoo.co.kr">yahoo.co.kr</option>
             <option value="direct">직접입력</option>
           </Styled.Select>
         </Styled.Wrap>
