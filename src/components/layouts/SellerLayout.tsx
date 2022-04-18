@@ -4,15 +4,22 @@ import { nanoid } from 'nanoid';
 import { Buttons } from '@components';
 import * as Styled from './styled';
 import { DefaultContainer } from '../common/DefaultContainer/styled';
+import Table from '../seller/Table';
 
 interface ChildProps {
   menu: string | string[] | undefined;
   menuText?: { [key: string]: string };
   header: React.ReactNode;
-  children: React.ReactNode;
+  thead: [string, number][];
+  rows:
+    | {
+        tableData: Array<Array<string | number | React.ReactNode>>;
+        comments?: Array<Array<string | number | React.ReactNode>>;
+      }[]
+    | null;
 }
 
-function SellerLayout({ menu, menuText, header, children }: ChildProps) {
+function SellerLayout({ menu, menuText, header, thead, rows }: ChildProps) {
   return (
     <DefaultContainer>
       {header}
@@ -31,7 +38,9 @@ function SellerLayout({ menu, menuText, header, children }: ChildProps) {
               ))}
           </Styled.NavBar>
         </nav>
-        <Styled.Content>{children}</Styled.Content>
+        <Styled.Content>
+          {rows && <Table thead={thead} rows={rows} />}
+        </Styled.Content>
       </Styled.Container>
     </DefaultContainer>
   );

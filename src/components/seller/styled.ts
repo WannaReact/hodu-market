@@ -9,8 +9,12 @@ interface ProfileCheck {
   hasProfile?: boolean;
   flex: number;
   isText?: boolean;
-  isAlign?: boolean;
 }
+
+export const Table = styled.table`
+  width: 100%;
+`;
+
 export const TbodyTest = styled.tbody`
   & .test:not(:first-of-type) {
     margin-top: 0.1rem;
@@ -24,16 +28,20 @@ export const THead = styled.thead`
 export const Tr = styled.tr`
   display: flex;
   align-items: center;
+
+  tbody & {
+    border-bottom: 0.1rem solid ${COLOR.greyC4};
+  }
 `;
 
 export const HeadTd = styled.th<FlexTh>`
-  flex: 0 0 ${(props) => props.flex}%;
+  flex: 0 0 ${(props) => props.flex * 100}%;
   font-size: 1.8rem;
   padding: 1.8rem 0;
 `;
 
 export const BodyTd = styled.td<ProfileCheck>`
-  flex: 0 0 ${(props) => props.flex}%;
+  flex: 0 0 ${(props) => props.flex * 100}%;
   display: ${(props) => props.hasProfile && 'flex'};
   font-size: 1.8rem;
   padding: 1.6rem 0;
@@ -59,17 +67,11 @@ export const ProductText = styled.div`
   }
 `;
 
-export const CommentTr = styled.tr`
-  display: flex;
-  align-items: center;
-`;
-
 export const CommentTd = styled.td<ProfileCheck>`
-  flex: 1 1 ${(props) => props.flex}%;
-  border-top: ${(props) => props.isText && '1px solid #ccc'};
+  flex: 1 1 ${(props) => props.flex * 100}%;
   font-size: 1.8rem;
   padding: 2rem 0;
-  text-align: ${(props) => props.isAlign && 'center'};
+  text-align: center;
   & strong {
     font-size: 1.4rem;
     margin-right: 1rem;
