@@ -6,12 +6,6 @@ export const Container = styled.div`
   margin-top: 3rem;
 `;
 
-export const NavBar = styled.ul`
-  & li {
-    margin-bottom: 1rem;
-  }
-`;
-
 export const Content = styled.section`
   flex: 1 0 ${NAV_WIDTH - 23}rem;
   margin-left: 3rem;

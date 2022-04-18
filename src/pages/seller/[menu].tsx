@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
-import Product from 'src/components/seller/Product';
-import SellerLayout from '../../components/layouts/SellerLayout';
+import Product from 'src/components/Table/Product';
+import MenuPageLayout from 'src/layouts/MenuPageLayout';
 
 const menuText = {
   sale: '판매중인 상품',
@@ -162,7 +162,7 @@ const data = {
   ]
 };
 
-function Dynamic() {
+function SellerPage() {
   const router = useRouter();
   const { menu: query } = router.query;
   const [menu, setMenu] = useState('sale');
@@ -175,14 +175,15 @@ function Dynamic() {
   }, [query]);
 
   return (
-    <SellerLayout
+    <MenuPageLayout
       menu={menu}
       menuText={menuText}
       header={<h1>대시보드</h1>}
       thead={(thead as { [key: string]: any })[menu as string]}
-      rows={rows}
-    />
+    >
+      {rows}
+    </MenuPageLayout>
   );
 }
 
-export default Dynamic;
+export default SellerPage;
