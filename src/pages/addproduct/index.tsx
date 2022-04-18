@@ -37,6 +37,11 @@ function AddproductPage() {
     mode: 'onChange'
   });
 
+  const selectCategory = (item: string) => {
+    setContentSelect(item);
+    setIsSelect((prev) => !prev);
+  };
+
   const addModalImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectImglength = event.target.files;
     if (selectImglength) {
@@ -81,6 +86,7 @@ function AddproductPage() {
               <SelectButton
                 labelName="카테고리"
                 contentSelect={contentSelect}
+                isSelect={isSelect}
                 onClick={() => setIsSelect((prev) => !prev)}
               />
               <SelectContainer>
@@ -89,7 +95,7 @@ function AddproductPage() {
                     return (
                       <SelectList
                         key={item}
-                        onClick={() => setContentSelect(item)}
+                        onClick={() => selectCategory(item)}
                       >
                         {item}
                       </SelectList>
