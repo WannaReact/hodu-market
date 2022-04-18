@@ -11,8 +11,34 @@ import {
   SelectList
 } from 'src/components/SelectBox';
 import SellerLayout from 'src/components/layouts/SellerLayout';
+import Link from 'next/link';
+import Image from 'next/image';
+import plusIcon from 'public/images/icon-plus.png';
+import * as Styled from './styled';
 import { TextInputBox } from '../../components/Inputs';
 import { Buttons } from '../../components';
+
+function Header() {
+  return (
+    <Styled.Header>
+      <h1>대시보드</h1>
+      <Link href="/addproduct" passHref>
+        <a>
+          <Buttons.Custom
+            width={22}
+            height={6.8}
+            fontSize={2.4}
+            color="green"
+            disabled={false}
+          >
+            <Image src={plusIcon} width={32} height={32} />
+            상품 업로드
+          </Buttons.Custom>
+        </a>
+      </Link>
+    </Styled.Header>
+  );
+}
 
 function AddproductPage() {
   const [text, setText] = useState('');
@@ -37,18 +63,18 @@ function AddproductPage() {
     }
   };
 
-  const selectIMG = ($dom: any) => {
-    const $imgBox = document.createElement('div');
-    $imgBox.style.width = '60px';
-    $imgBox.style.height = '60px';
-    $imgBox.style.backgroundImage = 'images/img-button.png';
-    $imgBox.style.backgroundRepeat = 'no-repeat';
+  // const selectIMG = ($dom: any) => {
+  //   const $imgBox = document.createElement('div');
+  //   $imgBox.style.width = '60px';
+  //   $imgBox.style.height = '60px';
+  //   $imgBox.style.backgroundImage = 'images/img-button.png';
+  //   $imgBox.style.backgroundRepeat = 'no-repeat';
 
-    $dom.appendChild($imgBox);
-  };
+  //   $dom.appendChild($imgBox);
+  // };
 
   return (
-    <SellerLayout menu={menu}>
+    <SellerLayout menu={menu} header={<Header />}>
       <p>상품 이미지</p>
       <main>
         <ViewBox>
