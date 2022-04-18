@@ -13,7 +13,7 @@ handler.get(async (req, res) => {
 
 handler.post(async (req, res) => {
   const {
-    body: { productId, userId, count, cost, courier, invoice, addressee }
+    body: { productId, userId, count, cost, courier, addressee }
   } = req;
   const doesIdExist = await Product.exists({ _id: productId });
   if (doesIdExist) {
@@ -25,7 +25,6 @@ handler.post(async (req, res) => {
       count,
       cost,
       courier,
-      invoice,
       addressee
     }).save();
     const { _id } = order;

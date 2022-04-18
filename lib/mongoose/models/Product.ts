@@ -43,6 +43,12 @@ export const ProductSchema = new Schema(
       ],
       required: [true, '카테고리를 입력하세요.']
     },
+    description: {
+      type: String,
+      required: [true, '상품 상세설명을 입력하세요.'],
+      minlength: [10, '상품 상세설명을 10자 이상 입력해야 합니다.'],
+      maxlength: [2000, '상품 상세설명은 2000자 이하까지 입력할 수 있습니다.']
+    },
     reviews: [{ type: Schema.Types.ObjectId, ref: 'Review', unique: true }],
     inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry', unique: true }]
   },
