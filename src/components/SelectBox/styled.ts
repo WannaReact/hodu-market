@@ -9,11 +9,15 @@ interface ListBoxProps {
   isSelect: boolean;
 }
 
+interface SelectBtnProps {
+  isSelect: boolean;
+}
+
 export const SelectContainer = styled.div`
   position: relative;
 `;
 
-export const SelectButton = styled.button`
+export const SelectButton = styled.button<SelectBtnProps>`
   width: 100%;
   height: 5.4rem;
   padding: 2rem 7rem 2rem 1.6rem;
@@ -25,7 +29,11 @@ export const SelectButton = styled.button`
   border-radius: 0.5rem;
   cursor: pointer;
   text-align: left;
-  background: url('images/icon-Triangle-up.png') center right 14px no-repeat;
+
+  background: ${(props) =>
+    props.isSelect
+      ? `url('images/icon-Triangle-up.png') center right 14px no-repeat`
+      : `url('images/icon-Triangle-down.png') center right 14px no-repeat`};
 `;
 
 export const Label = styled.label`

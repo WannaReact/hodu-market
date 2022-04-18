@@ -8,6 +8,7 @@ interface ContainerProps {
 interface ButtonSelectProps {
   labelName: string;
   contentSelect: string;
+  isSelect: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -28,12 +29,13 @@ export function SelectContainer({ children }: ContainerProps) {
 export function SelectButton({
   labelName,
   contentSelect,
+  isSelect,
   onClick
 }: ButtonSelectProps) {
   return (
     <Styled.Box>
       <Styled.Label>{labelName}</Styled.Label>
-      <Styled.SelectButton onClick={onClick}>
+      <Styled.SelectButton isSelect={isSelect} onClick={onClick}>
         {contentSelect}
       </Styled.SelectButton>
     </Styled.Box>
