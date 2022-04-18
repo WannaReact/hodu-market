@@ -11,13 +11,18 @@ import {
   SelectBox,
   SelectList
 } from 'src/components/SelectBox';
+import api from '@utils/api';
 import { CATEGORY_ENUM } from 'lib/mongoose/models/constants';
 import SellerLayout from 'src/components/layouts/SellerLayout';
 import { TextInputBox } from '../../components/Inputs';
 import { Buttons } from '../../components';
 
 interface FormInp {
-  name: string;
+  title: string;
+  price: number;
+  sale: number;
+  deliveryPrice: number;
+  stock: number;
 }
 
 function AddproductPage() {
@@ -47,7 +52,18 @@ function AddproductPage() {
   };
   const inpEditor = useRef<HTMLInputElement>(null);
 
-  const handle: SubmitHandler<FormInp> = (data) => console.log(data);
+  const handle: SubmitHandler<FormInp> = async (data) => {
+    console.log(data);
+    const POSTDATA = await api.post('/product', {
+      productName: data.title,
+      price: data.price,
+      discount: data.sale,
+      stock: data.stock
+    });
+    console.log(POSTDATA);
+  };
+  console.log(text);
+  console.log(handleSubmit);
 
   return (
     <SellerLayout menu={menu}>
@@ -60,7 +76,7 @@ function AddproductPage() {
               <TextInputBox
                 labelName="상품명"
                 maxLength={20}
-                {...register('name', { required: true })}
+                hook={{ ...register('title', { required: true }) }}
               />
               <SelectButton
                 labelName="카테고리"
@@ -82,8 +98,18 @@ function AddproductPage() {
                 </SelectBox>
               </SelectContainer>
               <InputFlexBox>
-                <TextInputBox labelName="판매가" option="unit" unit="원" />
-                <TextInputBox labelName="할인가" option="unit" unit="원" />
+                <TextInputBox
+                  labelName="판매가"
+                  option="unit"
+                  unit="원"
+                  hook={{ ...register('price', { required: true }) }}
+                />
+                <TextInputBox
+                  labelName="할인가"
+                  option="unit"
+                  unit="원"
+                  hook={{ ...register('stock', { required: true }) }}
+                />
               </InputFlexBox>
 
               <Buttons.Custom
@@ -96,8 +122,18 @@ function AddproductPage() {
                 배송,소포,등기
               </Buttons.Custom>
               <InputFlexBox>
-                <TextInputBox labelName="기본 배송비" option="unit" unit="원" />
-                <TextInputBox labelName="재고" option="unit" unit="원" />
+                <TextInputBox
+                  labelName="기본 배송비"
+                  option="unit"
+                  unit="원"
+                  hook={{ ...register('deliveryPrice', { required: true }) }}
+                />
+                <TextInputBox
+                  labelName="재고"
+                  option="unit"
+                  unit="원"
+                  hook={{ ...register('sale', { required: true }) }}
+                />
               </InputFlexBox>
             </InputBox>
           </ViewBox>
