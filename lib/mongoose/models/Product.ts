@@ -9,6 +9,10 @@ export const ProductSchema = new Schema(
       required: [true, '상품 이름을 입력하세요.'],
       maxlength: [50, '상품 이름은 50자 이하까지 입력할 수 있습니다.']
     },
+    option: {
+      type: String,
+      maxlength: [20, '상품 옵션은 20자 이하까지 입력할 수 있습니다.']
+    },
     images: [
       {
         type: String,
