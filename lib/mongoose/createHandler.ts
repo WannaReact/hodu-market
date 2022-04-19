@@ -21,7 +21,7 @@ export default (
       }
     },
     onNoMatch: (req, res) => {
-      fail(res);
+      fail(res, '유효하지 않은 요청입니다.');
     }
   }).use(dbConnect, ...middleware);
 };
