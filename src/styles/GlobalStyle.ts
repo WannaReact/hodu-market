@@ -4,36 +4,6 @@ import reset from 'styled-reset';
 const GlobalStyle = createGlobalStyle`
   ${reset}
 
-  @font-face {
-    font-family: 'Spoqa Han Sans';
-    src: url('/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Bold.otf');
-    font-weight: 600;
-  }
-
-  @font-face {
-    font-family: 'Spoqa Han Sans';
-    src: url('/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Medium.otf');
-    font-weight: 500;
-  }
-
-  @font-face {
-    font-family: 'Spoqa Han Sans';
-    src: url('/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Regular.otf');
-    font-weight: 400;
-  }
-
-  @font-face {
-    font-family: 'Spoqa Han Sans';
-    src: url('/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Light.otf');
-    font-weight: 300;
-  }
-
-  @font-face {
-    font-family: 'Spoqa Han Sans';
-    src: url('/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Thin.otf');
-    font-weight: 100;
-  }
-
   html {
     font-size: 62.5%;
   }

@@ -3,6 +3,7 @@ import NavBar from 'src/components/NavBar';
 import GlobalStyle from 'src/styles/GlobalStyle';
 import { useRouter } from 'next/router';
 import { AppContextType } from 'next/dist/shared/lib/utils';
+import '@styles/font.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
