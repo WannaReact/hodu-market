@@ -57,6 +57,7 @@ function AddproductPage() {
   };
   const inpEditor = useRef<HTMLInputElement>(null);
 
+
   const handle: SubmitHandler<FormInp> = async (data) => {
     console.log(data);
     const POSTDATA = await api.post('/product', {
@@ -71,7 +72,7 @@ function AddproductPage() {
   console.log(handleSubmit);
 
   return (
-    <SellerLayout menu={menu}>
+    <SellerLayout menu={menu} header={<Header />}>
       <p>상품 이미지</p>
       <main>
         <form onSubmit={handleSubmit(handle)}>

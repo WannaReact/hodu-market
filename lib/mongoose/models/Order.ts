@@ -3,7 +3,7 @@ import {
   COURIER_ENUM,
   KOREAN_NAME_MATCH,
   ORDER_STATUS_ENUM
-} from './constants';
+} from '../constants';
 
 export const OrderSchema = new Schema(
   {
@@ -13,15 +13,11 @@ export const OrderSchema = new Schema(
       required: [true, '주문번호가 입력되지 않았습니다.']
     },
     status: {
-      type: [
-        {
-          type: String,
-          enum: {
-            values: ORDER_STATUS_ENUM,
-            message: '주문상태가 유효하지 않습니다.'
-          }
-        }
-      ],
+      type: String,
+      enum: {
+        values: ORDER_STATUS_ENUM,
+        message: '주문상태가 유효하지 않습니다.'
+      },
       required: [true, '주문상태가 입력되지 않았습니다.']
     },
     productId: {

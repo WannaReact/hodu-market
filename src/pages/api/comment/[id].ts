@@ -11,7 +11,7 @@ handler.get(async (req, res) => {
   } = req;
   const {
     _doc: { reviewId: review, userId: user, ...others }
-  } = await Comment.findById(id);
+  } = await Comment.findById(id).populate('userId');
   success(res, { review, user, ...others });
 });
 

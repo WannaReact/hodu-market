@@ -69,7 +69,7 @@ export const Tab = styled.button<{ isActive: boolean }>`
 `;
 
 export const Menu = styled.button<{ isActive: boolean }>`
-  width: 25rem;
+  width: 20rem;
   height: 5rem;
   font-size: 1.6rem;
   font-weight: 500;

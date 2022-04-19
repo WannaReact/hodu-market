@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import Image from 'next/image';
+import ImageWrapper from '@utils/ImageWrapper';
 import { CommentItem } from '../CommentItem';
 import * as Buttons from '../Buttons';
 import { Pagination } from '../Pagination';
@@ -38,7 +40,7 @@ export function CommentList({ reviewId }: ICommentListProps) {
     });
     setCommentsData(data?.comments);
     setIsLoading(false);
-  }, []);
+  }, [reviewId]);
 
   return (
     <Styled.CommentSection>
@@ -50,32 +52,43 @@ export function CommentList({ reviewId }: ICommentListProps) {
             <>
               <ul>
                 {commentsData
-                  ?.slice(offset, offset + itemsPerPage)
+                  .slice(offset, offset + itemsPerPage)
                   .map((comment) => (
                     <CommentItem key={nanoid()} {...comment} />
                   ))}
               </ul>
               {commentsData.length > itemsPerPage && (
-                <Pagination
-                  totalItemCount={commentsData!.length}
-                  itemsPerPage={itemsPerPage}
-                  pageNum={pageNum}
-                  setPageNum={setPageNum}
-                />
+                <Styled.PaginationWrapper>
+                  <Pagination
+                    totalItemCount={commentsData.length}
+                    itemsPerPage={itemsPerPage}
+                    pageNum={pageNum}
+                    setPageNum={setPageNum}
+                  />
+                </Styled.PaginationWrapper>
               )}
             </>
           )}
-          <Styled.CommentInput>
-            <div>접속한 아이디</div>
-            <label htmlFor="comment">
+          <Styled.CommentInputForm>
+            <Styled.Author>
+              <ImageWrapper
+                width="4rem"
+                height="4rem"
+                imgStyle="border-radius: 50%;"
+              >
+                <Image src="/images/seller-profileIMG.png" layout="fill" />
+              </ImageWrapper>
+              <span className="ellipsis-single">접속자이름asdfasdfasdf</span>
+            </Styled.Author>
+            <Styled.CommentInput htmlFor="comment">
               <span className="sr-only">댓글 입력</span>
               <input
                 type="text"
                 id="comment"
-                maxLength={50}
+                maxLength={100}
                 placeholder="댓글을 입력하세요"
               />
-            </label>
+            </Styled.CommentInput>
             <Buttons.Custom
               width={7}
               height={3}
@@ -85,7 +98,7 @@ export function CommentList({ reviewId }: ICommentListProps) {
             >
               작성
             </Buttons.Custom>
-          </Styled.CommentInput>
+          </Styled.CommentInputForm>
         </>
       )}
     </Styled.CommentSection>
