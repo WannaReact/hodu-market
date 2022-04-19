@@ -124,7 +124,7 @@ export const apiList = [
         body: [
           ['productName', '상품 이름'],
           ['price', '정가'],
-          ['discount', '할인'],
+          ['discountRate', '할인율'],
           ['stock', '재고'],
           ['categories', '카테고리(쉼표로 구분)', true]
         ]
@@ -141,7 +141,7 @@ export const apiList = [
         body: [
           ['productName', '상품 이름'],
           ['price', '정가'],
-          ['discount', '할인'],
+          ['discountRate', '할인율'],
           ['stock', '재고'],
           ['categories', '카테고리(쉼표로 구분)', true]
         ]
@@ -283,7 +283,7 @@ export const apiList = [
           ['userId', '회원ID'],
           ['count', '수량'],
           ['cost', '가격'],
-          ['courierId', '택배사ID'],
+          ['courier', '택배사명'],
           ['invoice', '송장번호'],
           ['addressee', '수취인명']
         ]
@@ -298,7 +298,7 @@ export const apiList = [
         button: 'ObjectId로 특정 주문 정보 수정하기',
         param: ['주문ID', 'id'],
         body: [
-          ['courierId', '택배사ID'],
+          ['courier', '택배사명'],
           ['invoice', '송장번호']
         ]
       },

@@ -3,7 +3,7 @@ import {
   COURIER_ENUM,
   KOREAN_NAME_MATCH,
   ORDER_STATUS_ENUM
-} from './constants';
+} from '../constants';
 
 export const OrderSchema = new Schema(
   {
