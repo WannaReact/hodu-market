@@ -12,13 +12,13 @@ handler.get(async (req, res) => {
 
 handler.post(async (req, res) => {
   const {
-    body: { productName, images, price, discount, stock, categories = [] }
+    body: { productName, images, price, discountRate, stock, categories = [] }
   } = req;
   const product = await new Product({
     productName,
     images,
     price,
-    discount,
+    discountRate,
     stock,
     categories
   }).save();

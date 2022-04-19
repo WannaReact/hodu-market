@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { CATEGORY_ENUM, DISCOUNT_MATCH, IMAGE_MATCH } from './constants';
+import { CATEGORY_ENUM, IMAGE_MATCH } from '../constants';
 
 export const ProductSchema = new Schema(
   {
@@ -21,9 +21,11 @@ export const ProductSchema = new Schema(
       min: [0, '가격이 유효하지 않습니다.'],
       max: [100_000_000, '가격이 유효하지 않습니다.']
     },
-    discount: {
-      type: String,
-      match: [DISCOUNT_MATCH, '할인액 또는 할인율이 유효하지 않습니다.']
+    discountRate: {
+      type: Number,
+      required: [true, '할인율을 입력하세요.'],
+      min: [0, '할인율이 유효하지 않습니다.'],
+      max: [100, '할인율이 유효하지 않습니다.']
     },
     stock: {
       type: Number,

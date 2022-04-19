@@ -25,14 +25,14 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body: { productName, images, price, discount, stock, categories },
+    body: { productName, images, price, discountRate, stock, categories },
     query: { id }
   } = req;
   const product = await Product.findByIdAndUpdate(id, {
     productName,
     images,
     price,
-    discount,
+    discountRate,
     stock,
     categories
   });

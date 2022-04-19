@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { IMAGE_MATCH } from './constants';
+import { IMAGE_MATCH } from '../constants';
 
 export const ReviewSchema = new Schema(
   {
