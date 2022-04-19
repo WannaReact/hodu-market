@@ -18,7 +18,7 @@ interface JoinInputs {
   emailId: string;
   emailAddress?: string;
   emailSelectAdd?: string;
-  agreeCheck: boolean;
+  agreeCheck: Boolean;
 }
 
 const regExpId = /^[A-Za-z0-9]+$/i;
@@ -36,6 +36,8 @@ function Join() {
 
   const joinPw = useRef('');
   joinPw.current = watch('joinPw');
+  const joinPwConfirm = useRef('');
+  joinPwConfirm.current = watch('joinPwConfirm');
 
   const [isIdPossible, setIsIdPossible] = useState(false);
   const [isDirectOpen, setIsOpen] = useState(false);
@@ -91,7 +93,7 @@ function Join() {
           Boolean(emailAddress) === true
             ? `${emailId}@${emailAddress}`
             : `${emailId}@${emailAddSelected}`;
-        const response = await api.post('/user', {
+        await api.post('/user', {
           userId: joinId,
           password: data.joinPw,
           userName: name,
@@ -159,7 +161,7 @@ function Join() {
         <Inputs.TextInputBox
           name="joinPw"
           width={48}
-          isValid={!errors?.joinPw}
+          isValid={!!joinPw.current && !errors.joinPw}
           hook={register('joinPw', {
             required: true,
             minLength: 8,
@@ -182,7 +184,7 @@ function Join() {
           name="joinPwConfirm"
           option="password"
           placeholder="비밀번호 재확인"
-          isValid={!errors?.joinPwConfirm}
+          isValid={!!joinPwConfirm.current && !errors.joinPwConfirm}
           hook={register('joinPwConfirm', {
             required: true,
             minLength: 8,
@@ -190,7 +192,10 @@ function Join() {
             pattern: regExpPw,
             validate: (v) => v === joinPw.current
           })}
-        />{' '}
+        />
+        {console.log('-----')}
+        {console.log(joinPw)}
+        {console.log(typeof joinPw)}
         {errors?.joinPwConfirm?.type === 'required' ? (
           <Styled.ErrorMsg>비밀번호를 다시 입력해주세요</Styled.ErrorMsg>
         ) : null}
