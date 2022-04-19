@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { NextHandler } from 'next-connect';
 import { CommentSchema } from './models/Comment';
 import { ProductSchema } from './models/Product';
 import { ReviewSchema } from './models/Review';
@@ -12,7 +13,7 @@ const { MONGODB_URI } = process.env;
 export default async (
   req: NextApiRequest,
   res: NextApiResponse,
-  next: Function
+  next: NextHandler
 ) => {
   if (!MONGODB_URI) {
     throw new Error('환경 변수 MONGODB_URI 값이 올바르지 않습니다!');
