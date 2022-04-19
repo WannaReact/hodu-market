@@ -60,6 +60,16 @@ export const apiList = [
             query: [['email', '이메일']]
           }
         ]
+      },
+      {
+        url: '/unique',
+        api: [
+          {
+            method: 'get',
+            button: '아이디 중복 확인',
+            query: [['id', '아이디']]
+          }
+        ]
       }
     ]
   },
@@ -225,6 +235,35 @@ export const apiList = [
             button: '문의에 등록된 답변 삭제하기',
             param: ['문의ID', 'id']
           }
+        ]
+      }
+    ]
+  },
+  {
+    url: '/cart',
+    api: [
+      {
+        method: 'get',
+        button: '회원ID로 장바구니 목록 조회하기',
+        param: ['회원ID', 'id']
+      },
+      {
+        method: 'post',
+        button: '장바구니 목록 추가하기',
+        param: ['회원ID', 'id'],
+        body: [
+          ['product', '상품ID'],
+          ['count', '수량']
+        ]
+      },
+      {
+        method: 'put',
+        button: '장바구니 목록 수정하기',
+        param: ['회원ID', 'id'],
+        body: [
+          ['itemId', '장바구니 목록ID'],
+          ['product', '상품ID'],
+          ['count', '수량']
         ]
       }
     ]

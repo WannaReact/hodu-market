@@ -9,7 +9,10 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const user = await User.findById(id).populate('reviews');
+  const user = await User.findById(id)
+    .populate('orders')
+    .populate('reviews')
+    .populate('inquiries');
   success(res, user);
 });
 

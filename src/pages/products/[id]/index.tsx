@@ -4,7 +4,8 @@ import {
   ReviewList,
   TabMenu,
   PriceCalculator,
-  ProductImage
+  ProductImage,
+  QnaList
 } from '@components';
 import dummyData from './dummyProductData.json';
 import * as Styled from './styled';
@@ -40,11 +41,9 @@ export default function Details() {
   }, []);
 
   const sectionRefs = useRef<HTMLElement[]>([]);
-  // console.log('[Details]', sectionRefs);
 
   const storeRef = useCallback((elem: HTMLElement, index: number) => {
     sectionRefs.current[index] = elem;
-    // console.log('[Details] Ref 저장', sectionRefs, index);
   }, []);
 
   return (
@@ -99,17 +98,7 @@ export default function Details() {
             </Styled.TabSection>
             <Styled.TabSection ref={(elem: HTMLElement) => storeRef(elem, 2)}>
               <h3>Q &amp; A</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <td>답변상태</td>
-                    <td>제목</td>
-                    <td>작성자</td>
-                    <td>작성일</td>
-                  </tr>
-                </thead>
-                {/* <tbody></tbody> */}
-              </table>
+              <QnaList />
             </Styled.TabSection>
             <Styled.TabSection ref={(elem: HTMLElement) => storeRef(elem, 3)}>
               교환 반품 정보

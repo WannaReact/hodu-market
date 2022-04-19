@@ -11,5 +11,6 @@ export const COLOR = {
   red: '#EB5757'
 };
 
-export const NAV_WIDTH = 128.4;
+export const NAV_WIDTH = 144;
 export const NAV_HEIGHT = 10;
+export const MIN_MARGIN = 6;
