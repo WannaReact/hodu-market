@@ -4,18 +4,27 @@ import { Editor } from '@tinymce/tinymce-react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import ImgSlide from 'src/components/AddProduct/ImgSlide';
-
 import {
   SelectContainer,
   SelectButton,
   SelectBox,
   SelectList
 } from 'src/components/SelectBox';
+import { CATEGORY_ENUM } from 'lib/mongoose/constants';
 import api from '@utils/api';
-import SellerLayout from 'src/components/layouts/SellerLayout';
-import { CATEGORY_ENUM } from 'lib/mongoose/models/constants';
+import MenuPageLayout from 'src/layouts/MenuPageLayout';
+import Header from 'src/components/AddProduct/Header';
 import { TextInputBox } from '../../components/Inputs';
 import { Buttons } from '../../components';
+
+const menuText = {
+  sale: '판매중인 상품',
+  order: '주문',
+  tracking: '배송',
+  claim: '취소/교환/환불',
+  question: '문의',
+  review: '리뷰'
+};
 
 interface FormInp {
   title: string;
@@ -57,7 +66,6 @@ function AddproductPage() {
   };
   const inpEditor = useRef<HTMLInputElement>(null);
 
-
   const handle: SubmitHandler<FormInp> = async (data) => {
     console.log(data);
     const POSTDATA = await api.post('/product', {
@@ -72,8 +80,7 @@ function AddproductPage() {
   console.log(handleSubmit);
 
   return (
-    <SellerLayout menu={menu} header={<Header />}>
-      <p>상품 이미지</p>
+    <MenuPageLayout menu={menu} header={<Header />} menuText={menuText}>
       <main>
         <form onSubmit={handleSubmit(handle)}>
           <ViewBox>
@@ -185,7 +192,7 @@ function AddproductPage() {
           ref={inpEditor}
         />
       </main>
-    </SellerLayout>
+    </MenuPageLayout>
   );
 }
 
