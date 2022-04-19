@@ -36,17 +36,7 @@ function Join() {
 
   const joinPw = useRef('');
   joinPw.current = watch('joinPw');
-  // name joinPw element 관찰
-  // const emailList = [
-  //   '주소',
-  //   'gamil.com',
-  //   'hanmail.net',
-  //   'hotmail.com',
-  //   'nate.com',
-  //   'naver.com',
-  //   'yahoo.co.kr',
-  //   'direct'
-  // ];
+
   const [isIdPossible, setIsIdPossible] = useState(false);
   const [isDirectOpen, setIsOpen] = useState(false);
   const [emailAddSelected, setEmailAddSelected] = useState('');
@@ -109,7 +99,6 @@ function Join() {
           phone: `${phoneNum1}-${phoneNum2}-${phoneNum3}`,
           email: totalEmail
         });
-        console.log(response);
       } catch (e) {
         console.log('failed..');
       } finally {
@@ -119,6 +108,7 @@ function Join() {
       alert('아이디 중복확인이 필요합니다');
     }
   };
+
   return (
     <Styled.Main>
       <Styled.JoinHeader>
@@ -169,7 +159,7 @@ function Join() {
         <Inputs.TextInputBox
           name="joinPw"
           width={48}
-          // isValid={Boolean(errors?.password)}
+          isValid={!errors?.joinPw}
           hook={register('joinPw', {
             required: true,
             minLength: 8,
@@ -192,6 +182,7 @@ function Join() {
           name="joinPwConfirm"
           option="password"
           placeholder="비밀번호 재확인"
+          isValid={!errors?.joinPwConfirm}
           hook={register('joinPwConfirm', {
             required: true,
             minLength: 8,
