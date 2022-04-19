@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { IMAGE_MATCH, KOREAN_NAME_MATCH } from './constants';
+import { IMAGE_MATCH, KOREAN_NAME_MATCH } from '../constants';
 
 export const UserSchema = new Schema(
   {
