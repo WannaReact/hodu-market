@@ -1,54 +1,46 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { Editor } from '@tinymce/tinymce-react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import ImgSlide from 'src/components/AddProduct/ImgSlide';
-import EditorModal from 'src/components/AddProduct/EditorModal';
+
 import {
   SelectContainer,
   SelectButton,
   SelectBox,
   SelectList
 } from 'src/components/SelectBox';
+import api from '@utils/api';
 import SellerLayout from 'src/components/layouts/SellerLayout';
-import Link from 'next/link';
-import Image from 'next/image';
-import plusIcon from 'public/images/icon-plus.png';
-import * as Styled from './styled';
+import { CATEGORY_ENUM } from 'lib/mongoose/models/constants';
 import { TextInputBox } from '../../components/Inputs';
 import { Buttons } from '../../components';
 
-function Header() {
-  return (
-    <Styled.Header>
-      <h1>대시보드</h1>
-      <Link href="/addproduct" passHref>
-        <a>
-          <Buttons.Custom
-            width={22}
-            height={6.8}
-            fontSize={2.4}
-            color="green"
-            disabled={false}
-          >
-            <Image src={plusIcon} width={32} height={32} />
-            상품 업로드
-          </Buttons.Custom>
-        </a>
-      </Link>
-    </Styled.Header>
-  );
+interface FormInp {
+  title: string;
+  price: number;
+  sale: number;
+  deliveryPrice: number;
+  stock: number;
 }
 
 function AddproductPage() {
   const [text, setText] = useState('');
-  const [isModal, setIsModal] = useState(false);
   // const [modalImg, setModalImg] = useState<string[]>([]);
   const [isSelect, setIsSelect] = useState(false);
   const [contentSelect, setContentSelect] = useState('카테고리 등록');
   const router = useRouter();
   const menu = router.pathname;
-  const arr: string[] = ['헤이', '하이', '바이', '나도'];
+
+  const { register, handleSubmit } = useForm<FormInp>({
+    mode: 'onChange'
+  });
+
+  const selectCategory = (item: string) => {
+    setContentSelect(item);
+    setIsSelect((prev) => !prev);
+  };
 
   const addModalImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectImglength = event.target.files;
@@ -56,71 +48,111 @@ function AddproductPage() {
       for (let i = 0; i < selectImglength?.length; i += 1) {
         if (event.target.files && event.target.files[0]) {
           const imgUrl = URL.createObjectURL(selectImglength[i]);
-          setText((prev) => `${prev}<img src="${imgUrl}"  />`);
-          setIsModal(false);
+          setText(
+            (prev) => `${prev}<img src="${imgUrl}"  style="width:100%"/>`
+          );
         }
       }
     }
   };
+  const inpEditor = useRef<HTMLInputElement>(null);
 
-  // const selectIMG = ($dom: any) => {
-  //   const $imgBox = document.createElement('div');
-  //   $imgBox.style.width = '60px';
-  //   $imgBox.style.height = '60px';
-  //   $imgBox.style.backgroundImage = 'images/img-button.png';
-  //   $imgBox.style.backgroundRepeat = 'no-repeat';
 
-  //   $dom.appendChild($imgBox);
-  // };
+  const handle: SubmitHandler<FormInp> = async (data) => {
+    console.log(data);
+    const POSTDATA = await api.post('/product', {
+      productName: data.title,
+      price: data.price,
+      discount: data.sale,
+      stock: data.stock
+    });
+    console.log(POSTDATA);
+  };
+  console.log(text);
+  console.log(handleSubmit);
 
   return (
     <SellerLayout menu={menu} header={<Header />}>
       <p>상품 이미지</p>
       <main>
-        <ViewBox>
-          <ImgSlide />
-          <InputBox>
-            <SelectButton
-              labelName="안녕"
-              contentSelect={contentSelect}
-              onClick={() => setIsSelect((prev) => !prev)}
-            />
-            <SelectContainer>
-              <SelectBox isSelect={isSelect}>
-                {arr.map((item) => {
-                  return (
-                    <SelectList
-                      key={item}
-                      onClick={() => setContentSelect(item)}
-                    >
-                      {item}
-                    </SelectList>
-                  );
-                })}
-              </SelectBox>
-            </SelectContainer>
-            <TextInputBox labelName="카테고리" maxLength={20} />
-            <TextInputBox labelName="상품명" maxLength={20} option="limit" />
-            <TextInputBox labelName="판매가" />
-            <TextInputBox labelName="할인가" />
-            <Buttons.Custom
-              width={22}
-              height={5}
-              fontSize={2.4}
-              color="green"
-              disabled={false}
-            >
-              배송,소포,등기
-            </Buttons.Custom>
-          </InputBox>
-        </ViewBox>
+        <form onSubmit={handleSubmit(handle)}>
+          <ViewBox>
+            <ImgSlide />
+            <InputBox>
+              <TextInputBox
+                labelName="상품명"
+                maxLength={20}
+                hook={{ ...register('title', { required: true }) }}
+              />
+              <SelectButton
+                labelName="카테고리"
+                contentSelect={contentSelect}
+                isSelect={isSelect}
+                onClick={() => setIsSelect((prev) => !prev)}
+              />
+              <SelectContainer>
+                <SelectBox isSelect={isSelect}>
+                  {CATEGORY_ENUM.map((item) => {
+                    return (
+                      <SelectList
+                        key={item}
+                        onClick={() => selectCategory(item)}
+                      >
+                        {item}
+                      </SelectList>
+                    );
+                  })}
+                </SelectBox>
+              </SelectContainer>
+              <InputFlexBox>
+                <TextInputBox
+                  labelName="판매가"
+                  option="unit"
+                  unit="원"
+                  hook={{ ...register('price', { required: true }) }}
+                />
+                <TextInputBox
+                  labelName="할인가"
+                  option="unit"
+                  unit="원"
+                  hook={{ ...register('stock', { required: true }) }}
+                />
+              </InputFlexBox>
+
+              <Buttons.Custom
+                width={22}
+                height={5}
+                fontSize={2.4}
+                color="green"
+                disabled={false}
+              >
+                배송,소포,등기
+              </Buttons.Custom>
+              <InputFlexBox>
+                <TextInputBox
+                  labelName="기본 배송비"
+                  option="unit"
+                  unit="원"
+                  hook={{ ...register('deliveryPrice', { required: true }) }}
+                />
+                <TextInputBox
+                  labelName="재고"
+                  option="unit"
+                  unit="원"
+                  hook={{ ...register('sale', { required: true }) }}
+                />
+              </InputFlexBox>
+            </InputBox>
+          </ViewBox>
+          <button type="submit">클릭 제출</button>
+        </form>
         <Editor
           apiKey="velrv8dvpig61i0ewv03ljv8jsy1rwysgrwh814cutgpmd6k"
           value={text}
           onEditorChange={setText}
           init={{
             language: 'ko',
-            height: 500,
+            height: 700,
             menubar: false,
             plugins: [
               'advlist autolink lists link image charmap print preview anchor',
@@ -136,22 +168,22 @@ function AddproductPage() {
               editor.ui.registry.addButton('add_image', {
                 text: '이미지추가',
                 onAction: () => {
-                  setIsModal(true);
+                  if (inpEditor.current) {
+                    inpEditor.current.click();
+                  }
                 }
               });
             }
           }}
         />
-        <EditorModal isModal={isModal} setIsModal={setIsModal}>
-          <ImageLabel htmlFor="modalImg">상품추가</ImageLabel>
-          <ImageInput
-            type="file"
-            id="modalImg"
-            multiple
-            accept="image/*"
-            onChange={addModalImg}
-          />
-        </EditorModal>
+
+        <ImageInput
+          type="file"
+          multiple
+          accept="image/*"
+          onChange={addModalImg}
+          ref={inpEditor}
+        />
       </main>
     </SellerLayout>
   );
@@ -159,21 +191,27 @@ function AddproductPage() {
 
 const ViewBox = styled.div`
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 `;
 
 const InputBox = styled.div`
   flex-basis: 70%;
-  margin-left: 40px;
-  & input {
-    margin-bottom: 10px;
+  margin-left: 4rem;
+  & input,
+  div {
+    margin-bottom: 1rem;
+  }
+  & > button {
+    margin-bottom: 1rem;
   }
 `;
 
-const ImageLabel = styled.label`
-  display: block;
-  background-color: white;
-  margin: 5px 5px 0px;
+const InputFlexBox = styled.div`
+  display: flex;
+  & > div {
+    margin-right: 2rem;
+    flex-basis: 25%;
+  }
 `;
 
 const ImageInput = styled.input`
