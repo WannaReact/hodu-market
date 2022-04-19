@@ -12,8 +12,8 @@ import {
   SelectList
 } from 'src/components/SelectBox';
 import api from '@utils/api';
-import { CATEGORY_ENUM } from 'lib/mongoose/models/constants';
 import SellerLayout from 'src/components/layouts/SellerLayout';
+import { CATEGORY_ENUM } from 'lib/mongoose/models/constants';
 import { TextInputBox } from '../../components/Inputs';
 import { Buttons } from '../../components';
 
@@ -190,25 +190,25 @@ function AddproductPage() {
 
 const ViewBox = styled.div`
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 `;
 
 const InputBox = styled.div`
   flex-basis: 70%;
-  margin-left: 40px;
+  margin-left: 4rem;
   & input,
   div {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
   & > button {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 `;
 
 const InputFlexBox = styled.div`
   display: flex;
   & > div {
-    margin-right: 20px;
+    margin-right: 2rem;
     flex-basis: 25%;
   }
 `;

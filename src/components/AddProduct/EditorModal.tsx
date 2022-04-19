@@ -50,11 +50,11 @@ const ModalBox = styled.div<ModalCss>`
   top: 50%;
   opacity: 1;
   background-color: white;
-  border: 3px solid black;
-  border-radius: 20px;
+  border: 0.3rem solid black;
+  border-radius: 2rem;
   transform: translate(-50%);
-  width: 300px;
-  height: 200px;
+  width: 30rem;
+  height: 20rem;
 `;
 
 export default EditorModal;
