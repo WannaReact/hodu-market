@@ -1,19 +1,12 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
+import { IReview } from '@shared/types';
 import { ReviewItem } from '../ReviewItem';
 import { Pagination } from '../Pagination';
 import * as Styled from './styled';
 
 interface IReviewListProps {
-  reviews: {
-    reviewId: number;
-    author: string;
-    authorImg: string;
-    rating: number;
-    date: string;
-    content: string;
-    reviewImg: string;
-  }[];
+  reviews: IReview[];
 }
 
 export function ReviewList({ reviews }: IReviewListProps) {
@@ -30,12 +23,14 @@ export function ReviewList({ reviews }: IReviewListProps) {
           ))}
         </ul>
       </Styled.ReviewList>
-      <Pagination
-        totalItemCount={reviews.length}
-        itemsPerPage={itemsPerPage}
-        pageNum={pageNum}
-        setPageNum={setPageNum}
-      />
+      {reviews.length > itemsPerPage && (
+        <Pagination
+          totalItemCount={reviews.length}
+          itemsPerPage={itemsPerPage}
+          pageNum={pageNum}
+          setPageNum={setPageNum}
+        />
+      )}
     </>
   );
 }
