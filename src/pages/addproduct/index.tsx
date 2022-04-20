@@ -239,9 +239,10 @@ const ImageInput = styled.input`
 const SelectedCategory = styled.p`
   display: inline-block;
   position: relative;
-  border: 1px solid #444;
+  border: 1px solid #aaa;
   border-radius: 40px;
   padding: 10px 20px 10px 10px;
+  color: #aaa;
   & + & {
     margin-left: 10px;
   }
@@ -250,6 +251,10 @@ const SelectedCategory = styled.p`
     content: 'x';
     position: absolute;
     right: 10px;
+  }
+  &:hover {
+    color: black;
+    border-color: black;
   }
 `;
 
