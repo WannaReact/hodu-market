@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import Product from 'src/components/Table/Product';
 import MenuPageLayout from 'src/layouts/MenuPageLayout';
+import AddproductPage from 'src/components/AddProduct/AddProduct';
+import Header from 'src/components/AddProduct/Header';
 
 const menuText = {
   sale: '판매중인 상품',
@@ -180,10 +182,10 @@ function SellerPage() {
     <MenuPageLayout
       menu={menu}
       menuText={menuText}
-      header={<h1>대시보드</h1>}
+      header={<Header />}
       thead={(thead as { [key: string]: any })[menu as string]}
     >
-      {rows}
+      {menu === 'addProduct' ? <AddproductPage /> : rows}
     </MenuPageLayout>
   );
 }
