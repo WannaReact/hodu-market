@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { COLOR } from '../../../shared/constants';
 
 export const Container = styled.main`
-  padding-top: 12rem;
   width: 128rem;
+  padding-top: 12rem;
+  margin: 0 auto;
 `;
 
 export const ProductHeader = styled.section`
@@ -34,12 +35,26 @@ export const ProductTitle = styled.h2`
 export const ProductPrice = styled.div`
   font-size: 1.8rem;
   font-weight: 400;
-  span {
-    font-size: 3.6rem;
-    font-weight: 700;
-  }
 `;
 
+export const OriginalPrice = styled.span`
+  font-size: 1.8rem;
+  color: ${COLOR.greyC4};
+  text-decoration: line-through;
+  margin-left: 1rem;
+`;
+
+export const DiscountRate = styled.span`
+  font-size: 3.6rem;
+  font-weight: 700;
+  color: ${COLOR.accentColor};
+  margin-left: 1rem;
+`;
+
+export const FinalPrice = styled.span`
+  font-size: 3.6rem;
+  font-weight: 700;
+`;
 export const Shipment = styled.span`
   display: block;
   font-size: 1.6rem;
@@ -48,17 +63,12 @@ export const Shipment = styled.span`
   margin-bottom: 1.8rem;
 `;
 
-export const ButtonsWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 export const ProductBody = styled.section``;
 
 export const TabSection = styled.section`
   min-height: 100rem;
   position: relative;
-  padding-top: 6rem;
+  padding-top: 16rem;
   margin-bottom: 8rem;
 `;
 

@@ -1,34 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import api from '@utils/api';
+import { dateConverter } from '@utils/dateConverter';
+import { IReview, IUser } from '@shared/types';
 import ImageWrapper from '@utils/ImageWrapper';
+import authorImg from 'public/images/product-img-small-1.png';
+import reviewImg from 'public/images/product-img-lg.png';
 import StarRating from '../StarRating';
 import { CommentList } from '../CommentList';
 import * as Styled from './styled';
 
-interface IReviewItemProps {
-  reviewId: number;
-  author: string;
-  authorImg: string;
-  rating: number;
-  date: string;
-  content: string;
-  reviewImg: string;
-}
-
 export function ReviewItem({
-  reviewId,
-  author,
-  authorImg,
+  _id,
+  userId,
   rating,
-  date,
   content,
-  reviewImg
-}: IReviewItemProps) {
+  // images,
+  comments,
+  createdAt
+}: IReview) {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [authorData, setAuthorData] = useState<IUser>();
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
+
+  const getUser = async () => {
+    const { data } = await api.get(`/user/${userId}`);
+    setAuthorData(data);
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <Styled.ReviewContainer>
@@ -40,8 +44,8 @@ export function ReviewItem({
           <Styled.RatingWrapper>
             <StarRating rating={rating} readOnly />
           </Styled.RatingWrapper>
-          <Styled.Author>{author}</Styled.Author>
-          <Styled.Date>{date}</Styled.Date>
+          <Styled.Author>{authorData?.userName}</Styled.Author>
+          <Styled.Date>{dateConverter(createdAt)}</Styled.Date>
         </div>
       </Styled.ReviewInfo>
       <Styled.ReviewContent isOpen={isOpen}>
@@ -51,7 +55,7 @@ export function ReviewItem({
             <ImageWrapper width="40rem" height="40rem">
               <Image src={reviewImg} layout="fill" />
             </ImageWrapper>
-            <CommentList reviewId={reviewId} />
+            {comments.length > 0 && <CommentList reviewId={_id} />}
           </>
         )}
         <Styled.ExpansionButton onClick={handleClick} isOpen={isOpen}>
