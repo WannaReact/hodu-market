@@ -1,46 +1,37 @@
-import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
 import Image from 'next/image';
+import { nanoid } from 'nanoid';
+import { useState, useEffect } from 'react';
+import api from '@utils/api';
 import ImageWrapper from '@utils/ImageWrapper';
+import { IComment } from '@shared/types';
 import { CommentItem } from '../CommentItem';
 import * as Buttons from '../Buttons';
 import { Pagination } from '../Pagination';
-import dummyCommentData from './dummyCommentsData.json';
+// import dummyCommentData from './dummyCommentsData.json';
 import * as Styled from './styled';
 
 interface ICommentListProps {
-  reviewId: number;
-}
-
-interface ICommentsData {
-  reviewId: number;
-  comments:
-    | {
-        commentId: number;
-        author: string;
-        authorImg: string;
-        content: string;
-        date: string;
-      }[]
-    | undefined;
+  reviewId: string;
 }
 
 export function CommentList({ reviewId }: ICommentListProps) {
+  console.log(reviewId);
   const itemsPerPage = 5;
   const [pageNum, setPageNum] = useState(1);
   const offset = (pageNum - 1) * itemsPerPage;
   const [isLoading, setIsLoading] = useState(true);
-  const [commentsData, setCommentsData] = useState<
-    ICommentsData['comments'] | undefined
-  >();
+  const [commentsData, setCommentsData] = useState<IComment[]>();
+
+  const getData = async () => {
+    const data = await api.get(`/comment/${reviewId}`);
+    console.log('comment', data);
+    setCommentsData(data);
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    const data = dummyCommentData.find((elem: { reviewId: number }) => {
-      return elem.reviewId === reviewId;
-    });
-    setCommentsData(data?.comments);
-    setIsLoading(false);
-  }, [reviewId]);
+    getData();
+  }, []);
 
   return (
     <Styled.CommentSection>
