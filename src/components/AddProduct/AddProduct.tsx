@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Editor } from '@tinymce/tinymce-react';
+import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 import ImgSlide from 'src/components/AddProduct/ImgSlide';
 import {
@@ -61,8 +62,6 @@ function AddproductPage() {
   const inpEditor = useRef<HTMLInputElement>(null);
 
   const handle: SubmitHandler<FormInp> = async (data) => {
-    console.log(data);
-
     const POSTDATA = await api.post('/product', {
       productName: data.title,
       price: Number(data.price),
@@ -73,7 +72,6 @@ function AddproductPage() {
     console.log(POSTDATA);
   };
 
-  console.log(selectedCategory);
   return (
     <main>
       <form onSubmit={handleSubmit(handle)}>
@@ -103,9 +101,9 @@ function AddproductPage() {
                 })}
               </SelectBox>
             </SelectContainer>
-            {selectedCategory?.map((item: any, index: number) => {
+            {selectedCategory?.map((item: any) => {
               return (
-                <SelectedCategory key={index}>
+                <SelectedCategory key={nanoid()}>
                   {item}
                   <RemoveCategory onClick={() => removeCategory(item)}>
                     x

@@ -170,7 +170,6 @@ function SellerPage() {
   const { menu: query } = router.query;
   const [menu, setMenu] = useState('sale');
   const [rows, setRows] = useState(null);
-  console.log(menu);
 
   useEffect(() => {
     setMenu(query as string);
