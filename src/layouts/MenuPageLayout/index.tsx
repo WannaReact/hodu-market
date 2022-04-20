@@ -8,7 +8,7 @@ interface ChildProps {
   menu: string | string[] | undefined;
   menuText: { [key: string]: string };
   header: React.ReactNode;
-  thead: [string, number][];
+  thead?: [string, number][];
   children:
     | {
         tableData: Array<Array<string | number | React.ReactNode>>;
@@ -22,7 +22,7 @@ function MenuPageLayout({
   menu,
   menuText,
   header,
-  thead,
+  thead = [],
   children
 }: ChildProps) {
   return (
@@ -43,5 +43,9 @@ function MenuPageLayout({
     </DefaultContainer>
   );
 }
+
+MenuPageLayout.defaultProps = {
+  thead: []
+};
 
 export default MenuPageLayout;
