@@ -83,3 +83,30 @@ export const TotalPrice = styled.span`
     font-weight: 700;
   }
 `;
+
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+`;
+
+export const Tooltip = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 7rem;
+  right: 0;
+  width: 20rem;
+  padding: 1rem 0.5rem 0;
+  border: 1px solid ${COLOR.greyC4};
+  border-radius: 0.5rem;
+  background-color: ${COLOR.white};
+  p {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  button {
+    margin-bottom: 1rem;
+  }
+`;
