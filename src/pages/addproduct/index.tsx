@@ -51,7 +51,7 @@ function AddproductPage() {
   const chooseCategory = (item: string) => {
     setContentSelect(item);
     setIsSelect((prev) => !prev);
-    if (!selectedCategory.includes(item)) {
+    if (!selectedCategory.includes(item) && selectedCategory.length < 5) {
       setSelectedCategory((prev) => [...prev, item]);
     }
   };
@@ -93,6 +93,7 @@ function AddproductPage() {
     <MenuPageLayout menu={menu} header={<Header />} menuText={menuText}>
       <main>
         <form onSubmit={handleSubmit(handle)}>
+          <p>이미지 등록</p>
           <ViewBox>
             <ImgSlide />
             <InputBox>
