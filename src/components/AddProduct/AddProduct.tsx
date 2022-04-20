@@ -160,7 +160,6 @@ function AddproductPage() {
         value={text}
         onEditorChange={setText}
         init={{
-          language: 'ko',
           height: 700,
           menubar: false,
           plugins: [
