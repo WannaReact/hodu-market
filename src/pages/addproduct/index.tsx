@@ -48,10 +48,16 @@ function AddproductPage() {
     mode: 'onChange'
   });
 
-  const selectCategory = (item: string) => {
+  const chooseCategory = (item: string) => {
     setContentSelect(item);
     setIsSelect((prev) => !prev);
-    setSelectedCategory((prev) => [...prev, item]);
+    if (!selectedCategory.includes(item)) {
+      setSelectedCategory((prev) => [...prev, item]);
+    }
+  };
+
+  const removeCategory = (item: string) => {
+    setSelectedCategory(selectedCategory.filter((i) => i !== item));
   };
 
   const addModalImg = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,17 +77,18 @@ function AddproductPage() {
 
   const handle: SubmitHandler<FormInp> = async (data) => {
     console.log(data);
+
     const POSTDATA = await api.post('/product', {
       productName: data.title,
-      price: data.price,
-      discount: data.sale,
-      stock: data.stock
+      price: Number(data.price),
+      discountRate: data.sale,
+      stock: Number(data.stock),
+      description: '안녕하세요'
     });
     console.log(POSTDATA);
   };
-  console.log(text);
-  console.log(handleSubmit);
 
+  console.log(selectedCategory);
   return (
     <MenuPageLayout menu={menu} header={<Header />} menuText={menuText}>
       <main>
@@ -106,7 +113,7 @@ function AddproductPage() {
                     return (
                       <SelectList
                         key={item}
-                        onClick={() => selectCategory(item)}
+                        onClick={() => chooseCategory(item)}
                       >
                         {item}
                       </SelectList>
@@ -114,8 +121,15 @@ function AddproductPage() {
                   })}
                 </SelectBox>
               </SelectContainer>
-              {selectedCategory?.map((item: any) => {
-                return <SelectedCategory>{item}</SelectedCategory>;
+              {selectedCategory?.map((item: any, index: number) => {
+                return (
+                  <SelectedCategory key={index}>
+                    {item}
+                    <RemoveCategory onClick={() => removeCategory(item)}>
+                      x
+                    </RemoveCategory>
+                  </SelectedCategory>
+                );
               })}
               <InputFlexBox>
                 <TextInputBox
@@ -247,15 +261,17 @@ const SelectedCategory = styled.p`
     margin-left: 10px;
   }
   margin-bottom: 10px;
-  &::after {
-    content: 'x';
-    position: absolute;
-    right: 10px;
-  }
+
   &:hover {
     color: black;
     border-color: black;
   }
+`;
+
+const RemoveCategory = styled.span`
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
 `;
 
 export default AddproductPage;
