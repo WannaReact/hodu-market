@@ -1,7 +1,7 @@
 import { COLOR } from '@shared/constants';
 import styled from 'styled-components';
 
-export const Question = styled.li`
+export const Inquiry = styled.li`
   display: grid;
   grid-template-columns: 1fr 7fr 1fr 1fr;
   gap: 1rem;
@@ -12,11 +12,14 @@ export const Question = styled.li`
   border-bottom: 1px solid ${COLOR.greyC4};
 `;
 
-export const QuestionContent = styled.p<{ isOpen: boolean }>`
+export const InquiryContent = styled.p<{
+  isOpen: boolean;
+  isAnswered: boolean;
+}>`
   text-align: start;
-  cursor: pointer;
-  ${(props) =>
-    props.isOpen
+  ${({ isAnswered }) => isAnswered && `cursor: pointer;`}
+  ${({ isOpen }) =>
+    isOpen
       ? undefined
       : `overflow: hidden;
     white-space: nowrap;
