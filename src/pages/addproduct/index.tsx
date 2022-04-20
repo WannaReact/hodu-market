@@ -19,6 +19,7 @@ import { Buttons } from '../../components';
 
 const menuText = {
   sale: '판매중인 상품',
+  addProduct: '상품 업로드',
   order: '주문',
   tracking: '배송',
   claim: '취소/교환/환불',
@@ -39,6 +40,7 @@ function AddproductPage() {
   // const [modalImg, setModalImg] = useState<string[]>([]);
   const [isSelect, setIsSelect] = useState(false);
   const [contentSelect, setContentSelect] = useState('카테고리 등록');
+  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const router = useRouter();
   const menu = router.pathname;
 
@@ -49,6 +51,7 @@ function AddproductPage() {
   const selectCategory = (item: string) => {
     setContentSelect(item);
     setIsSelect((prev) => !prev);
+    setSelectedCategory((prev) => [...prev, item]);
   };
 
   const addModalImg = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,6 +114,9 @@ function AddproductPage() {
                   })}
                 </SelectBox>
               </SelectContainer>
+              {selectedCategory?.map((item: any) => {
+                return <SelectedCategory>{item}</SelectedCategory>;
+              })}
               <InputFlexBox>
                 <TextInputBox
                   labelName="판매가"
@@ -228,6 +234,23 @@ const ImageInput = styled.input`
   height: 1px;
   margin: -1px;
   overflow: hidden;
+`;
+
+const SelectedCategory = styled.p`
+  display: inline-block;
+  position: relative;
+  border: 1px solid #444;
+  border-radius: 40px;
+  padding: 10px 20px 10px 10px;
+  & + & {
+    margin-left: 10px;
+  }
+  margin-bottom: 10px;
+  &::after {
+    content: 'x';
+    position: absolute;
+    right: 10px;
+  }
 `;
 
 export default AddproductPage;

@@ -6,6 +6,7 @@ import MenuPageLayout from 'src/layouts/MenuPageLayout';
 
 const menuText = {
   sale: '판매중인 상품',
+  addProduct: '상품 업로드',
   order: '주문',
   tracking: '배송',
   claim: '취소/교환/환불',
@@ -167,6 +168,7 @@ function SellerPage() {
   const { menu: query } = router.query;
   const [menu, setMenu] = useState('sale');
   const [rows, setRows] = useState(null);
+  console.log(menu);
 
   useEffect(() => {
     setMenu(query as string);
