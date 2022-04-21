@@ -2,16 +2,31 @@ import React from 'react';
 import DefaultContainerPage from 'src/components/common/DefaultContainer';
 import styled from 'styled-components';
 import { Buttons } from '@components';
+import CartItem from 'src/components/Cart/CartItem';
 
 interface BarProps {
   flex: number;
 }
 
-interface ItemProps {
-  flex: number;
-  center?: boolean;
-  columnDirection?: boolean;
+export interface CartData {
+  img: string;
+  category: string;
+  title: string;
+  price: number;
+  delivery: string;
 }
+
+const data = {
+  tableData: [
+    {
+      img: 'https://itec.snu.ac.kr/msc/default.png',
+      category: '백엔드글로벌',
+      title: '딥러닝 개발자 무릎 담요',
+      price: 27500,
+      delivery: '무료배송'
+    }
+  ]
+};
 
 function CartPage() {
   const orderSubmit = () => {
@@ -29,40 +44,9 @@ function CartPage() {
         <TextBar flex={15}>수량</TextBar>
         <TextBar flex={25}>상품금액</TextBar>
       </SectionBar>
-
-      <SectionItem>
-        <ContainerCheckBox>
-          <ContainerCheck />
-        </ContainerCheckBox>
-        <ContainerItem flex={55}>
-          <ImgItem />
-          <ContainerText>
-            <TextCategory>백엔드글로벌</TextCategory>
-            <p>딥러닝 개발자 무릎 담요</p>
-            <TextItemPrice>27500원</TextItemPrice>
-            <TextDelivery>택배배송 / 무료배송</TextDelivery>
-          </ContainerText>
-        </ContainerItem>
-        <ContainerItem flex={15} center>
-          <BtnControl>-</BtnControl>
-          <BtnCount disabled>1</BtnCount>
-          <BtnControl>+</BtnControl>
-        </ContainerItem>
-        <ContainerItem flex={25} center columnDirection>
-          <TextFinalItemPrice>17,500원</TextFinalItemPrice>
-          <Buttons.Custom
-            width={18}
-            height={4}
-            fontSize={1.9}
-            color="green"
-            disabled={false}
-            onClick={orderSubmit}
-          >
-            주문하기
-          </Buttons.Custom>
-        </ContainerItem>
-        <AreaDelete />
-      </SectionItem>
+      {data.tableData.map((item: CartData) => {
+        return <CartItem cartData={item} key={`cart-data-${item.title}`} />;
+      })}
 
       <SectionPrice>
         <ContainerTextBox>
@@ -131,92 +115,6 @@ const ContainerCheck = styled.div`
 const TextBar = styled.p<BarProps>`
   font-size: 18px;
   flex-basis: ${(props) => props.flex}%;
-`;
-
-const SectionItem = styled.section`
-  display: flex;
-  position: relative;
-  align-items: center;
-  padding: 22px 0px;
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-`;
-
-const ContainerItem = styled.div<ItemProps>`
-  font-size: 18px;
-  flex-basis: ${(props) => props.flex}%;
-  display: flex;
-  ${(props) => props.center && 'justify-content : center'};
-  ${(props) =>
-    props.columnDirection && 'flex-direction:column; align-items: center'};
-`;
-
-const ImgItem = styled.img`
-  display: block;
-  width: 160px;
-  height: 160px;
-  background-color: pink;
-  border-radius: 10px;
-`;
-
-const ContainerText = styled.div`
-  margin-left: 36px;
-`;
-
-const TextCategory = styled.em`
-  font-size: 14px;
-  color: #767676;
-`;
-
-const TextItemPrice = styled.p`
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-const TextDelivery = styled.em`
-  font-size: 14px;
-  color: #767676;
-`;
-
-const BtnControl = styled.button`
-  width: 50px;
-  height: 50px;
-  border: 1px solid #c4c4c4;
-  color: black;
-  &:first-of-type {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-  }
-  &:last-of-type {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-`;
-
-const BtnCount = styled.button`
-  width: 50px;
-  height: 50px;
-  border-top: 1px solid #c4c4c4;
-  border-bottom: 1px solid #c4c4c4;
-  color: black;
-`;
-
-const TextFinalItemPrice = styled.p`
-  margin-bottom: 18px;
-  font-size: 18px;
-  font-weight: bold;
-  color: red;
-`;
-
-const AreaDelete = styled.span`
-  display: inline-block;
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 22px;
-  height: 22px;
-  background: url(images/icon-delete.png) no-repeat;
-  background-size: 100%;
 `;
 
 const SectionPrice = styled.section`
