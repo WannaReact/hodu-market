@@ -26,10 +26,7 @@ export const ORDER_STATUS_ENUM = [
   '발송대기',
   '배송중',
   '배송완료',
-  '구매확정',
-  '취소요청',
-  '반품요청',
-  '교환요청'
+  '구매확정'
 ];
 export const COURIER_ENUM = [
   'CJ대한통운',

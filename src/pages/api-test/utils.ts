@@ -245,6 +245,36 @@ export const apiList = [
         button: '상품ID로 특정 상품 정보 삭제하기',
         param: ['상품ID', 'id']
       }
+    ],
+    nested: [
+      {
+        url: '/review',
+        api: [
+          {
+            method: 'get',
+            button: '상품ID로 상품에 대한 리뷰 정보 조회하기',
+            param: ['상품ID', 'id'],
+            query: [
+              ['page', '페이지'],
+              ['limit', '페이지당 목록 개수']
+            ]
+          }
+        ]
+      },
+      {
+        url: '/inquiry',
+        api: [
+          {
+            method: 'get',
+            button: '상품ID로 상품에 대한 문의 정보 조회하기',
+            param: ['상품ID', 'id'],
+            query: [
+              ['page', '페이지'],
+              ['limit', '페이지당 목록 개수']
+            ]
+          }
+        ]
+      }
     ]
   },
   {
