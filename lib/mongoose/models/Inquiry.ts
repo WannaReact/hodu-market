@@ -2,11 +2,12 @@ import mongoose, { Schema } from 'mongoose';
 
 export const InquirySchema = new Schema(
   {
-    productId: {
+    product: {
       type: Schema.Types.ObjectId,
+      ref: 'Product',
       required: [true, '상품ID가 입력되지 않았습니다.']
     },
-    userId: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: [true, '회원ID가 입력되지 않았습니다.']

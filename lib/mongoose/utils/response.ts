@@ -22,3 +22,14 @@ export const fail = (
 ) => {
   res.json({ success: false, message });
 };
+
+export const send = (
+  res: NextApiResponse<Response | Success>,
+  result: object | Array<object>
+) => {
+  if (result) {
+    success(res, result);
+  } else {
+    fail(res, result);
+  }
+};

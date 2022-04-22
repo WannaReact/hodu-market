@@ -1,31 +1,42 @@
 import mongoose from 'mongoose';
-import { success } from 'lib/mongoose/response';
-import createHandler from 'lib/mongoose/createHandler';
+import { send } from 'lib/mongoose/utils/response';
+import createHandler from 'lib/mongoose/utils/createHandler';
 
 const handler = createHandler();
-const { Product, User, Inquiry } = mongoose.models;
+const { Inquiry } = mongoose.models;
 
 handler.get(async (req, res) => {
-  const inquiries = await Inquiry.find({});
-  success(res, inquiries);
+  const {
+    locals: {
+      pagination: { skip, limit }
+    }
+  } = req;
+  const inquiries = await Inquiry.find({}, '-updatedAt')
+    .populate('product', 'productName option images')
+    .populate('user', 'nickname')
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit)
+    .lean()
+    .exec();
+  send(res, inquiries);
 });
 
 handler.post(async (req, res) => {
   const {
-    body: { productId, userId, content, answer }
+    body: { product, user, content }
   } = req;
-  const inquiry = await new Inquiry({
-    productId,
-    userId,
-    content,
-    answer
+  const { _id } = await new Inquiry({
+    product,
+    user,
+    content
   }).save();
-  const { _id } = inquiry;
-  await Promise.all([
-    Product.findByIdAndUpdate(productId, { $push: { inquiries: _id } }),
-    User.findByIdAndUpdate(userId, { $push: { inquiries: _id } })
-  ]);
-  success(res, inquiry);
+  const inquiry = await Inquiry.findById(_id, '-updatedAt')
+    .populate('product', 'productName option images')
+    .populate('user', 'nickname')
+    .lean()
+    .exec();
+  send(res, inquiry);
 });
 
 export default handler;

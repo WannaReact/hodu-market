@@ -1,18 +1,22 @@
 import mongoose from 'mongoose';
-import { success } from 'lib/mongoose/response';
-import createHandler from 'lib/mongoose/createHandler';
+import { send } from 'lib/mongoose/utils/response';
+import createHandler from 'lib/mongoose/utils/createHandler';
 
 const handler = createHandler();
-const { User, Order } = mongoose.models;
+const { Order } = mongoose.models;
 
 handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const {
-    _doc: { productId: product, userId: user, ...others }
-  } = await Order.findById(id).populate('productId').populate('userId');
-  success(res, { product, user, ...others });
+  const order = await Order.findById(
+    id,
+    'orderNumber status user courier invoice addressee createdAt'
+  )
+    .populate('user', 'userName')
+    .lean()
+    .exec();
+  send(res, order);
 });
 
 handler.put(async (req, res) => {
@@ -20,18 +24,32 @@ handler.put(async (req, res) => {
     body: { status, courier, invoice },
     query: { id }
   } = req;
-  const order = await Order.findByIdAndUpdate(id, { status, courier, invoice });
-  success(res, order);
+  const order = await Order.findByIdAndUpdate(
+    id,
+    {
+      status,
+      courier,
+      invoice
+    },
+    { new: true }
+  )
+    .select('orderNumber status user courier invoice addressee createdAt')
+    .populate('user', 'userName')
+    .lean()
+    .exec();
+  send(res, order);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const order = await Order.findByIdAndDelete(id);
-  const { userId } = order;
-  await User.findByIdAndUpdate(userId, { $pull: { orders: id } });
-  success(res, order);
+  const order = await Order.findByIdAndDelete(id)
+    .select('orderNumber status user courier invoice addressee createdAt')
+    .populate('user', 'userName')
+    .lean()
+    .exec();
+  send(res, order);
 });
 
 export default handler;
