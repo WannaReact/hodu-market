@@ -1,69 +1,56 @@
 import mongoose from 'mongoose';
-import { success } from 'lib/mongoose/response';
+import { send } from 'lib/mongoose/response';
 import createHandler from 'lib/mongoose/createHandler';
 
 const handler = createHandler();
-const { User, Review, Product, Comment } = mongoose.models;
+const { Review } = mongoose.models;
 
 handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const {
-    _doc: { userId: user, comments, ...others }
-  } = await Review.findById(id)
-    .populate('userId')
-    .populate('comments')
-    .populate({
-      path: 'comments',
-      populate: {
-        path: 'userId',
-        model: 'User'
-      }
-    });
-  success(res, {
-    user,
-    comments: comments.map(
-      ({
-        _doc: { userId: commentUser, ...commentOthers }
-      }: {
-        _doc: { userId: string };
-      }) => ({
-        user: commentUser,
-        ...commentOthers
-      })
-    ),
-    ...others
-  });
+  const review = await Review.findById(id, '-updatedAt')
+    .populate('product', 'productName option images')
+    .populate('user', 'nickname')
+    .lean()
+    .exec();
+  send(res, review);
 });
 
 handler.put(async (req, res) => {
   const {
-    body: { rating, content, images },
-    query: { id }
+    query: { id },
+    body: { rating, content, images }
   } = req;
-  const review = await Review.findByIdAndUpdate(id, {
-    rating,
-    content,
-    images
-  });
-  success(res, review);
+  const review = await Review.findByIdAndUpdate(
+    id,
+    {
+      rating,
+      content,
+      images
+    },
+    {
+      new: true,
+      select: 'rating content images'
+    }
+  )
+    .lean()
+    .exec();
+  send(res, review);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const review = await Review.findByIdAndDelete(id);
-  const { productId, userId, comments } = review;
-  await Promise.all([
-    ...comments.map((commentId: String) =>
-      Comment.findByIdAndDelete(commentId)
-    ),
-    Product.findByIdAndUpdate(productId, { $pull: { reviews: id } }),
-    User.findByIdAndUpdate(userId, { $pull: { reviews: id } })
-  ]);
-  success(res, review);
+  const review = await Review.findByIdAndDelete(id, {
+    select: '-updatedAt'
+  })
+    .populate('product', 'productName option images')
+    .populate('user', 'nickname')
+    .lean()
+    .exec();
+  send(res, review);
 });
 
 export default handler;

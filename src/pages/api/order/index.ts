@@ -1,38 +1,52 @@
 import mongoose from 'mongoose';
-import { fail, success } from 'lib/mongoose/response';
+import { send } from 'lib/mongoose/response';
 import createHandler from 'lib/mongoose/createHandler';
 import orderNumGen from 'lib/mongoose/orderNumGen';
+import pagination from 'lib/mongoose/pagination';
 
-const handler = createHandler();
-const { User, Product, Order } = mongoose.models;
+const handler = createHandler(pagination);
+const { Order } = mongoose.models;
 
 handler.get(async (req, res) => {
-  const orders = await Order.find({});
-  success(res, orders);
+  const {
+    locals: {
+      pagination: { skip, limit }
+    }
+  } = req;
+  const orders = await Order.find(
+    {},
+    'orderNumber status user courier invoice addressee createdAt'
+  )
+    .populate('user', 'userName')
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit)
+    .lean()
+    .exec();
+  send(res, orders);
 });
 
 handler.post(async (req, res) => {
   const {
-    body: { productId, userId, count, cost, courier, addressee }
+    body: { product, user, count, cost, addressee }
   } = req;
-  const doesIdExist = await Product.exists({ _id: productId });
-  if (doesIdExist) {
-    const order = await new Order({
-      orderNumber: orderNumGen(),
-      status: '결제완료',
-      productId,
-      userId,
-      count,
-      cost,
-      courier,
-      addressee
-    }).save();
-    const { _id } = order;
-    await User.findByIdAndUpdate(userId, { $push: { options: _id } });
-    success(res, order);
-  } else {
-    fail(res, '상품ID가 유효하지 않습니다.');
-  }
+  const orderNumber = orderNumGen();
+  await new Order({
+    orderNumber,
+    status: '결제완료',
+    product,
+    user,
+    count,
+    cost,
+    addressee
+  }).save();
+  const order = await Order.findOne(
+    { orderNumber },
+    '-courier -invoice -updatedAt'
+  )
+    .lean()
+    .exec();
+  send(res, order);
 });
 
 export default handler;

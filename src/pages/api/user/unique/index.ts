@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { success } from 'lib/mongoose/response';
+import { send } from 'lib/mongoose/response';
 import createHandler from 'lib/mongoose/createHandler';
 
 const handler = createHandler();
@@ -9,8 +9,8 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const isUnique = !(await User.exists({ userId: id }));
-  success(res, { isUnique });
+  const isUnique = !(await User.exists({ userId: id }).exec());
+  send(res, { isUnique });
 });
 
 export default handler;
