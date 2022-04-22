@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import { send } from 'lib/mongoose/response';
-import createHandler from 'lib/mongoose/createHandler';
+import { send } from 'lib/mongoose/utils/response';
+import createHandler from 'lib/mongoose/utils/createHandler';
 
 const handler = createHandler();
 const { User } = mongoose.models;

@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { NextHandler } from 'next-connect';
-import { UserSchema } from './models/User';
-import { CartItemSchema } from './models/CartItem';
-import { ReviewSchema } from './models/Review';
-import { ProductSchema } from './models/Product';
-import { CommentSchema } from './models/Comment';
-import { InquirySchema } from './models/Inquiry';
-import { OrderSchema } from './models/Order';
+import { UserSchema } from '../models/User';
+import { CartItemSchema } from '../models/CartItem';
+import { ReviewSchema } from '../models/Review';
+import { ProductSchema } from '../models/Product';
+import { CommentSchema } from '../models/Comment';
+import { InquirySchema } from '../models/Inquiry';
+import { OrderSchema } from '../models/Order';
 
 const { MONGODB_URI } = process.env;
 

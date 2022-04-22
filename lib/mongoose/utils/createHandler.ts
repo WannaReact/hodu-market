@@ -1,9 +1,9 @@
 import { NextApiResponse } from 'next';
 import nextConnect, { Middleware } from 'next-connect';
-import dbConnect from './dbConnect';
-import { PassedRequest } from './mongoose';
+import dbConnect from '../middlewares/dbConnect';
+import { PassedRequest } from '../mongoose';
 import { fail } from './response';
-import initLocals from './initLocals';
+import initLocals from '../middlewares/initLocals';
 
 export default (
   ...middleware: Middleware<PassedRequest, NextApiResponse>[]

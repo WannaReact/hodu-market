@@ -1,6 +1,6 @@
 import { NextApiResponse } from 'next';
 import { NextHandler } from 'next-connect';
-import { PassedRequest } from './mongoose';
+import { PassedRequest } from '../mongoose';
 
 export default (
   req: PassedRequest,
@@ -11,8 +11,7 @@ export default (
     pagination: {
       skip: 1,
       limit: 10
-    },
-    result: null
+    }
   };
   next();
 };

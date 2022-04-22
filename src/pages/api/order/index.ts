@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import { send } from 'lib/mongoose/response';
-import createHandler from 'lib/mongoose/createHandler';
-import orderNumGen from 'lib/mongoose/orderNumGen';
-import pagination from 'lib/mongoose/pagination';
+import { send } from 'lib/mongoose/utils/response';
+import createHandler from 'lib/mongoose/utils/createHandler';
+import orderNumGen from 'lib/mongoose/utils/orderNumGen';
+import pagination from 'lib/mongoose/middlewares/pagination';
 
 const handler = createHandler(pagination);
 const { Order } = mongoose.models;
