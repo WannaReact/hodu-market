@@ -7,40 +7,9 @@ const { Product } = mongoose.models;
 
 handler.get(async (req, res) => {
   const {
-    query: { id },
-    locals: {
-      pagination: { skip, limit }
-    }
+    query: { id }
   } = req;
-  const product = await Product.findById(id, '-updatedAt')
-    .populate({
-      path: 'reviews',
-      populate: {
-        path: 'user',
-        model: 'User',
-        select: 'nickname image'
-      },
-      select: '-product -updatedAt',
-      options: {
-        sort: { createdAt: -1 },
-        skip,
-        limit
-      }
-    })
-    .populate({
-      path: 'inquiries',
-      populate: {
-        path: 'user',
-        model: 'User',
-        select: 'nickname image'
-      },
-      select: '-product -updatedAt',
-      options: {
-        sort: { createdAt: -1 },
-        skip,
-        limit
-      }
-    })
+  const product = await Product.findById(id, '-reviews -inquiries -updatedAt')
     .lean()
     .exec();
   send(res, product);
@@ -74,7 +43,7 @@ handler.put(async (req, res) => {
       categories,
       description
     },
-    { new: true, select: '-updatedAt' }
+    { new: true, select: '-reviews -inquiries -updatedAt' }
   )
     .lean()
     .exec();
@@ -85,7 +54,9 @@ handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const product = await Product.findByIdAndDelete(id, { select: '-updatedAt' })
+  const product = await Product.findByIdAndDelete(id, {
+    select: '-reviews -inquiries -updatedAt'
+  })
     .lean()
     .exec();
   send(res, product);
