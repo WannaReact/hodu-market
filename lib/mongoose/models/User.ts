@@ -47,6 +47,11 @@ export const UserSchema = new Schema(
         '이메일 형식에 맞게 입력해야 합니다.'
       ]
     },
+    address: {
+      postalCode: Number,
+      address1: String,
+      address2: String
+    },
     image: {
       type: String,
       match: [IMAGE_MATCH, '이미지 주소가 유효하지 않습니다.']
@@ -56,28 +61,33 @@ export const UserSchema = new Schema(
       default: 1000,
       min: [0, '보유 금액이 유효하지 않습니다.'],
       max: [Number.MAX_SAFE_INTEGER, '보유 금액이 유효하지 않습니다.']
-    },
-    cart: [
-      {
-        product: {
-          type: Schema.Types.ObjectId,
-          ref: 'Product',
-          required: [true, '상품이 입력되지 않았습니다.']
-        },
-        count: {
-          type: Number,
-          required: [true, '수량이 입려되지 않았습니다.'],
-          min: 1,
-          max: 99
-        }
-      }
-    ],
-    orders: [{ type: Schema.Types.ObjectId, ref: 'Order', unique: true }],
-    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review', unique: true }],
-    inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry', unique: true }],
-    wishList: [{ type: Schema.Types.ObjectId, ref: 'Product', unique: true }]
+    }
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true, versionKey: false, toJSON: { virtuals: true } }
 );
+
+UserSchema.virtual('cart', {
+  ref: 'CartItem',
+  localField: '_id',
+  foreignField: 'user'
+});
+
+UserSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'user'
+});
+
+UserSchema.virtual('inquiries', {
+  ref: 'Inquiry',
+  localField: '_id',
+  foreignField: 'user'
+});
+
+UserSchema.virtual('orders', {
+  ref: 'Order',
+  localField: '_id',
+  foreignField: 'user'
+});
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);

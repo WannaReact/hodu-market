@@ -25,6 +25,12 @@ export const ProductSchema = new Schema(
       min: [0, '가격이 유효하지 않습니다.'],
       max: [100_000_000, '가격이 유효하지 않습니다.']
     },
+    deliveryCharge: {
+      type: Number,
+      default: 0,
+      min: [0, '배송비가 유효하지 않습니다.'],
+      max: [99_999, '배송비가 유효하지 않습니다.']
+    },
     discountRate: {
       type: Number,
       required: [true, '할인율을 입력하세요.'],
@@ -54,12 +60,22 @@ export const ProductSchema = new Schema(
       required: [true, '상품 상세설명을 입력하세요.'],
       minlength: [10, '상품 상세설명을 10자 이상 입력해야 합니다.'],
       maxlength: [2000, '상품 상세설명은 2000자 이하까지 입력할 수 있습니다.']
-    },
-    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review', unique: true }],
-    inquiries: [{ type: Schema.Types.ObjectId, ref: 'Inquiry', unique: true }]
+    }
   },
   { timestamps: true, versionKey: false }
 );
+
+ProductSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'product'
+});
+
+ProductSchema.virtual('inquiries', {
+  ref: 'Inquiry',
+  localField: '_id',
+  foreignField: 'product'
+});
 
 export default mongoose.models.Product ||
   mongoose.model('Product', ProductSchema);

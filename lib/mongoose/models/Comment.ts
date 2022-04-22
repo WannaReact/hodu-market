@@ -2,12 +2,12 @@ import mongoose, { Schema } from 'mongoose';
 
 export const CommentSchema = new Schema(
   {
-    reviewId: {
+    review: {
       type: Schema.Types.ObjectId,
       ref: 'Review',
       required: [true, '리뷰ID가 입력되지 않았습니다.']
     },
-    userId: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: [true, '회원ID가 입력되지 않았습니다.']

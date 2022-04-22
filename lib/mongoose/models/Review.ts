@@ -3,11 +3,12 @@ import { IMAGE_MATCH } from '../constants';
 
 export const ReviewSchema = new Schema(
   {
-    productId: {
+    product: {
       type: Schema.Types.ObjectId,
+      ref: 'Product',
       required: [true, '상품ID가 입력되지 않았습니다.']
     },
-    userId: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: [true, '회원ID가 입력되지 않았습니다.']
@@ -29,10 +30,15 @@ export const ReviewSchema = new Schema(
         type: String,
         match: [IMAGE_MATCH, '이미지 주소가 유효하지 않습니다.']
       }
-    ],
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', unique: true }]
+    ]
   },
   { timestamps: true, versionKey: false }
 );
+
+ReviewSchema.virtual('comments', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'review'
+});
 
 export default mongoose.models.Review || mongoose.model('Review', ReviewSchema);
