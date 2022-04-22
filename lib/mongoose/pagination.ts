@@ -8,13 +8,17 @@ export default (
   next: NextHandler
 ) => {
   const {
-    query: { page = '0', limit = '10' }
+    query: { page, limit }
   } = req;
-  if (typeof page === 'string' && typeof limit === 'string') {
-    req.pagination = {
-      skip: Number(page) * Number(limit),
-      limit: Number(limit)
-    };
-  }
+  const numPage = Number.isInteger(parseInt(page as string, 10))
+    ? Math.abs(Number(page))
+    : 1;
+  const numLimit = Number.isInteger(parseInt(limit as string, 10))
+    ? Math.abs(Number(limit))
+    : 10;
+  req.locals.pagination = {
+    skip: (numPage - 1) * numLimit,
+    limit: numLimit
+  };
   next();
 };

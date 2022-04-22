@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { NextHandler } from 'next-connect';
-import { CommentSchema } from './models/Comment';
-import { ProductSchema } from './models/Product';
-import { ReviewSchema } from './models/Review';
 import { UserSchema } from './models/User';
+import { CartItemSchema } from './models/CartItem';
+import { ReviewSchema } from './models/Review';
+import { ProductSchema } from './models/Product';
+import { CommentSchema } from './models/Comment';
 import { InquirySchema } from './models/Inquiry';
 import { OrderSchema } from './models/Order';
 
@@ -23,6 +24,7 @@ export default async (
     global.mongoose = await mongoose.connect(MONGODB_URI);
     global.orderNumber = [...Array(100000)].map((_, i) => i);
     mongoose.model('User', UserSchema);
+    mongoose.model('CartItem', CartItemSchema);
     mongoose.model('Review', ReviewSchema);
     mongoose.model('Product', ProductSchema);
     mongoose.model('Comment', CommentSchema);

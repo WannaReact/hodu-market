@@ -3,6 +3,7 @@ import nextConnect, { Middleware } from 'next-connect';
 import dbConnect from './dbConnect';
 import { PassedRequest } from './mongoose';
 import { fail } from './response';
+import initLocals from './initLocals';
 
 export default (
   ...middleware: Middleware<PassedRequest, NextApiResponse>[]
@@ -23,5 +24,5 @@ export default (
     onNoMatch: (req, res) => {
       fail(res, '유효하지 않은 요청입니다.');
     }
-  }).use(dbConnect, ...middleware);
+  }).use(dbConnect, initLocals, ...middleware);
 };

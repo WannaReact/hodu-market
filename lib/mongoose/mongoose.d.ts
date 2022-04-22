@@ -6,8 +6,10 @@ export declare global {
 }
 
 export declare interface PassedRequest extends NextApiRequest {
-  pagination: {
-    skip: number;
-    limit: number;
+  locals: {
+    pagination: {
+      skip: number;
+      limit: number;
+    };
   };
 }
