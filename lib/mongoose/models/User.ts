@@ -90,4 +90,12 @@ UserSchema.virtual('orders', {
   foreignField: 'user'
 });
 
+UserSchema.virtual('unconfirmedOrders', {
+  ref: 'Order',
+  localField: '_id',
+  foreignField: 'user',
+  match: { status: { $ne: '구매확정' } },
+  count: true
+});
+
 export default mongoose.models.User || mongoose.model('User', UserSchema);

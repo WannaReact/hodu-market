@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 import { send } from 'lib/mongoose/utils/response';
 import createHandler from 'lib/mongoose/utils/createHandler';
+import pagination from 'lib/mongoose/middlewares/pagination';
 
-const handler = createHandler();
+const handler = createHandler(pagination);
 const { Inquiry } = mongoose.models;
 
 handler.get(async (req, res) => {

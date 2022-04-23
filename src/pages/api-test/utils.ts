@@ -446,6 +446,25 @@ export const apiList = [
         param: ['장바구니 목록ID', 'id']
       }
     ]
+  },
+  {
+    url: '/myPage',
+    api: [
+      {
+        method: 'get',
+        button: '마이페이지',
+        param: ['회원ID', 'id']
+      }
+    ]
+  },
+  {
+    url: '/sellerPage',
+    api: [
+      {
+        method: 'get',
+        button: '관리자페이지'
+      }
+    ]
   }
 ];
 
