@@ -15,10 +15,18 @@ export default (
       } else if (err.name === 'CastError') {
         fail(res, '데이터 타입 오류');
       } else {
-        const message = Object.values(err.errors).map(
-          (error: any) => error.message
+        let message;
+        try {
+          message = Object.values(err.errors).map(
+            (error: any) => error.message
+          );
+        } catch {
+          message = err.name;
+        }
+        fail(
+          res,
+          Array.isArray(message) && message.length === 1 ? message[0] : message
         );
-        fail(res, message.length === 1 ? message[0] : message);
       }
     },
     onNoMatch: (req, res) => {
