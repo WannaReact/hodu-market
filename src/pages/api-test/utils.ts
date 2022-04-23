@@ -462,8 +462,7 @@ export const apiList = [
     api: [
       {
         method: 'get',
-        button: '관리자페이지',
-        param: ['회원ID', 'id']
+        button: '관리자페이지'
       }
     ]
   }
@@ -494,6 +493,6 @@ export const handler =
           : acc,
       {}
     );
-    const data = await api[method](apiUrl, { data: apiBody });
+    const data = await api[method](apiUrl, apiBody);
     console.log(button, data);
   };
