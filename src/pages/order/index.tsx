@@ -1,16 +1,75 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Image from 'next/image';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
 import ImageWrapper from '@utils/ImageWrapper';
 import DefaultContainerPage from 'src/components/common/DefaultContainer';
-import { Buttons } from '@components';
+import { Buttons, Postcode } from '@components';
 import productImg from 'public/images/product-img-small-4.png';
 import * as Styled from './styled';
 
+interface IFormValues {
+  orderer: string;
+  ordererMobile1: string;
+  ordererMobile2: string;
+  ordererMobile3: string;
+  email: string;
+  recipient: string;
+  recipientMobile1: string;
+  recipientMobile2: string;
+  recipientMobile3: string;
+  zipcode: string;
+  address: string;
+  detailedAddress: string;
+  message: string;
+  payMethod: string;
+  agreement: boolean;
+}
+
 export default function Order() {
-  const { register, handleSubmit } = useForm();
-  const getAddress = () => {};
-  const onSubmit = () => {};
+  const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
+
+  const {
+    register,
+    setValue,
+    getValues,
+    handleSubmit,
+    formState: { errors, isValid }
+  } = useForm<IFormValues | FieldValues>({ mode: 'onChange' });
+  const openPostcode = () => {
+    setIsPostcodeOpen(true);
+  };
+  const onSubmit = async () => {
+    const {
+      orderer,
+      ordererMobile1,
+      ordererMobile2,
+      ordererMobile3,
+      email,
+      recipient,
+      recipientMobile1,
+      recipientMobile2,
+      recipientMobile3,
+      zipcode,
+      address,
+      detailedAddress,
+      message,
+      payMethod
+    } = getValues();
+    const ordererMobile = `${ordererMobile1}-${ordererMobile2}-${ordererMobile3}`;
+    const recipientMobile = `${recipientMobile1}-${recipientMobile2}-${recipientMobile3}`;
+    const fullAddress = `${zipcode}) ${address} ${detailedAddress}`;
+    console.log(
+      orderer,
+      ordererMobile,
+      email,
+      recipient,
+      recipientMobile,
+      fullAddress,
+      message,
+      payMethod
+    );
+  };
 
   return (
     <DefaultContainerPage>
@@ -38,7 +97,7 @@ export default function Order() {
                   <Image src={productImg} layout="fill" />
                 </ImageWrapper>
                 <div>
-                  <span>딥러닝 개발자 무릎 담요</span>
+                  <p>딥러닝 개발자 무릎 담요</p>
                   <span>수량: 1개</span>
                 </div>
               </Styled.Info>
@@ -62,43 +121,158 @@ export default function Order() {
               <label htmlFor="orderer">이름</label>
               <Styled.MInput
                 id="orderer"
-                {...register('orderer', { required: true })}
+                maxLength={10}
+                {...register('orderer', {
+                  required: true,
+                  minLength: 2
+                })}
               />
+              {errors.orderer?.type === 'required' && (
+                <Styled.Error>
+                  주문자 이름을 입력해 주시기 바랍니다.
+                </Styled.Error>
+              )}
+              {errors.orderer?.type === 'minLength' && (
+                <Styled.Error>이름은 2자 이상이어야 합니다.</Styled.Error>
+              )}
             </Styled.InputWrapper>
             <Styled.InputWrapper>
-              <label htmlFor="mobile">휴대폰</label>
+              <label htmlFor="ordererMobile">휴대폰</label>
               <Styled.MobileWrapper>
-                <Styled.SInput type="tel" id="mobile" />
+                <Styled.SInput
+                  type="tel"
+                  id="ordererMobile"
+                  maxLength={3}
+                  {...register('ordererMobile1', {
+                    required: true,
+                    minLength: 2,
+                    pattern: /[0-9]+/
+                  })}
+                />
                 &#45;
-                <Styled.SInput type="tel" id="mobile" />
+                <Styled.SInput
+                  type="tel"
+                  id="ordererMobile"
+                  maxLength={4}
+                  {...register('ordererMobile2', {
+                    required: true,
+                    minLength: 3,
+                    pattern: /[0-9]+/
+                  })}
+                />
                 &#45;
-                <Styled.SInput type="tel" id="mobile" />
+                <Styled.SInput
+                  type="tel"
+                  id="ordererMobile"
+                  maxLength={4}
+                  {...register('ordererMobile3', {
+                    required: true,
+                    minLength: 4,
+                    pattern: /[0-9]+/
+                  })}
+                />
               </Styled.MobileWrapper>
+              {(errors.ordererMobile1 ||
+                errors.ordererMobile2 ||
+                errors.ordererMobile3) && (
+                <Styled.Error>
+                  휴대폰 번호를 확인해 주시기 바랍니다.
+                </Styled.Error>
+              )}
             </Styled.InputWrapper>
             <Styled.InputWrapper>
               <label htmlFor="email">이메일</label>
-              <Styled.MInput type="email" id="email" />
+              <Styled.MInput
+                type="email"
+                id="email"
+                {...register('email', {
+                  required: true,
+                  pattern:
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                })}
+              />
+              {errors.email?.type === 'required' && (
+                <Styled.Error>
+                  이메일 주소를 입력해 주시기 바랍니다.
+                </Styled.Error>
+              )}
+              {errors.email?.type === 'pattern' && (
+                <Styled.Error>
+                  이메일 형식을 확인해 주시기 바랍니다.
+                </Styled.Error>
+              )}
             </Styled.InputWrapper>
             <h3>배송지 정보</h3>
             <Styled.InputWrapper>
               <label htmlFor="recipient">수령인</label>
-              <Styled.MInput type="text" id="recipient" />
+              <Styled.MInput
+                type="text"
+                id="recipient"
+                maxLength={10}
+                {...register('recipient', { required: true, minLength: 2 })}
+              />
+              {errors.recipient?.type === 'required' && (
+                <Styled.Error>
+                  수령인 이름을 입력해 주시기 바랍니다.
+                </Styled.Error>
+              )}
+              {errors.recipient?.type === 'minLength' && (
+                <Styled.Error>이름은 2자 이상이어야 합니다.</Styled.Error>
+              )}
             </Styled.InputWrapper>
             <Styled.InputWrapper>
-              <label htmlFor="recepient-mobile">휴대폰</label>
+              <label htmlFor="recepientMobile">휴대폰</label>
               <Styled.MobileWrapper>
-                <Styled.SInput type="tel" id="recipient-mobile" />
+                <Styled.SInput
+                  type="tel"
+                  id="recipientMobile"
+                  maxLength={3}
+                  {...register('recipientMobile1', {
+                    required: true,
+                    minLength: 2,
+                    pattern: /[0-9]+/
+                  })}
+                />
                 &#45;
-                <Styled.SInput type="tel" id="recipient-mobile" />
+                <Styled.SInput
+                  type="tel"
+                  id="recipientMobile"
+                  maxLength={4}
+                  {...register('recipientMobile2', {
+                    required: true,
+                    minLength: 3,
+                    pattern: /[0-9]+/
+                  })}
+                />
                 &#45;
-                <Styled.SInput type="tel" id="recipient-mobile" />
+                <Styled.SInput
+                  type="tel"
+                  id="recipientMobile"
+                  maxLength={4}
+                  {...register('recipientMobile3', {
+                    required: true,
+                    minLength: 4,
+                    pattern: /[0-9]+/
+                  })}
+                />
               </Styled.MobileWrapper>
+              {(errors.recipientMobile1 ||
+                errors.recipientMobile2 ||
+                errors.recipientMobile3) && (
+                <Styled.Error>
+                  휴대폰 번호를 확인해 주시기 바랍니다.
+                </Styled.Error>
+              )}
             </Styled.InputWrapper>
             <Styled.InputWrapper>
               <label htmlFor="address">배송주소</label>
               <Styled.Address>
                 <div>
-                  <Styled.SInput type="text" id="address" />
+                  <Styled.SInput
+                    type="text"
+                    id="address"
+                    {...register('zipcode', { required: true })}
+                  />
                   <Buttons.Custom
                     type="button"
                     width={15.4}
@@ -106,41 +280,107 @@ export default function Order() {
                     color="green"
                     fontSize={1.6}
                     disabled={false}
-                    onClick={getAddress}
+                    onClick={openPostcode}
                   >
                     우편번호 조회
                   </Buttons.Custom>
+                  {errors.zipcode && (
+                    <Styled.Error>
+                      우편번호를 입력해 주시기 바랍니다.
+                    </Styled.Error>
+                  )}
+                  {isPostcodeOpen && (
+                    <Postcode
+                      setIsPostcodeOpen={setIsPostcodeOpen}
+                      setValue={setValue}
+                    />
+                  )}
                 </div>
-                <Styled.LInput type="text" id="address" />
-                <Styled.LInput type="text" id="address" />
+                <div>
+                  <Styled.LInput
+                    type="text"
+                    id="address"
+                    {...register('address', { required: true })}
+                  />
+                  {errors.address && (
+                    <Styled.Error>주소를 입력해 주시기 바랍니다.</Styled.Error>
+                  )}
+                </div>
+                <div>
+                  <Styled.LInput
+                    type="text"
+                    id="address"
+                    {...register('detailedAddress', { required: true })}
+                  />
+                  {errors.detailedAddress && (
+                    <Styled.Error>
+                      상세 주소를 입력해 주시기 바랍니다.
+                    </Styled.Error>
+                  )}
+                </div>
               </Styled.Address>
             </Styled.InputWrapper>
             <Styled.InputWrapper>
               <label htmlFor="message">배송 메시지</label>
-              <Styled.LInput type="text" id="message" />
+              <Styled.LInput
+                type="text"
+                id="message"
+                maxLength={80}
+                {...register('message')}
+              />
             </Styled.InputWrapper>
           </Styled.Shipment>
           <Styled.Payment>
-            <h2>결제 수단</h2>
+            <h2>
+              결제 수단
+              {errors.payMethod && (
+                <Styled.Error>결제 수단을 선택해 주시기 바랍니다.</Styled.Error>
+              )}
+            </h2>
             <div>
               <label htmlFor="creditCard">
-                <input type="radio" name="payMethod" id="creditCard" />
+                <input
+                  type="radio"
+                  id="creditCard"
+                  value="creditCard"
+                  {...register('payMethod', { required: true })}
+                />
                 신용/체크카드
               </label>
               <label htmlFor="deposit">
-                <input type="radio" name="payMethod" id="deposit" />
+                <input
+                  type="radio"
+                  id="deposit"
+                  value="deposit"
+                  {...register('payMethod', { required: true })}
+                />
                 무통장 입금
               </label>
               <label htmlFor="mobilePay">
-                <input type="radio" name="payMethod" id="mobilePay" />
+                <input
+                  type="radio"
+                  id="mobilePay"
+                  value="mobilePay"
+                  {...register('payMethod', { required: true })}
+                />
                 휴대폰 결제
               </label>
               <label htmlFor="naverPay">
-                <input type="radio" name="payMethod" id="naverPay" />
+                <input
+                  type="radio"
+                  id="naverPay"
+                  value="naverPay"
+                  {...register('payMethod', { required: true })}
+                />
                 네이버페이
               </label>
               <label htmlFor="kakaoPay">
-                <input type="radio" name="payMethod" id="kakaoPay" />
+                <input
+                  type="radio"
+                  id="kakaoPay"
+                  value="kakaoPay"
+                  {...register('payMethod', { required: true })}
+                />
                 카카오페이
               </label>
             </div>
@@ -175,16 +415,25 @@ export default function Order() {
                 </div>
               </dl>
               <div>
-                <input type="checkbox" name="agreement" id="agreement" />
-                <label htmlFor="agreement">
-                  주문 내용을 확인하셨으며, 정보 제공 등에 동의합니다.
-                </label>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="agreement"
+                    {...register('agreement', { required: true })}
+                  />
+                  <label htmlFor="agreement">
+                    주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
+                  </label>
+                  {errors.agreement && (
+                    <Styled.Error>동의해주시기 바랍니다.</Styled.Error>
+                  )}
+                </div>
                 <Buttons.Custom
                   type="submit"
                   width={22}
                   height={6.8}
                   color="green"
-                  disabled
+                  disabled={!isValid}
                   fontSize={2.4}
                 >
                   결제하기

@@ -39,8 +39,16 @@ export const Product = styled.li`
 export const Info = styled.div`
   display: flex;
   align-items: center;
+  text-align: start;
   div:first-child {
     margin-right: 3.6rem;
+  }
+  p {
+    margin-bottom: 1rem;
+  }
+  span {
+    font-size: 1.4rem;
+    color: ${COLOR.grey76};
   }
 `;
 
@@ -108,6 +116,8 @@ export const Shipment = styled.section`
 
 export const Input = styled.input`
   height: 4rem;
+  font-size: 1.6rem;
+  padding-left: 1rem;
   border: 1px solid ${COLOR.greyC4};
 `;
 export const SInput = styled(Input)`
@@ -123,10 +133,12 @@ export const LInput = styled(Input)`
 export const Address = styled.div`
   display: flex;
   flex-direction: column;
-  input:first-child {
-    margin-right: 1rem;
+  div:first-child {
+    input {
+      margin-right: 1rem;
+    }
   }
-  input:not(:last-child) {
+  div:not(:last-child) {
     margin-bottom: 0.8rem;
   }
 `;
@@ -183,14 +195,30 @@ export const InfoWrapper = styled.div`
   & > div {
     padding: 3rem 3rem 3.4rem;
     background-color: ${COLOR.greyF2};
+    div {
+      position: relative;
+    }
     input {
       accent-color: ${COLOR.accentColor};
       margin-right: 1rem;
-      margin-bottom: 3.2rem;
+    }
+    span {
+      position: absolute;
+      top: 1.4rem;
+      left: 1.2rem;
     }
     button {
       display: block;
-      margin: 0 auto;
+      margin: 3.2rem auto 0;
     }
   }
+`;
+
+export const Error = styled.span`
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2;
+  color: ${COLOR.red};
+  margin-left: 1rem;
+  /* word-break: keep-all; */
 `;
