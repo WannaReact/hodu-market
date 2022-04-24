@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CardWrapper = styled.article`
-  width: 380rem;
+  margin: 0 auto;
 `;
 
 export const Title = styled.h3`
