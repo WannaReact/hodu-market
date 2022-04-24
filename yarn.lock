@@ -3731,6 +3731,7 @@ __metadata:
     next-connect: ^0.12.2
     prettier: ^2.5.1
     react: 17.0.2
+    react-daum-postcode: ^3.0.1
     react-dom: 17.0.2
     react-hook-form: ^7.28.0
     styled-components: ^5.3.3
@@ -5069,6 +5070,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-daum-postcode@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "react-daum-postcode@npm:3.0.1"
+  dependencies:
+    prop-types: ^15.7.2
+    react: ^17.0.2
+  checksum: 05366e7fb0722a8f3a80b2b3c012ec84ceffa4d4aea9ee718663726219463cc2894d83ac194b7fab8177a15f267ee4d1503099071dc5c8ae2b053a6e3df05cad
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
@@ -5098,7 +5109,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:17.0.2":
+"react@npm:17.0.2, react@npm:^17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
