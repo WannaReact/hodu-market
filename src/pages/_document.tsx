@@ -38,6 +38,7 @@ class MyDocument extends Document {
       <Html>
         <Head />
         <body>
+          <div id="portal" />
           <Main />
           <NextScript />
         </body>
