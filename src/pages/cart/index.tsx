@@ -9,6 +9,7 @@ interface BarProps {
 }
 
 export interface CartData {
+  _id: number;
   img: string;
   category: string;
   title: string;
@@ -19,10 +20,19 @@ export interface CartData {
 const data = {
   tableData: [
     {
+      _id: 2134314,
       img: 'https://itec.snu.ac.kr/msc/default.png',
       category: '백엔드글로벌',
       title: '딥러닝 개발자 무릎 담요',
       price: 27500,
+      delivery: '무료배송'
+    },
+    {
+      _id: 213431242,
+      img: 'https://itec.snu.ac.kr/msc/default.png',
+      category: '커피',
+      title: '커피 개발자 무릎 담요',
+      price: 50000,
       delivery: '무료배송'
     }
   ]
@@ -44,8 +54,9 @@ function CartPage() {
         <TextBar flex={15}>수량</TextBar>
         <TextBar flex={25}>상품금액</TextBar>
       </SectionBar>
+
       {data.tableData.map((item: CartData) => {
-        return <CartItem cartData={item} key={`cart-data-${item.title}`} />;
+        return <CartItem cartData={item} key={`cart-data-${item._id}`} />;
       })}
 
       <SectionPrice>

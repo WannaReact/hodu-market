@@ -8,7 +8,7 @@ interface ItemProps {
   columnDirection?: boolean;
 }
 
-export interface CartData {
+interface CartData {
   img: string;
   category: string;
   title: string;
@@ -16,7 +16,11 @@ export interface CartData {
   delivery: string;
 }
 
-function CartItem({ cartData }: CartData) {
+interface CartDataProps {
+  cartData: CartData;
+}
+
+function CartItem({ cartData }: CartDataProps) {
   const { img, category, title, price, delivery } = cartData;
 
   const orderSubmit = () => {
@@ -29,7 +33,7 @@ function CartItem({ cartData }: CartData) {
         <ContainerCheck />
       </ContainerCheckBox>
       <ContainerItem flex={55}>
-        <ImgItem />
+        <ImgItem src={img} />
         <ContainerText>
           <TextCategory>{category}</TextCategory>
           <p>{title}</p>
@@ -95,7 +99,6 @@ const ImgItem = styled.img`
   display: block;
   width: 160px;
   height: 160px;
-  background-color: pink;
   border-radius: 10px;
 `;
 
@@ -106,11 +109,14 @@ const ContainerText = styled.div`
 const TextCategory = styled.em`
   font-size: 14px;
   color: #767676;
+  display: inline-block;
+  margin: 10px 0;
 `;
 
 const TextItemPrice = styled.p`
   font-size: 16px;
   font-weight: bold;
+  margin: 10px 0 40px;
 `;
 
 const TextDelivery = styled.em`
