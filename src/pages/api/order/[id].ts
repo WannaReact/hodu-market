@@ -9,11 +9,8 @@ handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const order = await Order.findById(
-    id,
-    'orderNumber status user courier invoice addressee createdAt'
-  )
-    .populate('user', 'userName')
+  const order = await Order.findById(id, '-product -count -cost -updatedAt')
+    .populate('orderGroup', '-user -updatedAt')
     .lean()
     .exec();
   send(res, order);
@@ -33,8 +30,8 @@ handler.put(async (req, res) => {
     },
     { new: true }
   )
-    .select('orderNumber status user courier invoice addressee createdAt')
-    .populate('user', 'userName')
+    .select('-product -count -cost -updatedAt')
+    .populate('orderGroup', '-user -updatedAt')
     .lean()
     .exec();
   send(res, order);
@@ -45,8 +42,8 @@ handler.delete(async (req, res) => {
     query: { id }
   } = req;
   const order = await Order.findByIdAndDelete(id)
-    .select('orderNumber status user courier invoice addressee createdAt')
-    .populate('user', 'userName')
+    .select('-product -count -cost -updatedAt')
+    .populate('orderGroup', '-user -updatedAt')
     .lean()
     .exec();
   send(res, order);

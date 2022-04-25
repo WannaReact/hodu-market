@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
-import { send } from 'lib/mongoose/utils/response';
+import { fail, send } from 'lib/mongoose/utils/response';
 import createHandler from 'lib/mongoose/utils/createHandler';
 import orderNumGen from 'lib/mongoose/utils/orderNumGen';
 import pagination from 'lib/mongoose/middlewares/pagination';
+import User from 'lib/mongoose/models/User';
 
 const handler = createHandler(pagination);
-const { Order } = mongoose.models;
+const { Order, OrderGroup } = mongoose.models;
 
 handler.get(async (req, res) => {
   const {
@@ -15,9 +16,9 @@ handler.get(async (req, res) => {
   } = req;
   const orders = await Order.find(
     {},
-    'orderNumber status user courier invoice addressee createdAt'
+    'orderGroup status courier invoice createdAt'
   )
-    .populate('user', 'userName')
+    .populate('orderGroup', 'orderNumber orderer addressee')
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limit)
@@ -28,25 +29,54 @@ handler.get(async (req, res) => {
 
 handler.post(async (req, res) => {
   const {
-    body: { product, user, count, cost, addressee }
+    body: { user, orderer, addressee, address, products }
   } = req;
   const orderNumber = orderNumGen();
-  await new Order({
+  const { _id } = await new OrderGroup({
     orderNumber,
-    status: '결제완료',
-    product,
     user,
-    count,
-    cost,
+    orderer,
+    address,
     addressee
   }).save();
-  const order = await Order.findOne(
-    { orderNumber },
-    '-courier -invoice -updatedAt'
-  )
-    .lean()
-    .exec();
-  send(res, order);
+  await Promise.all(
+    products.map(
+      async ({
+        product,
+        count,
+        cost
+      }: {
+        product: string;
+        count: number;
+        cost: number;
+      }) =>
+        new Order({
+          orderGroup: _id,
+          user,
+          status: '결제완료',
+          product,
+          count,
+          cost
+        }).save()
+    )
+  );
+  const totalCost = products.reduce(
+    (acc: number, { cost }: { cost: number }) => acc + cost,
+    0
+  );
+  const { money } = await User.findByIdAndUpdate(user, {
+    $inc: { money: -totalCost }
+  });
+  if (money < totalCost) {
+    await User.findByIdAndUpdate(user, { money });
+    fail(res, '포인트가 부족합니다.');
+  } else {
+    const order = await OrderGroup.findById(_id, '-user -updatedAt')
+      .populate('orders', 'orderGroup status count cost createdAt')
+      .lean()
+      .exec();
+    send(res, order);
+  }
 });
 
 export default handler;
