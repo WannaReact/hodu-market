@@ -8,6 +8,7 @@ import { ProductSchema } from '../models/Product';
 import { CommentSchema } from '../models/Comment';
 import { InquirySchema } from '../models/Inquiry';
 import { OrderSchema } from '../models/Order';
+import { OrderGroupSchema } from '../models/OrderGroup';
 
 const { MONGODB_URI } = process.env;
 
@@ -30,6 +31,7 @@ export default async (
     mongoose.model('Comment', CommentSchema);
     mongoose.model('Inquiry', InquirySchema);
     mongoose.model('Order', OrderSchema);
+    mongoose.model('OrderGroup', OrderGroupSchema);
   }
   return next();
 };

@@ -16,16 +16,19 @@ handler.get(async (req, res) => {
   const user = await User.findById(id)
     .populate({
       path: 'orders',
-      select: 'orderNumber status product count cost createdAt'
-    })
-    .populate({
-      path: 'orders',
-      populate: {
-        path: 'product',
-        model: 'Product',
-        select: 'productName option images'
-      },
-      options: { skip, limit, sort: { createdAt: -1 } }
+      populate: [
+        {
+          path: 'orderGroup',
+          model: 'OrderGroup',
+          select: 'orderNumber'
+        },
+        {
+          path: 'product',
+          model: 'Product',
+          select: 'productName option images'
+        }
+      ],
+      options: { skip, limit, sort: '-updatedAt' }
     })
     .lean()
     .exec();
