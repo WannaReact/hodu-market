@@ -8,6 +8,7 @@ export interface CustomSession extends Session {
     name?: string | null | undefined;
     id: string;
     nickname: string;
+    isAdmin: boolean;
   };
 }
 
@@ -15,6 +16,7 @@ interface CustomJWT extends JWT {
   user: {
     id: string;
     nickname: string;
+    isAdmin: boolean;
   };
 }
 
@@ -36,14 +38,14 @@ export default NextAuth({
         };
         const {
           data: {
-            data: { id, nickname }
+            data: { id, nickname, isAdmin }
           }
         } = await axios.post(`${process.env.NEXTAUTH_URL}/api/login`, {
           userId,
           password
         });
         if (id) {
-          return { id, nickname };
+          return { id, nickname, isAdmin };
         }
         throw new Error('로그인 실패');
       }
@@ -55,7 +57,10 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        return { ...token, user: { id: user.id, nickname: user.nickname } };
+        return {
+          ...token,
+          user
+        };
       }
       return token;
     },

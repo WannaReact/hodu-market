@@ -13,7 +13,11 @@ handler.post(async (req, res) => {
   send(
     res,
     (await user?.checkPassword(password))
-      ? { id: user._id, nickname: user.nickname }
+      ? {
+          id: user._id,
+          nickname: user.nickname,
+          isAdmin: user._id.toString() === process.env.ADMIN
+        }
       : null
   );
 });
