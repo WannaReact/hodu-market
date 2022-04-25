@@ -11,9 +11,13 @@ export interface Success extends Response {
 
 export const success = (
   res: NextApiResponse<Response | Success>,
-  data?: object
+  data?: object | null
 ) => {
-  res.json({ success: true, data });
+  if (data) {
+    res.json({ success: true, data });
+  } else {
+    res.json({ success: true });
+  }
 };
 
 export const fail = (
@@ -25,11 +29,12 @@ export const fail = (
 
 export const send = (
   res: NextApiResponse<Response | Success>,
-  result: object | Array<object>
+  result: object | Array<object> | null,
+  message?: string | string[]
 ) => {
   if (result) {
     success(res, result);
   } else {
-    fail(res, result);
+    fail(res, message);
   }
 };

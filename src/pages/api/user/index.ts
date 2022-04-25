@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
 import createHandler from 'lib/mongoose/utils/createHandler';
 import { send } from 'lib/mongoose/utils/response';
 
@@ -17,14 +16,15 @@ handler.post(async (req, res) => {
   const {
     body: { userId, password, userName, nickname, phone, email }
   } = req;
-  const { _id } = await new User({
+  const newUser = new User({
     userId,
-    password: await bcrypt.hash(password, 10),
     userName,
     nickname,
     phone,
     email
-  }).save();
+  });
+  await newUser.setPassword(password);
+  const { _id } = await newUser.save();
   const user = await User.findById(_id, '-password -cart -createdAt -updatedAt')
     .lean()
     .exec();

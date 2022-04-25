@@ -1,8 +1,9 @@
 import type { AppProps } from 'next/app';
-import NavBar from 'src/components/NavBar';
-import GlobalStyle from 'src/styles/GlobalStyle';
 import { useRouter } from 'next/router';
 import { AppContextType } from 'next/dist/shared/lib/utils';
+import { SessionProvider } from 'next-auth/react';
+import NavBar from 'src/components/NavBar';
+import GlobalStyle from 'src/styles/GlobalStyle';
 import '@styles/font.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -10,11 +11,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { gnb } = pageProps;
 
   return (
-    <>
+    <SessionProvider>
       <GlobalStyle />
       <NavBar pathname={router.pathname} options={gnb} />
       <Component {...pageProps} />
-    </>
+    </SessionProvider>
   );
 }
 

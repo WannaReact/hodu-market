@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
 import { IMAGE_MATCH, KOREAN_NAME_MATCH } from '../constants';
 
 export const UserSchema = new Schema(
@@ -97,5 +98,16 @@ UserSchema.virtual('unconfirmedOrders', {
   match: { status: { $ne: '구매확정' } },
   count: true
 });
+
+UserSchema.methods.setPassword = async function setPassword(password: string) {
+  this.password = await bcrypt.hash(password, 10);
+};
+
+UserSchema.methods.checkPassword = async function checkPassword(
+  password: string
+) {
+  const result = await bcrypt.compare(password, this.password);
+  return result;
+};
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);
