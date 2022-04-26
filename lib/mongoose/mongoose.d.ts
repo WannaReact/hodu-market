@@ -1,3 +1,4 @@
+import { CustomJWT } from '@pages/api/auth/[...nextauth]';
 import { NextApiRequest } from 'next';
 
 export declare global {
@@ -11,5 +12,6 @@ export declare interface PassedRequest extends NextApiRequest {
       skip: number;
       limit: number;
     };
+    token: CustomJWT | null;
   };
 }

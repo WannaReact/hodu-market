@@ -1,15 +1,23 @@
 import mongoose from 'mongoose';
 import createHandler from 'lib/mongoose/utils/createHandler';
-import { send } from 'lib/mongoose/utils/response';
+import { fail, send } from 'lib/mongoose/utils/response';
+import auth from 'lib/mongoose/utils/auth';
 
 const handler = createHandler();
 const { User } = mongoose.models;
 
 handler.get(async (req, res) => {
-  const users = await User.find({}, '-cart -createdAt -updatedAt')
-    .lean()
-    .exec();
-  send(res, users);
+  const {
+    locals: { token }
+  } = req;
+  if (auth(token, true)) {
+    fail(res, '권한이 없습니다.');
+  } else {
+    const users = await User.find({}, '-cart -createdAt -updatedAt')
+      .lean()
+      .exec();
+    send(res, users);
+  }
 });
 
 handler.post(async (req, res) => {
