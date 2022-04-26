@@ -10,7 +10,6 @@ import {
 import DefaultContainerPage from 'src/components/common/DefaultContainer';
 import api from '@utils/api';
 import { IProduct } from '@shared/types';
-import dummy from './dummyProductData.json';
 import * as Styled from './styled';
 
 export default function Details() {
@@ -24,9 +23,14 @@ export default function Details() {
     +discount === 0
       ? price
       : Math.round((price * (100 - +discount)) / 1000) * 10;
-  const { images } = dummy;
-
   const sectionRefs = useRef<HTMLElement[]>([]);
+  const images = [
+    '/images/product-img-small-1.png',
+    '/images/product-img-small-2.png',
+    '/images/product-img-small-3.png',
+    '/images/product-img-small-4.png',
+    '/images/product-img-small-5.png'
+  ];
 
   const storeRef = useCallback((elem: HTMLElement, index: number) => {
     sectionRefs.current[index] = elem;

@@ -9,3 +9,5 @@ export * from './ProductImage';
 export * from './Pagination';
 export * from './InquiryList';
 export * from './InquiryItem';
+export * from './Postcode';
+export * from './Portal';
