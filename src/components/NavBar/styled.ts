@@ -85,6 +85,7 @@ export const DropdownBackground = styled.div`
   height: 20rem;
   background-color: ${COLOR.greyF8};
   border-top: 1px solid ${COLOR.greyE0};
+  border-bottom: 1px solid ${COLOR.greyE0};
 `;
 
 export const MobileMenu = styled.div`
