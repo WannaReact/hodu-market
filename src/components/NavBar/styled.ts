@@ -17,6 +17,10 @@ export const Nav = styled.nav`
   z-index: 10;
   width: 100%;
   background-color: ${COLOR.white};
+
+  &.scrolled {
+    border-bottom: 1px solid ${COLOR.greyE0};
+  }
 `;
 
 export const NavBarContainer = styled.div`

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
 import { getSession } from 'next-auth/react';
 import Logo from 'public/images/logo.svg';
@@ -80,6 +80,7 @@ function NavBar({ options, pathname }: NavBarProps) {
   const router = useRouter();
   const [mounted, setMounted] = useState<boolean>(false);
   const [user, setUser] = useState<UserInfo | null>(null);
+  const nav = useRef<HTMLElement>(null);
 
   useEffect(() => {
     (async () => {
@@ -91,12 +92,24 @@ function NavBar({ options, pathname }: NavBarProps) {
     })();
   }, [router.pathname]);
 
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      if (nav?.current) {
+        if (window.scrollY > 0) {
+          nav.current.classList.add('scrolled');
+        } else {
+          nav.current.classList.remove('scrolled');
+        }
+      }
+    });
+  }, []);
+
   if (!options?.active) {
     return null;
   }
 
   return mounted ? (
-    <Styled.Nav>
+    <Styled.Nav ref={nav}>
       <Styled.NavBarContainer>
         <Link href="/" passHref>
           <Styled.LogoWrapper>
