@@ -1,57 +1,65 @@
 import mongoose from 'mongoose';
-import { success } from 'lib/mongoose/response';
-import createHandler from 'lib/mongoose/createHandler';
+import { send } from 'lib/mongoose/utils/response';
+import createHandler from 'lib/mongoose/utils/createHandler';
 
 const handler = createHandler();
-const { Review, Product, Inquiry } = mongoose.models;
+const { Product } = mongoose.models;
 
 handler.get(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const product = await Product.findById(id)
-    .populate('reviews')
-    .populate({
-      path: 'reviews',
-      populate: {
-        path: 'comments',
-        model: 'Comment'
-      }
-    })
-    .populate('inquiries')
-    .populate('categories');
-  success(res, product);
+  const product = await Product.findById(id, '-reviews -inquiries -updatedAt')
+    .lean()
+    .exec();
+  send(res, product);
 });
 
 handler.put(async (req, res) => {
   const {
-    body: { productName, images, price, discountRate, stock, categories },
-    query: { id }
+    query: { id },
+    body: {
+      productName,
+      option,
+      images,
+      price,
+      deliveryCharge,
+      discountRate,
+      stock,
+      categories,
+      description
+    }
   } = req;
-  const product = await Product.findByIdAndUpdate(id, {
-    productName,
-    images,
-    price,
-    discountRate,
-    stock,
-    categories
-  });
-  success(res, product);
+  const product = await Product.findByIdAndUpdate(
+    id,
+    {
+      productName,
+      option,
+      images,
+      price,
+      deliveryCharge,
+      discountRate,
+      stock,
+      categories,
+      description
+    },
+    { new: true, select: '-reviews -inquiries -updatedAt' }
+  )
+    .lean()
+    .exec();
+  send(res, product);
 });
 
 handler.delete(async (req, res) => {
   const {
     query: { id }
   } = req;
-  const product = await Product.findByIdAndDelete(id);
-  const { reviews, inquiries } = product;
-  await Promise.all([
-    ...reviews.map((reviewId: string) => Review.findByIdAndDelete(reviewId)),
-    ...inquiries.map((inquiryId: string) =>
-      Inquiry.findByIdAndDelete(inquiryId)
-    )
-  ]);
-  success(res, product);
+  const product = await Product.findByIdAndDelete(id, {
+    select: '-reviews -inquiries -updatedAt'
+  })
+    .lean()
+    .exec();
+  send(res, product);
 });
 
 export default handler;

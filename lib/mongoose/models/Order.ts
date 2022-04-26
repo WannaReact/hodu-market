@@ -1,16 +1,17 @@
 import mongoose, { Schema } from 'mongoose';
-import {
-  COURIER_ENUM,
-  KOREAN_NAME_MATCH,
-  ORDER_STATUS_ENUM
-} from '../constants';
+import { COURIER_ENUM, ORDER_STATUS_ENUM } from '../constants';
 
 export const OrderSchema = new Schema(
   {
-    orderNumber: {
-      type: Number,
-      unique: true,
-      required: [true, '주문번호가 입력되지 않았습니다.']
+    orderGroup: {
+      type: Schema.Types.ObjectId,
+      ref: 'OrderGroup',
+      required: [true, '주문그룹ID가 입력되지 않았습니다.']
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, '회원ID가 입력되지 않았습니다.']
     },
     status: {
       type: String,
@@ -20,15 +21,10 @@ export const OrderSchema = new Schema(
       },
       required: [true, '주문상태가 입력되지 않았습니다.']
     },
-    productId: {
+    product: {
       type: Schema.Types.ObjectId,
       ref: 'Product',
       required: [true, '상품ID가 입력되지 않았습니다.']
-    },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: [true, '회원ID가 입력되지 않았습니다.']
     },
     count: {
       type: Number,
@@ -51,13 +47,6 @@ export const OrderSchema = new Schema(
     },
     invoice: {
       type: Number
-    },
-    addressee: {
-      type: String,
-      match: [
-        KOREAN_NAME_MATCH,
-        '이름은 2 ~ 8자의 한글 조합으로 입력해야 합니다.'
-      ]
     }
   },
   { timestamps: true, versionKey: false }

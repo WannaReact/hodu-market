@@ -1,32 +1,45 @@
 import mongoose from 'mongoose';
-import { success } from 'lib/mongoose/response';
-import createHandler from 'lib/mongoose/createHandler';
+import { send } from 'lib/mongoose/utils/response';
+import createHandler from 'lib/mongoose/utils/createHandler';
+import pagination from 'lib/mongoose/middlewares/pagination';
 
-const handler = createHandler();
-const { User, Review, Product } = mongoose.models;
+const handler = createHandler(pagination);
+const { Review } = mongoose.models;
 
 handler.get(async (req, res) => {
-  const reviews = await Review.find({});
-  success(res, reviews);
+  const {
+    locals: {
+      pagination: { skip, limit }
+    }
+  } = req;
+  const reviews = await Review.find({}, '-updatedAt')
+    .populate('product', 'productName option images')
+    .populate('user', 'nickname')
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit)
+    .lean()
+    .exec();
+  send(res, reviews);
 });
 
 handler.post(async (req, res) => {
   const {
-    body: { productId, userId, rating, content, images }
+    body: { product, user, rating, content, images }
   } = req;
-  const review = await new Review({
-    productId,
-    userId,
+  const { _id } = await new Review({
+    product,
+    user,
     rating,
     content,
     images
   }).save();
-  const { _id } = review;
-  await Promise.all([
-    User.findByIdAndUpdate(userId, { $push: { reviews: _id } }),
-    Product.findByIdAndUpdate(productId, { $push: { reviews: _id } })
-  ]);
-  success(res, review);
+  const review = await Review.findById(_id, '-updatedAt')
+    .populate('product', 'productName option images')
+    .populate('user', 'nickname')
+    .lean()
+    .exec();
+  send(res, review);
 });
 
 export default handler;
