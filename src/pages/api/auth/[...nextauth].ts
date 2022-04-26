@@ -12,7 +12,7 @@ export interface CustomSession extends Session {
   };
 }
 
-interface CustomJWT extends JWT {
+export interface CustomJWT extends JWT {
   user: {
     id: string;
     nickname: string;

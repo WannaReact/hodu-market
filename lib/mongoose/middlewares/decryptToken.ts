@@ -1,18 +1,15 @@
+import { CustomJWT } from '@pages/api/auth/[...nextauth]';
 import { NextApiResponse } from 'next';
+import { getToken } from 'next-auth/jwt';
 import { NextHandler } from 'next-connect';
 import { PassedRequest } from '../mongoose';
 
-export default (
+export default async (
   req: PassedRequest,
   res: NextApiResponse,
   next: NextHandler
 ) => {
-  req.locals = {
-    pagination: {
-      skip: 1,
-      limit: 10
-    },
-    token: null
-  };
+  const token = await getToken({ req });
+  req.locals.token = token as CustomJWT | null;
   next();
 };

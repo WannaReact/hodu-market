@@ -4,6 +4,7 @@ import dbConnect from '../middlewares/dbConnect';
 import { PassedRequest } from '../mongoose';
 import { fail } from './response';
 import initLocals from '../middlewares/initLocals';
+import decryptToken from '../middlewares/decryptToken';
 
 export default (
   ...middleware: Middleware<PassedRequest, NextApiResponse>[]
@@ -32,5 +33,5 @@ export default (
     onNoMatch: (req, res) => {
       fail(res, '유효하지 않은 요청입니다.');
     }
-  }).use(dbConnect, initLocals, ...middleware);
+  }).use(dbConnect, initLocals, decryptToken, ...middleware);
 };
