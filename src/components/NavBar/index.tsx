@@ -1,9 +1,12 @@
 import Link from 'next/link';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
+import { getSession } from 'next-auth/react';
 import Logo from 'public/images/logo.svg';
 import Cart from 'public/images/icon-shopping-cart.svg';
 import User from 'public/images/icon-user.svg';
+import { CustomSession } from '@pages/api/auth/[...nextauth]';
+import { useRouter } from 'next/router';
 import SearchBar from './SearchBar';
 import * as Styled from './styled';
 import MenuItem from './MenuItem';
@@ -20,6 +23,12 @@ interface NavBarProps {
 
 interface ListProps {
   children: React.ReactNode[];
+}
+
+interface UserInfo {
+  id: string;
+  nickname: string;
+  isAdmin: boolean;
 }
 
 function Menu() {
@@ -66,11 +75,25 @@ function NavButtonList({ children }: ListProps) {
 }
 
 function NavBar({ options, pathname }: NavBarProps) {
+  const router = useRouter();
+  const [mounted, setMounted] = useState<boolean>(false);
+  const [user, setUser] = useState<UserInfo | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const session = await getSession();
+      if (session) {
+        setUser((session as CustomSession).user);
+      }
+      setMounted(true);
+    })();
+  }, [router.pathname]);
+
   if (!options?.active) {
     return null;
   }
 
-  return (
+  return mounted ? (
     <Styled.Nav>
       <Styled.NavBarContainer>
         <Link href="/" passHref>
@@ -82,16 +105,23 @@ function NavBar({ options, pathname }: NavBarProps) {
         {pathname === '/' && <SearchBar />}
         <Menu key={nanoid()} />
         <NavButtonList>
-          <NavButton href="/cart" SVG={<Cart viewBox="0 0 32 32" />}>
-            장바구니
-          </NavButton>
-          <NavButton href="/login" SVG={<User viewBox="0 0 32 32" />}>
-            로그인
-          </NavButton>
+          {user && !user.isAdmin && (
+            <NavButton href="/cart" SVG={<Cart viewBox="0 0 32 32" />}>
+              장바구니
+            </NavButton>
+          )}
+          {(!user || !user.isAdmin) && (
+            <NavButton
+              href={user ? '/myPage' : '/login'}
+              SVG={<User viewBox="0 0 32 32" />}
+            >
+              {user ? '마이페이지' : '로그인'}
+            </NavButton>
+          )}
         </NavButtonList>
       </Styled.NavBarContainer>
     </Styled.Nav>
-  );
+  ) : null;
 }
 
 NavBar.defaultProps = {
