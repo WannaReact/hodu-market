@@ -5,8 +5,10 @@ import { getSession } from 'next-auth/react';
 import Logo from 'public/images/logo.svg';
 import Cart from 'public/images/icon-shopping-cart.svg';
 import User from 'public/images/icon-user.svg';
+import Bag from 'public/images/icon-shopping-bag.svg';
 import { CustomSession } from '@pages/api/auth/[...nextauth]';
 import { useRouter } from 'next/router';
+import { Buttons } from '@components';
 import SearchBar from './SearchBar';
 import * as Styled from './styled';
 import MenuItem from './MenuItem';
@@ -117,6 +119,20 @@ function NavBar({ options, pathname }: NavBarProps) {
             >
               {user ? '마이페이지' : '로그인'}
             </NavButton>
+          )}
+          {user?.isAdmin && (
+            <Link href="/seller/order" passHref>
+              <Buttons.Custom
+                width={16.8}
+                height={5.4}
+                fontSize={1.8}
+                color="green"
+                disabled={false}
+              >
+                <Bag />
+                관리자페이지
+              </Buttons.Custom>
+            </Link>
           )}
         </NavButtonList>
       </Styled.NavBarContainer>
