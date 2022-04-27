@@ -7,6 +7,15 @@ const nextConfig = {
       use: ['@svgr/webpack']
     });
     return config;
+  },
+  async redirects() {
+    return [
+      {
+        source: '/myPage',
+        destination: '/myPage/order',
+        permanent: true
+      }
+    ];
   }
 };
 
