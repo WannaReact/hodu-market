@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Buttons } from '@components';
 
@@ -34,9 +34,27 @@ interface CartDataProps {
 
 function CartItem({ cartData }: CartDataProps) {
   const { count, delivery, product } = cartData;
+  const [productCount, setProductCount] = useState<number>(Number(count));
+  const [price, setPrice] = useState(product.price);
+  const oneprice = product.price / +count;
+  console.log(oneprice);
 
   const orderSubmit = () => {
     console.log('주문하기 버튼');
+  };
+
+  const plusCount = () => {
+    setProductCount((prev) => prev + 1);
+    setPrice((prev) => prev + oneprice);
+  };
+
+  const minusCount = () => {
+    if (productCount > 1) {
+      setProductCount((prev) => prev - 1);
+      setPrice((prev) => prev - oneprice);
+    } else {
+      alert('1개 이상부터 구매가능');
+    }
   };
 
   return (
@@ -54,12 +72,12 @@ function CartItem({ cartData }: CartDataProps) {
         </ContainerText>
       </ContainerItem>
       <ContainerItem flex={15} center>
-        <BtnControl>-</BtnControl>
-        <BtnCount disabled>{count}</BtnCount>
-        <BtnControl>+</BtnControl>
+        <BtnControl onClick={minusCount}>-</BtnControl>
+        <BtnCount disabled>{productCount}</BtnCount>
+        <BtnControl onClick={plusCount}>+</BtnControl>
       </ContainerItem>
       <ContainerItem flex={25} center columnDirection>
-        <TextFinalItemPrice>{product.price}</TextFinalItemPrice>
+        <TextFinalItemPrice>{price}</TextFinalItemPrice>
         <Buttons.Custom
           width={18}
           height={4}
