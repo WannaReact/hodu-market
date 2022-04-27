@@ -52,21 +52,6 @@ export const BodyTd = styled.td<ProfileCheck>`
   }
 `;
 
-export const ProductText = styled.div`
-  display: flex;
-  margin-left: 3rem;
-  flex-direction: column;
-  justify-content: space-evenly;
-  text-align: left;
-  & h4 {
-    font-size: 1.8rem;
-  }
-  & p {
-    font-size: 1.6rem;
-    color: #767676;
-  }
-`;
-
 export const CommentTd = styled.td<ProfileCheck>`
   flex: 1 1 ${(props) => props.flex * 100}%;
   font-size: 1.8rem;
