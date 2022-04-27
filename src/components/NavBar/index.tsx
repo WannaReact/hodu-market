@@ -117,8 +117,8 @@ function NavBar({ options, pathname }: NavBarProps) {
             <Styled.NavBarTitle>{options?.title}</Styled.NavBarTitle>
           </Styled.LogoWrapper>
         </Link>
-        {pathname === '/' && <SearchBar />}
-        <Menu key={nanoid()} />
+        {!options?.title && pathname === '/' && <SearchBar />}
+        {!options?.title && <Menu key={nanoid()} />}
         <NavButtonList>
           {user && !user.isAdmin && (
             <NavButton href="/cart" SVG={<Cart viewBox="0 0 32 32" />}>
