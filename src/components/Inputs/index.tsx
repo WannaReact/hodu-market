@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Check from 'public/images/icon-check.svg';
 import { COLOR } from '@shared/constants';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import formatPrice from '@utils/formatPrice';
 import * as Styled from './styled';
 
 interface InputProps {
@@ -66,10 +67,6 @@ export function TextInputBoxComponent({
   name
 }: TextInputBoxProps) {
   const [value, setValue] = useState<string>('');
-  const format = useCallback((val: string) => {
-    const numbers = val.replace(/[^0-9]/g, '');
-    return numbers ? Number(numbers).toLocaleString('ko-kr') : '';
-  }, []);
   const handleChange = useCallback(
     (e) => {
       setValue(e.target.value);
@@ -89,7 +86,7 @@ export function TextInputBoxComponent({
         name={name}
         minLength={minLength}
         maxLength={maxLength}
-        value={option === 'unit' ? format(value) : value}
+        value={option === 'unit' ? formatPrice(value) : value}
         placeholder={placeholder}
         hasOption={option !== 'none'}
         {...hook}
