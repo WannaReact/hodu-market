@@ -1,6 +1,8 @@
 import React from 'react';
+import useSWR from 'swr';
 import DefaultContainerPage from 'src/components/common/DefaultContainer';
 import styled from 'styled-components';
+import api from '@utils/api';
 import { Buttons } from '@components';
 import CartItem from 'src/components/Cart/CartItem';
 
@@ -10,35 +12,30 @@ interface BarProps {
 
 export interface CartData {
   _id: number;
-  img: string;
-  category: string;
-  title: string;
-  price: number;
+  count: string;
+  createdAt: string;
+  user: string;
+  product: CartProduct;
   delivery: string;
 }
 
-const data = {
-  tableData: [
-    {
-      _id: 2134314,
-      img: 'https://itec.snu.ac.kr/msc/default.png',
-      category: '백엔드글로벌',
-      title: '딥러닝 개발자 무릎 담요',
-      price: 27500,
-      delivery: '무료배송'
-    },
-    {
-      _id: 213431242,
-      img: 'https://itec.snu.ac.kr/msc/default.png',
-      category: '커피',
-      title: '커피 개발자 무릎 담요',
-      price: 50000,
-      delivery: '무료배송'
-    }
-  ]
-};
+export interface CartProduct {
+  _id: string;
+  categories: string[];
+  discount: string;
+  imges: string[];
+  price: number;
+  productName: string;
+  inquiries: string[];
+  reviews: string[];
+}
 
 function CartPage() {
+  // const userId = '62615ab8a6d36a33631fc008';
+  const { data } = useSWR(`/user/cart/6266d8ed14624164b487d447`, api.get);
+
+  // const { data } = useSWR(`/cart`, api.get);
+  console.log(data);
   const orderSubmit = () => {
     console.log('주문하기 버튼');
   };
@@ -55,7 +52,7 @@ function CartPage() {
         <TextBar flex={25}>상품금액</TextBar>
       </SectionBar>
 
-      {data.tableData.map((item: CartData) => {
+      {data?.data.map((item: CartData) => {
         return <CartItem cartData={item} key={`cart-data-${item._id}`} />;
       })}
 

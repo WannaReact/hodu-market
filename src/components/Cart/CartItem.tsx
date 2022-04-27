@@ -8,12 +8,24 @@ interface ItemProps {
   columnDirection?: boolean;
 }
 
-interface CartData {
-  img: string;
-  category: string;
-  title: string;
-  price: number;
+export interface CartData {
+  _id: number;
+  count: string;
+  createdAt: string;
+  user: string;
+  product: CartProduct;
   delivery: string;
+}
+
+export interface CartProduct {
+  _id: string;
+  categories: string[];
+  discount: string;
+  imges: string[];
+  price: number;
+  productName: string;
+  inquiries: string[];
+  reviews: string[];
 }
 
 interface CartDataProps {
@@ -21,7 +33,7 @@ interface CartDataProps {
 }
 
 function CartItem({ cartData }: CartDataProps) {
-  const { img, category, title, price, delivery } = cartData;
+  const { count, delivery, product } = cartData;
 
   const orderSubmit = () => {
     console.log('주문하기 버튼');
@@ -33,21 +45,21 @@ function CartItem({ cartData }: CartDataProps) {
         <ContainerCheck />
       </ContainerCheckBox>
       <ContainerItem flex={55}>
-        <ImgItem src={img} />
+        <ImgItem src="https://itec.snu.ac.kr/msc/default.png" />
         <ContainerText>
-          <TextCategory>{category}</TextCategory>
-          <p>{title}</p>
-          <TextItemPrice>{price}</TextItemPrice>
+          <TextCategory>{product.categories}</TextCategory>
+          <p>{product.productName}</p>
+          <TextItemPrice>{product.price}</TextItemPrice>
           <TextDelivery>{delivery}</TextDelivery>
         </ContainerText>
       </ContainerItem>
       <ContainerItem flex={15} center>
         <BtnControl>-</BtnControl>
-        <BtnCount disabled>1</BtnCount>
+        <BtnCount disabled>{count}</BtnCount>
         <BtnControl>+</BtnControl>
       </ContainerItem>
       <ContainerItem flex={25} center columnDirection>
-        <TextFinalItemPrice>{price}</TextFinalItemPrice>
+        <TextFinalItemPrice>{product.price}</TextFinalItemPrice>
         <Buttons.Custom
           width={18}
           height={4}
