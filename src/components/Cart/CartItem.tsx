@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Buttons } from '@components';
+import Modal from '../Modals';
 
 interface ItemProps {
   flex: number;
@@ -36,11 +37,16 @@ function CartItem({ cartData }: CartDataProps) {
   const { count, delivery, product } = cartData;
   const [productCount, setProductCount] = useState<number>(Number(count));
   const [price, setPrice] = useState(product.price);
+  const [isModal, setIsModal] = useState(false);
   const oneprice = product.price / +count;
   console.log(oneprice);
 
   const orderSubmit = () => {
     console.log('주문하기 버튼');
+  };
+
+  const deleteData = () => {
+    console.log('삭제');
   };
 
   const plusCount = () => {
@@ -89,7 +95,16 @@ function CartItem({ cartData }: CartDataProps) {
           주문하기
         </Buttons.Custom>
       </ContainerItem>
-      <AreaDelete />
+      <AreaDelete onClick={() => setIsModal((prev) => !prev)} />
+      <Modal
+        isModal={isModal}
+        setIsModal={setIsModal}
+        checkText="예"
+        cancelText="아니오"
+        onClick={deleteData}
+      >
+        정말 삭제하시겠습니까?
+      </Modal>
     </SectionItem>
   );
 }
@@ -193,6 +208,7 @@ const AreaDelete = styled.span`
   height: 22px;
   background: url(images/icon-delete.png) no-repeat;
   background-size: 100%;
+  cursor: pointer;
 `;
 
 export default CartItem;
