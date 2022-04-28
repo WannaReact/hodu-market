@@ -6,6 +6,7 @@ export const COLOR = {
   greyC4: '#c4c4c4',
   grey76: '#767676',
   black: '#000000',
+  modalBg: '#000000bb',
   accentColor: '#21bf48',
   lightGreen: '#effff3',
   red: '#EB5757'
