@@ -1,10 +1,10 @@
-import React, { useEffect, useReducer } from 'react';
-import useSWR from 'swr';
+import React, { useEffect, useReducer, useState } from 'react';
+import { GetServerSideProps } from 'next';
 import DefaultContainerPage from 'src/components/common/DefaultContainer';
 import styled from 'styled-components';
-import api from '@utils/api';
 import { Buttons } from '@components';
 import CartItem from 'src/components/Cart/CartItem';
+import axios from 'axios';
 
 interface BarProps {
   flex: number;
@@ -28,50 +28,104 @@ export interface CartProduct {
   productName: string;
   inquiries: string[];
   reviews: string[];
+  deliveryCharge: number;
 }
 
 const initialState = {
-  price: [{}],
+  price: [],
+  totalprice: 0,
+  deliveryprice: 0,
   finalprice: 0
 };
 
 function reducer(state: any, action: any) {
   switch (action.type) {
+    case 'INITIAL':
+      return {
+        ...state,
+        totalprice: 0,
+        price: initialState.price
+      };
     case 'LOAD':
       return {
         ...state,
-        finalprice: action.final,
-        price: {
-          id: action.id,
-          price: action.price
-        }
+        price: state.price.concat(action.itemPrice)
+      };
+    case 'TOTAL':
+      return {
+        ...state,
+        totalprice: state.price
+          .map((item: any) => item.price)
+          .reduce((prev: number, curr: number) => prev + curr, 0),
+        deliveryprice: state.price
+          .map((item: any) =>
+            item.deliveryCharge === undefined ? 0 : item.deliveryCharge
+          )
+          .reduce((prev: number, curr: number) => prev + curr, 0)
+      };
+    case 'FINAL':
+      return {
+        ...state,
+        finalprice: state.totalprice + state.deliveryprice
+      };
+    case 'PLUSCOUNT':
+      return {
+        ...state,
+        price: state.price.map((item: any) =>
+          item.id === action.item_id
+            ? { ...item, price: item.price + action.oneCharge }
+            : item
+        )
+      };
+    case 'MINUSCOUNT':
+      return {
+        ...state,
+        price: state.price.map((item: any) =>
+          item.id === action.item_id
+            ? { ...item, price: item.price - action.oneCharge }
+            : item
+        )
       };
     default:
       return state;
   }
 }
 
-function CartPage() {
-  // const userId = '62615ab8a6d36a33631fc008';
+interface CartDataProps {
+  data: { data: CartData[] };
+}
 
-  const { data } = useSWR(`/user/cart/6266d8ed14624164b487d447`, api.get);
+function CartPage({ data }: CartDataProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { price, finalprice } = state;
+  const { totalprice, deliveryprice, finalprice } = state;
+  const [count, setCount] = useState(0);
+  console.log(data);
 
   useEffect(() => {
-    data?.data.map((item: CartData) =>
+    dispatch({
+      type: 'INITIAL'
+    });
+    data.data.map((item: CartData) =>
       dispatch({
         type: 'LOAD',
-        id: item._id,
-        price: item.product.price,
-        final: Number(finalprice) + Number(item.product.price)
+        itemPrice: {
+          id: item.product._id,
+          price: item.product.price,
+          deliveryCharge: item.product?.deliveryCharge
+        },
+        final: Number(item.product.price),
+        delivery: item.product.deliveryCharge
       })
     );
-    console.log(state);
+    dispatch({
+      type: 'TOTAL'
+    });
+    dispatch({
+      type: 'FINAL'
+    });
   }, []);
-  console.log(state);
 
-  // const { data } = useSWR(`/cart`, api.get);
+  console.log(state);
 
   const orderSubmit = () => {
     console.log('주문하기 버튼');
@@ -79,6 +133,10 @@ function CartPage() {
 
   return (
     <DefaultContainerPage>
+      <p>{count}</p>
+      <button type="button" onClick={() => setCount(count + 1)}>
+        클릭미
+      </button>
       <PageTitle>장바구니</PageTitle>
       <SectionBar>
         <ContainerCheckBox>
@@ -90,13 +148,19 @@ function CartPage() {
       </SectionBar>
 
       {data?.data.map((item: CartData) => {
-        return <CartItem cartData={item} key={`cart-data-${item._id}`} />;
+        return (
+          <CartItem
+            cartData={item}
+            key={`cart-data-${item._id}`}
+            dispatch={dispatch}
+          />
+        );
       })}
 
       <SectionPrice>
         <ContainerTextBox>
           <TextPriceTitle>총 상품금액</TextPriceTitle>
-          <TextPrice>46,500</TextPrice>
+          <TextPrice>{totalprice}</TextPrice>
         </ContainerTextBox>
         <TextOperator>-</TextOperator>
         <ContainerTextBox>
@@ -106,7 +170,7 @@ function CartPage() {
         <TextOperator>+</TextOperator>
         <ContainerTextBox>
           <TextPriceTitle>배송비</TextPriceTitle>
-          <TextPrice>0</TextPrice>
+          <TextPrice>{deliveryprice}</TextPrice>
         </ContainerTextBox>
         <ContainerTextBox>
           <TextExpectTitle>결제 예정 금액</TextExpectTitle>
@@ -128,6 +192,18 @@ function CartPage() {
     </DefaultContainerPage>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await axios.get(
+    `${process.env.NEXTAUTH_URL}/api/user/cart/6266d8ed14624164b487d447`
+  );
+
+  return {
+    props: {
+      data
+    }
+  };
+};
 
 const PageTitle = styled.h2`
   font-size: 40px;
