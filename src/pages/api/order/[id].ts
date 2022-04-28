@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { send } from 'lib/mongoose/utils/response';
 import createHandler from 'lib/mongoose/utils/createHandler';
+import OrderGroup from 'lib/mongoose/models/OrderGroup';
 
 const handler = createHandler();
 const { Order } = mongoose.models;
@@ -18,9 +19,17 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   const {
-    body: { status, courier, invoice },
+    body: { status, courier, invoice, orderer, addressee, address },
     query: { id }
   } = req;
+  if (orderer || addressee || address) {
+    const { orderGroup } = await Order.findById(id).lean().exec();
+    await OrderGroup.findByIdAndUpdate(orderGroup, {
+      orderer,
+      addressee,
+      address
+    });
+  }
   const order = await Order.findByIdAndUpdate(
     id,
     {

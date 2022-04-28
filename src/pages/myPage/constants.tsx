@@ -1,11 +1,18 @@
+import React from 'react';
 import { nanoid } from 'nanoid';
 import Product from 'src/components/Table/Product';
+import { dateConverter } from '@utils/dateConverter';
+import Cost from 'src/components/Table/Cost';
+import Status, { ButtonInfo } from 'src/components/Table/Status';
+import ChangeOrder from 'src/components/Modals/CustomModal/Contents/ChangeOrder';
+import { IMyOrder } from '@shared/types';
+import ConfirmOrder from 'src/components/Modals/CustomModal/Contents/ConfirmOrder';
 
 export const menuText = {
   order: '주문 내역',
   review: '리뷰 내역',
   inquiry: '문의 내역',
-  wishList: '위시리스트'
+  information: '회원 정보 변경'
 };
 
 export const thead = {
@@ -24,83 +31,93 @@ export const thead = {
     ['상품정보', 3],
     ['문의 내용', 4],
     ['처리 상태', 2]
-  ],
-  wishList: [
-    ['상품정보', 8],
-    ['가격', 3],
-    ['삭제', 3]
   ]
+};
+
+export const buttons: {
+  [key: string]: {
+    [key: string]: ButtonInfo;
+  };
+} = {
+  order: {
+    결제완료: {
+      text: '변경/취소',
+      content: (data: IMyOrder) => <ChangeOrder data={data} />
+    },
+    배송중: {
+      text: '구매확정',
+      content: (data: IMyOrder) => <ConfirmOrder data={data} />
+    },
+    배송완료: {
+      text: '구매확정',
+      content: (data: IMyOrder) => <ConfirmOrder data={data} />
+    },
+    구매확정: {
+      text: '리뷰 작성',
+      color: 'green'
+    }
+  }
 };
 
 export const getRows = {
   order: (data: { [key: string]: any }) =>
-    data?.data?.orders
-      ?.reverse()
-      .map(
-        ({
-          productId: { productName },
-          createdAt,
+    data?.data?.map((rowData: IMyOrder) => {
+      const {
+        orderGroup: { orderNumber },
+        product: { productName, option },
+        createdAt,
+        cost,
+        count,
+        status
+      } = rowData;
+      return {
+        tableData: [
+          <Product key={nanoid()} title={productName} option={option} />,
+          dateConverter(createdAt),
           orderNumber,
-          cost,
-          count,
-          status
-        }: {
-          [key: string]: any;
-        }) => {
-          return {
-            tableData: [
-              <Product key={nanoid()} title={productName} text="" />,
-              createdAt,
-              orderNumber,
-              `${cost}원 ${count}개`,
-              status
-            ]
-          };
-        }
-      ),
+          <Cost key={nanoid()} cost={cost} count={count} />,
+          <Status
+            key={nanoid()}
+            data={rowData}
+            status={status}
+            button={buttons.order[status]}
+          />
+        ]
+      };
+    }),
   review: (data: { [key: string]: any }) =>
-    data?.data?.reviews
-      ?.reverse()
-      .map(
-        ({ productId: { productName }, content }: { [key: string]: any }) => {
-          return {
-            tableData: [
-              <Product key={nanoid()} title={productName} text="" />,
-              content
-            ]
-          };
-        }
-      ),
-  inquiry: (data: { [key: string]: any }) =>
-    data?.data?.inquiries
-      ?.reverse()
-      .map(
-        ({
-          productId: { productName },
-          content,
-          answer
-        }: {
-          [key: string]: any;
-        }) => {
-          return {
-            tableData: [
-              <Product key={nanoid()} title={productName} text="" />,
-              content,
-              answer ? '답변 완료' : '답변 대기'
-            ],
-            comments: [['', answer, '']]
-          };
-        }
-      ),
-  wishList: (data: { [key: string]: any }) =>
-    data?.data?.wishList
-      ?.reverse()
-      .map(({ productName, price }: { [key: string]: any }) => {
+    data?.data?.map(
+      ({
+        product: { productName, option },
+        content
+      }: {
+        [key: string]: any;
+      }) => {
         return {
           tableData: [
-            <Product key={nanoid()} title={productName} text="" />,
-            price
+            <Product key={nanoid()} title={productName} option={option} />,
+            content
           ]
         };
-      })
+      }
+    ),
+  inquiry: (data: { [key: string]: any }) =>
+    data?.data?.map(
+      ({
+        product: { productName, option },
+        content,
+        answer
+      }: {
+        [key: string]: any;
+      }) => {
+        return {
+          tableData: [
+            <Product key={nanoid()} title={productName} option={option} />,
+            content,
+            answer ? '답변 완료' : '답변 대기'
+          ],
+          comments: [['', answer, '']]
+        };
+      }
+    )
 };

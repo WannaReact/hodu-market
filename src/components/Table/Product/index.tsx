@@ -5,18 +5,18 @@ import * as Styled from './styled';
 
 interface ProductProps {
   title: string;
-  text: string;
+  option: string;
 }
 
-function Product({ title, text }: ProductProps) {
+function Product({ title, option }: ProductProps) {
   return (
-    <>
-      <Image src={profileImg} width={70} height={70} />
+    <Styled.ProductContainer>
+      <Image src={profileImg} width={70} height={70} alt="상품 이미지" />
       <Styled.ProductText>
         <h4>{title}</h4>
-        <p>{text}</p>
+        <p>{option}</p>
       </Styled.ProductText>
-    </>
+    </Styled.ProductContainer>
   );
 }
 

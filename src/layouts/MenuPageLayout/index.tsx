@@ -7,6 +7,7 @@ import * as Styled from './styled';
 interface ChildProps {
   menu: string | string[] | undefined;
   menuText: { [key: string]: string };
+  badge: { [key: string]: number } | null;
   header: React.ReactNode;
   thead?: [string, number][];
   children:
@@ -21,6 +22,7 @@ interface ChildProps {
 function MenuPageLayout({
   menu,
   menuText,
+  badge,
   header,
   thead = [],
   children
@@ -30,7 +32,7 @@ function MenuPageLayout({
       {header}
       <Styled.Container>
         <nav>
-          <Menu menu={menu} menuText={menuText} />
+          <Menu menu={menu} menuText={menuText} badge={badge} />
         </nav>
         <Styled.Content>
           {Array.isArray(children) ? (

@@ -58,3 +58,31 @@ export interface IProduct {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IMyOrder {
+  _id: string;
+  user: string;
+  status: string;
+  cost: number;
+  count: number;
+  orderGroup: {
+    _id: string;
+    orderNumber: number;
+    deliveryCharge: number;
+    orderer: string;
+    addressee: string;
+    address: {
+      postalCode: number;
+      address1: string;
+      address2: string;
+    };
+    createdAt: string;
+  };
+  product: {
+    _id: string;
+    productName: string;
+    option: string;
+    images: string[];
+  };
+  createdAt: string;
+}

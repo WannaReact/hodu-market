@@ -20,7 +20,7 @@ handler.get(async (req, res) => {
         {
           path: 'orderGroup',
           model: 'OrderGroup',
-          select: 'orderNumber'
+          select: '-user -updatedAt'
         },
         {
           path: 'product',
@@ -28,7 +28,7 @@ handler.get(async (req, res) => {
           select: 'productName option images'
         }
       ],
-      options: { skip, limit, sort: '-updatedAt' }
+      options: { skip, limit, select: '-updatedAt', sort: '-createdAt' }
     })
     .lean()
     .exec();

@@ -6,7 +6,6 @@ interface FlexTh {
 }
 
 interface ProfileCheck {
-  hasProfile?: boolean;
   flex: number;
   isText?: boolean;
 }
@@ -42,28 +41,11 @@ export const HeadTd = styled.th<FlexTh>`
 
 export const BodyTd = styled.td<ProfileCheck>`
   flex: 0 0 ${(props) => props.flex * 100}%;
-  display: ${(props) => props.hasProfile && 'flex'};
   font-size: 1.8rem;
   padding: 1.6rem 0;
   text-align: center;
-  padding-left: ${(props) => props.hasProfile && '3rem'};
   & span {
     flex-shrink: 0;
-  }
-`;
-
-export const ProductText = styled.div`
-  display: flex;
-  margin-left: 3rem;
-  flex-direction: column;
-  justify-content: space-evenly;
-  text-align: left;
-  & h4 {
-    font-size: 1.8rem;
-  }
-  & p {
-    font-size: 1.6rem;
-    color: #767676;
   }
 `;
 
