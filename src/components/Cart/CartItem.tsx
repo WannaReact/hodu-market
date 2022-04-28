@@ -31,9 +31,10 @@ export interface CartProduct {
 
 interface CartDataProps {
   cartData: CartData;
+  dispatch: any;
 }
 
-function CartItem({ cartData }: CartDataProps) {
+function CartItem({ cartData, dispatch }: CartDataProps) {
   const { count, delivery, product } = cartData;
   const [productCount, setProductCount] = useState<number>(Number(count));
   const [price, setPrice] = useState(product.price);
@@ -51,12 +52,34 @@ function CartItem({ cartData }: CartDataProps) {
   const plusCount = () => {
     setProductCount((prev) => prev + 1);
     setPrice((prev) => prev + oneprice);
+    dispatch({
+      type: 'PLUSCOUNT',
+      item_id: product._id,
+      oneCharge: oneprice
+    });
+    dispatch({
+      type: 'TOTAL'
+    });
+    dispatch({
+      type: 'FINAL'
+    });
   };
 
   const minusCount = () => {
     if (productCount > 1) {
       setProductCount((prev) => prev - 1);
       setPrice((prev) => prev - oneprice);
+      dispatch({
+        type: 'MINUSCOUNT',
+        item_id: product._id,
+        oneCharge: oneprice
+      });
+      dispatch({
+        type: 'TOTAL'
+      });
+      dispatch({
+        type: 'FINAL'
+      });
     } else {
       alert('1개 이상부터 구매가능');
     }
