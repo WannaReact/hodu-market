@@ -10,13 +10,13 @@ interface ProductProps {
 
 function Product({ title, option }: ProductProps) {
   return (
-    <>
-      <Image src={profileImg} width={70} height={70} />
+    <Styled.ProductContainer>
+      <Image src={profileImg} width={70} height={70} alt="상품 이미지" />
       <Styled.ProductText>
         <h4>{title}</h4>
         <p>{option}</p>
       </Styled.ProductText>
-    </>
+    </Styled.ProductContainer>
   );
 }
 

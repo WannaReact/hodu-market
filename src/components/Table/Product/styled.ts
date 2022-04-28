@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { COLOR } from '@shared/constants';
 
+export const ProductContainer = styled.div`
+  display: flex;
+  padding-left: 3rem;
+`;
+
 export const ProductText = styled.div`
   display: flex;
   margin-left: 3rem;

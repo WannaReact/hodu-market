@@ -35,11 +35,7 @@ function Table({ thead, rows }: TableProps) {
                 sumFlex={sumFlex}
               >
                 {tableData.map((data, i) => (
-                  <Styled.BodyTd
-                    key={nanoid()}
-                    hasProfile={typeof data === 'object'}
-                    flex={thead[i][1] / sumFlex}
-                  >
+                  <Styled.BodyTd key={nanoid()} flex={thead[i][1] / sumFlex}>
                     {data}
                   </Styled.BodyTd>
                 ))}
@@ -49,11 +45,7 @@ function Table({ thead, rows }: TableProps) {
           return (
             <Styled.Tr key={nanoid()}>
               {tableData.map((data, i) => (
-                <Styled.BodyTd
-                  key={nanoid()}
-                  hasProfile={typeof data === 'object'}
-                  flex={thead[i][1] / sumFlex}
-                >
+                <Styled.BodyTd key={nanoid()} flex={thead[i][1] / sumFlex}>
                   {data}
                 </Styled.BodyTd>
               ))}
