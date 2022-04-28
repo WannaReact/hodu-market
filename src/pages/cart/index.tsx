@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useReducer } from 'react';
 import useSWR from 'swr';
 import DefaultContainerPage from 'src/components/common/DefaultContainer';
 import styled from 'styled-components';
@@ -30,12 +30,49 @@ export interface CartProduct {
   reviews: string[];
 }
 
+const initialState = {
+  price: [{}],
+  finalprice: 0
+};
+
+function reducer(state: any, action: any) {
+  switch (action.type) {
+    case 'LOAD':
+      return {
+        ...state,
+        finalprice: action.final,
+        price: {
+          id: action.id,
+          price: action.price
+        }
+      };
+    default:
+      return state;
+  }
+}
+
 function CartPage() {
   // const userId = '62615ab8a6d36a33631fc008';
+
   const { data } = useSWR(`/user/cart/6266d8ed14624164b487d447`, api.get);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { price, finalprice } = state;
+
+  useEffect(() => {
+    data?.data.map((item: CartData) =>
+      dispatch({
+        type: 'LOAD',
+        id: item._id,
+        price: item.product.price,
+        final: Number(finalprice) + Number(item.product.price)
+      })
+    );
+    console.log(state);
+  }, []);
+  console.log(state);
 
   // const { data } = useSWR(`/cart`, api.get);
-  console.log(data);
+
   const orderSubmit = () => {
     console.log('주문하기 버튼');
   };
@@ -73,7 +110,7 @@ function CartPage() {
         </ContainerTextBox>
         <ContainerTextBox>
           <TextExpectTitle>결제 예정 금액</TextExpectTitle>
-          <TextExpectPrice>46,500</TextExpectPrice>
+          <TextExpectPrice>{finalprice}</TextExpectPrice>
         </ContainerTextBox>
       </SectionPrice>
       <ConTainerBtn>
