@@ -95,8 +95,3 @@ export const ButtonContainer = styled.div`
   gap: 3rem;
   margin-top: 3rem;
 `;
-
-export const ResultModalContainer = styled.div`
-  padding: 2rem;
-  font-size: 2rem;
-`;

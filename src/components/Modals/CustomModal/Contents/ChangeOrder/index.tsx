@@ -6,6 +6,7 @@ import { useContext, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Postcode } from 'src/components/Postcode';
 import { ModalDispatchContext } from 'src/contexts/Modal/ModalContext';
+import Result from '../Result';
 import * as Styled from './styled';
 
 interface IFormValues {
@@ -80,34 +81,18 @@ function ChageOrder({
       }
     });
     if (success) {
-      open(
-        <Styled.ResultModalContainer>
-          ✅ 배송정보가 정상적으로 변경되었습니다.
-        </Styled.ResultModalContainer>
-      );
+      open(<Result>✅ 배송정보가 정상적으로 변경되었습니다.</Result>);
     } else {
-      open(
-        <Styled.ResultModalContainer>
-          ❌ 배송정보 변경에 실패했습니다!
-        </Styled.ResultModalContainer>
-      );
+      open(<Result>❌ 배송정보 변경에 실패했습니다!</Result>);
     }
   };
 
   const cancelOrder = async () => {
     const { success } = await api.delete(`/order/${orderId}`);
     if (success) {
-      open(
-        <Styled.ResultModalContainer>
-          ✅ 주문이 정상적으로 취소되었습니다.
-        </Styled.ResultModalContainer>
-      );
+      open(<Result>✅ 주문이 정상적으로 취소되었습니다.</Result>);
     } else {
-      open(
-        <Styled.ResultModalContainer>
-          ❌ 주문 취소에 실패했습니다!
-        </Styled.ResultModalContainer>
-      );
+      open(<Result>❌ 주문 취소에 실패했습니다!</Result>);
     }
   };
 
