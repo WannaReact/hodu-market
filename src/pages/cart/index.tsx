@@ -98,7 +98,6 @@ interface CartDataProps {
 function CartPage({ data }: CartDataProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { totalprice, deliveryprice, finalprice } = state;
-  const [count, setCount] = useState(0);
   console.log(data);
 
   useEffect(() => {
@@ -133,10 +132,6 @@ function CartPage({ data }: CartDataProps) {
 
   return (
     <DefaultContainerPage>
-      <p>{count}</p>
-      <button type="button" onClick={() => setCount(count + 1)}>
-        클릭미
-      </button>
       <PageTitle>장바구니</PageTitle>
       <SectionBar>
         <ContainerCheckBox>
