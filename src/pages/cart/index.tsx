@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { GetServerSideProps } from 'next';
 import DefaultContainerPage from 'src/components/common/DefaultContainer';
 import styled from 'styled-components';
@@ -85,6 +85,11 @@ function reducer(state: any, action: any) {
             ? { ...item, price: item.price - action.oneCharge }
             : item
         )
+      };
+    case 'DELETE':
+      return {
+        ...state,
+        price: state.price.filter((item: any) => item.id !== action.item_id)
       };
     default:
       return state;

@@ -47,6 +47,16 @@ function CartItem({ cartData, dispatch }: CartDataProps) {
 
   const deleteData = () => {
     console.log('삭제');
+    dispatch({
+      type: 'DELETE',
+      item_id: product._id
+    });
+    dispatch({
+      type: 'TOTAL'
+    });
+    dispatch({
+      type: 'FINAL'
+    });
   };
 
   const plusCount = () => {
