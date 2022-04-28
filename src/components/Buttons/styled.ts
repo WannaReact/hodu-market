@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { COLOR } from '../../shared/constants';
 
 interface ICustomProps {
@@ -17,29 +17,38 @@ export const Custom = styled.button<ICustomProps>`
   }
   ${(props) => {
     if (props.disabled) {
-      return `
-      color: ${COLOR.white};
-      background-color: ${COLOR.greyC4}`;
+      return css`
+        color: ${COLOR.white};
+        background-color: ${COLOR.greyC4};
+      `;
     }
     switch (props.color) {
       case 'green':
-        return `
+        return css`
           color: ${COLOR.white};
-          background-color: ${COLOR.accentColor}`;
+          background-color: ${COLOR.accentColor};
+        `;
       case 'dark':
-        return `
+        return css`
           color: ${COLOR.white};
-          background-color: ${COLOR.grey76}`;
+          background-color: ${COLOR.grey76};
+        `;
       case 'white':
-        return `
+        return css`
           background-color: ${COLOR.white};
           border: 0.1rem solid ${COLOR.greyC4};
           &:hover {
-            color:${COLOR.black}; 
+            color: ${COLOR.black};
             border-color: ${COLOR.grey76};
-          };`;
+          }
+        `;
+      case 'red':
+        return css`
+          color: ${COLOR.white};
+          background-color: ${COLOR.red};
+        `;
       default:
-        return ``;
+        return '';
     }
   }};
   font-size: ${(props) => props.fontSize}rem;
