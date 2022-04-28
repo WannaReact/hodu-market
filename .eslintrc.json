@@ -5,7 +5,6 @@
   },
   "extends": [
     "next",
-    "airbnb",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
@@ -19,7 +18,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks"],
+  "plugins": ["@typescript-eslint", "react", "react-hooks"],
   "rules": {
     "prettier/prettier": [
       "error",
