@@ -81,11 +81,7 @@ export const apiList = [
           {
             method: 'get',
             button: '회원ID로 장바구니 목록 조회',
-            param: ['회원ID', 'id'],
-            query: [
-              ['page', '페이지'],
-              ['limit', '페이지당 목록 개수']
-            ]
+            param: ['회원ID', 'id']
           }
         ]
       },
