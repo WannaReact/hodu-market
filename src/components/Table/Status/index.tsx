@@ -5,10 +5,11 @@ import React from 'react';
 import { ICustomButtonProps } from 'src/components/Buttons';
 import * as Styled from './styled';
 
-type ButtonInfo = {
+export type ButtonInfo = {
   text: string;
+  color?: 'green' | 'dark' | 'white' | 'red';
   content?: (data: IMyOrder) => React.ReactNode;
-  onClick?: () => void;
+  onClick?: (data: IMyOrder) => () => void;
 };
 
 interface StatusProps {
@@ -64,17 +65,17 @@ function Status({ data, status, button }: StatusProps) {
     <Styled.Container>
       <Styled.StatusText>{status}</Styled.StatusText>
       {Array.isArray(button) ? (
-        button.map(({ text, content, onClick }) => {
+        button.map(({ text, color, content, onClick }) => {
           return (
             <Button
               key={nanoid()}
               width={10}
               height={4}
               fontSize={1.6}
-              color="white"
+              color={color ?? 'white'}
               disabled={false}
               content={content?.(data)}
-              onClick={onClick}
+              onClick={onClick?.(data)}
             >
               {text}
             </Button>
@@ -85,10 +86,10 @@ function Status({ data, status, button }: StatusProps) {
           width={10}
           height={4}
           fontSize={1.6}
-          color="white"
+          color={button.color ?? 'white'}
           disabled={false}
           content={button.content?.(data)}
-          onClick={button.onClick}
+          onClick={button.onClick?.(data)}
         >
           {button.text}
         </Button>

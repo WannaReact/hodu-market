@@ -3,9 +3,10 @@ import { nanoid } from 'nanoid';
 import Product from 'src/components/Table/Product';
 import { dateConverter } from '@utils/dateConverter';
 import Cost from 'src/components/Table/Cost';
-import Status from 'src/components/Table/Status';
+import Status, { ButtonInfo } from 'src/components/Table/Status';
 import ChangeOrder from 'src/components/Modals/CustomModal/Contents/ChangeOrder';
 import { IMyOrder } from '@shared/types';
+import ConfirmOrder from 'src/components/Modals/CustomModal/Contents/ConfirmOrder';
 
 export const menuText = {
   order: '주문 내역',
@@ -35,11 +36,7 @@ export const thead = {
 
 export const buttons: {
   [key: string]: {
-    [key: string]: {
-      text: string;
-      content?: (data: IMyOrder) => React.ReactNode;
-      onClick?: () => void;
-    };
+    [key: string]: ButtonInfo;
   };
 } = {
   order: {
@@ -48,10 +45,16 @@ export const buttons: {
       content: (data: IMyOrder) => <ChangeOrder data={data} />
     },
     배송중: {
-      text: '구매확정'
+      text: '구매확정',
+      content: (data: IMyOrder) => <ConfirmOrder data={data} />
     },
     배송완료: {
-      text: '구매확정'
+      text: '구매확정',
+      content: (data: IMyOrder) => <ConfirmOrder data={data} />
+    },
+    구매확정: {
+      text: '리뷰 작성',
+      color: 'green'
     }
   }
 };
