@@ -39,7 +39,6 @@ function CartItem({ cartData }: CartDataProps) {
   const [price, setPrice] = useState(product.price);
   const [isModal, setIsModal] = useState(false);
   const oneprice = product.price / +count;
-  console.log(oneprice);
 
   const orderSubmit = () => {
     console.log('주문하기 버튼');
