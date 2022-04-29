@@ -76,7 +76,9 @@ function reducer(state: any, action: any) {
           .reduce((prev: number, curr: number) => prev + curr, 0),
         deliveryprice: state.cartData
           .map((item: any) =>
-            item.deliveryCharge === undefined ? 0 : item.deliveryCharge
+            item.deliveryCharge === undefined || item.checked === false
+              ? 0
+              : item.deliveryCharge
           )
           .reduce((prev: number, curr: number) => prev + curr, 0)
       };
