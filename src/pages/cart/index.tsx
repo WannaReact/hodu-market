@@ -48,6 +48,7 @@ export interface CartProps {
   option: string;
   productName: string;
   originPrice: number;
+  checked: boolean;
 }
 
 function reducer(state: any, action: any) {
@@ -125,7 +126,7 @@ interface CartDataProps {
 function CartPage({ data }: CartDataProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { totalprice, deliveryprice, finalprice, cartData } = state;
-
+  console.log(state);
   useEffect(() => {
     dispatch({
       type: 'INITIAL'
@@ -144,7 +145,8 @@ function CartPage({ data }: CartDataProps) {
           discountRaste: item.product.discountRate,
           option: item.product.option,
           productName: item.product.productName,
-          originPrice: item.product.price
+          originPrice: item.product.price,
+          checked: true
         },
         final: Number(item.product.price),
         delivery: item.product.deliveryCharge

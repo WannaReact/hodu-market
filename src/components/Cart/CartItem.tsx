@@ -42,6 +42,7 @@ export interface CartProps {
   option: string;
   productName: string;
   originPrice: number;
+  checked: boolean;
 }
 
 interface CartDataProps {
