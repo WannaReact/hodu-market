@@ -54,7 +54,9 @@ export const DiscountRate = styled.span`
 export const FinalPrice = styled.span`
   font-size: 3.6rem;
   font-weight: 700;
+  margin-right: 0.5rem;
 `;
+
 export const Shipment = styled.span`
   display: block;
   font-size: 1.6rem;
@@ -66,10 +68,35 @@ export const Shipment = styled.span`
 export const ProductBody = styled.section``;
 
 export const TabSection = styled.section`
-  min-height: 100rem;
   position: relative;
-  padding-top: 16rem;
+  min-height: 50rem;
+  font-size: 1.8rem;
   margin-bottom: 8rem;
+  h2 {
+    font-size: 3.6rem;
+    font-weight: 700;
+    line-height: 4;
+    color: ${COLOR.accentColor};
+    text-align: center;
+  }
+  h3 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  & > p {
+    line-height: 1.5;
+  }
+  ol > li {
+    list-style-type: decimal;
+    list-style-position: inside;
+    line-height: 1.5;
+  }
+`;
+
+export const NoneYet = styled.p`
+  font-size: 2.4rem;
+  text-align: center;
 `;
 
 export const TabMenu = styled.section`

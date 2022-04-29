@@ -1,62 +1,73 @@
 export interface IUser {
   _id: string;
   userId: string;
-  password: string;
   userName: string;
   nickname: string;
   email: string;
   phone: string;
   money: number;
-  cart: string[];
-  orders: string[];
-  reviews: string[];
-  wishList: string[];
-  inquiries: string[];
   createdAt: string;
-  updatedAt: string;
-}
-
-export interface IComment {
-  _id: string;
-  userId: string;
-  reviewId: string;
-  content: string;
-  createdAt: string;
-}
-
-export interface IReview {
-  _id: string;
-  productId: string;
-  userId: string;
-  rating: number;
-  content: string;
-  images: string[];
-  comments: IComment[];
-  createdAt: string;
-}
-
-export interface IInquiry {
-  _id: string;
-  productId: string;
-  userId: string;
-  content: string;
-  answer?: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface IProduct {
   _id: string;
   productName: string;
-  categories: string[];
-  price: number;
-  discount: string;
-  stock: number;
+  option: string;
   images: string[];
-  reviews: IReview[];
-  inquiries: IInquiry[];
+  price: number;
+  deliveryCharge: number;
+  discountRate: number;
+  stock: number;
+  categories: string[];
+  description: string;
   createdAt: string;
-  updatedAt: string;
+}
+
+export interface IReview {
+  _id: string;
+  product: {
+    _id: string;
+    productName: string;
+    images: string[];
+    option: string;
+  };
+  user: {
+    _id: string;
+    nickname: string;
+  };
+  rating: number;
+  images: string[];
+  content: string;
+  createdAt: string;
+}
+
+export interface IComment {
+  _id: string;
+  user: {
+    _id: string;
+    nickname: string;
+  };
+  review: string;
+  content: string;
+  createdAt: string;
+}
+
+export interface IInquiry {
+  _id: string;
+  product: {
+    _id: string;
+    productName: string;
+    images: string[];
+    option: string;
+  };
+  user: {
+    _id: string;
+    nickname: string;
+  };
+  content: string;
+  answer?: string;
+  createdAt: string;
+  updatedAt?: string; // 답변 등록하면 이게 나와야 함.
 }
 
 export interface IMyOrder {
