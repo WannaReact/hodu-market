@@ -13,7 +13,7 @@ handler.get(async (req, res) => {
       pagination: { skip, limit }
     }
   } = req;
-  const product = await Product.findById(id)
+  const { reviews, reviewCount } = await Product.findById(id)
     .populate({
       path: 'reviews',
       populate: {
@@ -24,9 +24,10 @@ handler.get(async (req, res) => {
       select: '-updatedAt',
       options: { skip, limit, sort: { createdAt: -1 } }
     })
+    .populate('reviewCount')
     .lean()
     .exec();
-  send(res, product.reviews);
+  send(res, { reviews, totalCount: reviewCount });
 });
 
 export default handler;

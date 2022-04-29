@@ -13,7 +13,7 @@ handler.get(async (req, res) => {
     .populate('unconfirmedOrders')
     .lean()
     .exec();
-  send(res, unconfirmedOrders);
+  send(res, { order: unconfirmedOrders });
 });
 
 export default handler;

@@ -13,14 +13,14 @@ handler.get(async (req, res) => {
       pagination: { skip, limit }
     }
   } = req;
-  const user = await User.findById(id)
+  const { orders, orderCount } = await User.findById(id)
     .populate({
       path: 'orders',
       populate: [
         {
           path: 'orderGroup',
           model: 'OrderGroup',
-          select: 'orderNumber'
+          select: '-user -updatedAt'
         },
         {
           path: 'product',
@@ -28,11 +28,12 @@ handler.get(async (req, res) => {
           select: 'productName option images'
         }
       ],
-      options: { skip, limit, sort: '-updatedAt' }
+      options: { skip, limit, select: '-updatedAt', sort: '-createdAt' }
     })
+    .populate('orderCount')
     .lean()
     .exec();
-  send(res, user.orders);
+  send(res, { orders, totalCount: orderCount });
 });
 
 export default handler;

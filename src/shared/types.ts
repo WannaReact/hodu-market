@@ -69,3 +69,31 @@ export interface IInquiry {
   createdAt: string;
   updatedAt?: string; // 답변 등록하면 이게 나와야 함.
 }
+
+export interface IMyOrder {
+  _id: string;
+  user: string;
+  status: string;
+  cost: number;
+  count: number;
+  orderGroup: {
+    _id: string;
+    orderNumber: number;
+    deliveryCharge: number;
+    orderer: string;
+    addressee: string;
+    address: {
+      postalCode: number;
+      address1: string;
+      address2: string;
+    };
+    createdAt: string;
+  };
+  product: {
+    _id: string;
+    productName: string;
+    option: string;
+    images: string[];
+  };
+  createdAt: string;
+}

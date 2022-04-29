@@ -91,6 +91,27 @@ UserSchema.virtual('orders', {
   foreignField: 'user'
 });
 
+UserSchema.virtual('reviewCount', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'user',
+  count: true
+});
+
+UserSchema.virtual('inquiryCount', {
+  ref: 'Inquiry',
+  localField: '_id',
+  foreignField: 'user',
+  count: true
+});
+
+UserSchema.virtual('orderCount', {
+  ref: 'Order',
+  localField: '_id',
+  foreignField: 'user',
+  count: true
+});
+
 UserSchema.virtual('unconfirmedOrders', {
   ref: 'Order',
   localField: '_id',

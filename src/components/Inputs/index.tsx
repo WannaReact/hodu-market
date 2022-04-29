@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Check from 'public/images/icon-check.svg';
 import { COLOR } from '@shared/constants';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import formatPrice from '@utils/formatPrice';
 import * as Styled from './styled';
 
 interface InputProps {
@@ -25,6 +26,14 @@ interface TextInputBoxProps extends InputProps {
   validationMsg?: string;
   unit?: string;
   type?: string;
+}
+
+interface TextAreaProps {
+  maxLength: number;
+  name?: string;
+  hook?: UseFormRegisterReturn;
+  minHeight?: number;
+  placeholder?: string;
 }
 
 function TextInputComponent({
@@ -66,10 +75,6 @@ export function TextInputBoxComponent({
   name
 }: TextInputBoxProps) {
   const [value, setValue] = useState<string>('');
-  const format = useCallback((val: string) => {
-    const numbers = val.replace(/[^0-9]/g, '');
-    return numbers ? Number(numbers).toLocaleString('ko-kr') : '';
-  }, []);
   const handleChange = useCallback(
     (e) => {
       setValue(e.target.value);
@@ -77,7 +82,7 @@ export function TextInputBoxComponent({
     },
     [hook]
   );
-  const isValid: boolean = false;
+  const isValid = false;
   const id = nanoid();
 
   return (
@@ -89,7 +94,7 @@ export function TextInputBoxComponent({
         name={name}
         minLength={minLength}
         maxLength={maxLength}
-        value={option === 'unit' ? format(value) : value}
+        value={option === 'unit' ? formatPrice(value) : value}
         placeholder={placeholder}
         hasOption={option !== 'none'}
         {...hook}
@@ -104,7 +109,10 @@ export function TextInputBoxComponent({
         switch (option) {
           case 'limit':
             return (
-              <Styled.Limit>{`${value.length}/${maxLength}`}</Styled.Limit>
+              <Styled.Limit
+                bottom="50%"
+                right="2.6rem"
+              >{`${value.length}/${maxLength}`}</Styled.Limit>
             );
           case 'password':
             return (
@@ -127,6 +135,54 @@ export function TextInputBoxComponent({
             return null;
         }
       })()}
+    </Styled.Box>
+  );
+}
+
+export function TextAreaComponent({
+  maxLength,
+  name,
+  hook,
+  minHeight,
+  placeholder
+}: TextAreaProps) {
+  const [value, setValue] = useState<string>('');
+  const autoResize = useCallback(() => {
+    const textarea = document.getElementById('textarea');
+    if (!textarea) {
+      return;
+    }
+    textarea.style.height = 'auto';
+    const height = textarea.scrollHeight;
+    textarea.style.height = `${height / 10}rem`;
+  }, []);
+
+  const handleChange = useCallback(
+    (e) => {
+      setValue(e.target.value);
+      hook?.onChange(e);
+    },
+    [hook]
+  );
+
+  return (
+    <Styled.Box>
+      <Styled.TextArea
+        id="textarea"
+        name={name}
+        maxLength={maxLength}
+        minHeight={minHeight}
+        placeholder={placeholder}
+        value={value}
+        {...hook}
+        onChange={handleChange}
+        onKeyDown={autoResize}
+        onKeyUp={autoResize}
+      />
+      <Styled.Limit
+        bottom="3rem"
+        right="1rem"
+      >{`${value.length}/${maxLength}`}</Styled.Limit>
     </Styled.Box>
   );
 }
@@ -154,5 +210,13 @@ TextInputBoxComponent.defaultProps = {
   name: ''
 };
 
+TextAreaComponent.defaultProps = {
+  name: '',
+  hook: null,
+  minHeight: 10,
+  placeholder: ''
+};
+
 export const TextInput = React.memo(TextInputComponent);
 export const TextInputBox = React.memo(TextInputBoxComponent);
+export const TextArea = React.memo(TextAreaComponent);

@@ -8,10 +8,7 @@ const { User } = mongoose.models;
 
 handler.get(async (req, res) => {
   const {
-    query: { id },
-    locals: {
-      pagination: { skip, limit }
-    }
+    query: { id }
   } = req;
   const user = await User.findById(id)
     .populate({
@@ -23,9 +20,7 @@ handler.get(async (req, res) => {
       },
       select: '-updatedAt',
       options: {
-        sort: { createdAt: -1 },
-        skip,
-        limit
+        sort: { createdAt: -1 }
       }
     })
     .lean()
