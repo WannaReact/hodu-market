@@ -13,7 +13,7 @@ handler.get(async (req, res) => {
       pagination: { skip, limit }
     }
   } = req;
-  const user = await User.findById(id)
+  const { reviews, reviewCount } = await User.findById(id)
     .populate({
       path: 'reviews',
       populate: {
@@ -24,9 +24,10 @@ handler.get(async (req, res) => {
       select: 'product rating content images createdAt',
       options: { skip, limit, sort: { createdAt: -1 } }
     })
+    .populate('reviewCount')
     .lean()
     .exec();
-  send(res, user.reviews);
+  send(res, { reviews, totalCount: reviewCount });
 });
 
 export default handler;

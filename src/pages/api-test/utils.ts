@@ -81,11 +81,7 @@ export const apiList = [
           {
             method: 'get',
             button: '회원ID로 장바구니 목록 조회',
-            param: ['회원ID', 'id'],
-            query: [
-              ['page', '페이지'],
-              ['limit', '페이지당 목록 개수']
-            ]
+            param: ['회원ID', 'id']
           }
         ]
       },
@@ -209,7 +205,6 @@ export const apiList = [
           ['productName', '상품 이름'],
           ['option', '상품 옵션'],
           ['price', '정가'],
-          ['deliveryCharge', '배송비'],
           ['discountRate', '할인율'],
           ['stock', '재고'],
           ['categories', '카테고리(쉼표로 구분)', true],
@@ -233,7 +228,6 @@ export const apiList = [
           ['productName', '상품 이름'],
           ['option', '상품 옵션'],
           ['price', '정가'],
-          ['deliveryCharge', '배송비'],
           ['discountRate', '할인율'],
           ['stock', '재고'],
           ['categories', '카테고리(쉼표로 구분)', true],

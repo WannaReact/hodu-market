@@ -13,7 +13,7 @@ handler.get(async (req, res) => {
       pagination: { skip, limit }
     }
   } = req;
-  const user = await User.findById(id)
+  const { inquiries, inquiryCount } = await User.findById(id)
     .populate({
       path: 'inquiries',
       populate: {
@@ -24,9 +24,10 @@ handler.get(async (req, res) => {
       select: '-updatedAt',
       options: { skip, limit, sort: { createdAt: -1 } }
     })
+    .populate('inquiryCount')
     .lean()
     .exec();
-  send(res, user.inquiries);
+  send(res, { inquiries, totalCount: inquiryCount });
 });
 
 export default handler;
