@@ -15,7 +15,7 @@ export const PaginationWrapper = styled.div`
   margin-top: 1rem;
 `;
 
-export const CommentInputForm = styled.div`
+export const CommentInputForm = styled.form`
   width: 100%;
   height: 6rem;
   display: flex;
