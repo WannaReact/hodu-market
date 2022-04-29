@@ -1,15 +1,51 @@
 [
   {
     "title":"Hack Your Life 개발자 노트북 파우치",
-    "img":"/images/product1.png",
+    "img":"/images/coffee.jpeg",
     "price": 29000
   },{
     "title":"개발자 키링",
-    "img":"/images/product1.png",
+    "img":"/images/coffee.jpeg",
     "price": 20000
   },{
     "title":"Hack Your Life!!!!!",
-    "img":"/images/product1.png",
+    "img":"/images/coffee.jpeg",
+    "price": 39000
+  },{
+    "title":"Hack Your Life 개발자 노트북 파우치",
+    "img":"/images/coffee.jpeg",
+    "price": 29000
+  },{
+    "title":"개발자 키링",
+    "img":"/images/coffee.jpeg",
+    "price": 20000
+  },{
+    "title":"Hack Your Life!!!!!",
+    "img":"/images/coffee.jpeg",
+    "price": 39000
+  },{
+    "title":"Hack Your Life 개발자 노트북 파우치",
+    "img":"/images/coffee.jpeg",
+    "price": 29000
+  },{
+    "title":"개발자 키링",
+    "img":"/images/coffee.jpeg",
+    "price": 20000
+  },{
+    "title":"Hack Your Life!!!!!",
+    "img":"/images/coffee.jpeg",
+    "price": 39000
+  },{
+    "title":"Hack Your Life 개발자 노트북 파우치",
+    "img":"/images/coffee.jpeg",
+    "price": 29000
+  },{
+    "title":"개발자 키링",
+    "img":"/images/coffee.jpeg",
+    "price": 20000
+  },{
+    "title":"Hack Your Life!!!!!",
+    "img":"/images/coffee.jpeg",
     "price": 39000
   }
 ]
