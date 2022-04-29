@@ -77,5 +77,19 @@ ProductSchema.virtual('inquiries', {
   foreignField: 'product'
 });
 
+ProductSchema.virtual('reviewCount', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'product',
+  count: true
+});
+
+ProductSchema.virtual('inquiryCount', {
+  ref: 'Inquiry',
+  localField: '_id',
+  foreignField: 'product',
+  count: true
+});
+
 export default mongoose.models.Product ||
   mongoose.model('Product', ProductSchema);

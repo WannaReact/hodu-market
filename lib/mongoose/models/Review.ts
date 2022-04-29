@@ -41,4 +41,11 @@ ReviewSchema.virtual('comments', {
   foreignField: 'review'
 });
 
+ReviewSchema.virtual('commentCount', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'review',
+  count: true
+});
+
 export default mongoose.models.Review || mongoose.model('Review', ReviewSchema);

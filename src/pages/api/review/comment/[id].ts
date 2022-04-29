@@ -13,7 +13,7 @@ handler.get(async (req, res) => {
       pagination: { skip, limit }
     }
   } = req;
-  const review = await Review.findById(id, 'comments')
+  const { comments, commentCount } = await Review.findById(id, 'comments')
     .populate({
       path: 'comments',
       populate: {
@@ -24,9 +24,10 @@ handler.get(async (req, res) => {
       select: 'user content createdAt',
       options: { skip, limit }
     })
+    .populate('commentCount')
     .lean()
     .exec();
-  send(res, review.comments);
+  send(res, { comments, totalCount: commentCount });
 });
 
 export default handler;

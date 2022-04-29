@@ -61,7 +61,7 @@ export const buttons: {
 
 export const getRows = {
   order: (data: { [key: string]: any }) =>
-    data?.data?.map((rowData: IMyOrder) => {
+    data?.data?.orders.map((rowData: IMyOrder) => {
       const {
         orderGroup: { orderNumber },
         product: { productName, option },
@@ -86,7 +86,7 @@ export const getRows = {
       };
     }),
   review: (data: { [key: string]: any }) =>
-    data?.data?.map(
+    data?.data?.reviews.map(
       ({
         product: { productName, option },
         content
@@ -102,7 +102,7 @@ export const getRows = {
       }
     ),
   inquiry: (data: { [key: string]: any }) =>
-    data?.data?.map(
+    data?.data?.inquiries.map(
       ({
         product: { productName, option },
         content,
