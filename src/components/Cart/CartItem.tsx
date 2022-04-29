@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import styled, { css } from 'styled-components';
 import api from '@utils/api';
 import { Buttons } from '@components';
@@ -153,16 +154,25 @@ function CartItem({ cartData, dispatch }: CartDataProps) {
       </ContainerItem>
       <ContainerItem flex={25} center columnDirection>
         <TextFinalItemPrice>{price}</TextFinalItemPrice>
-        <Buttons.Custom
-          width={18}
-          height={4}
-          fontSize={1.9}
-          color="green"
-          disabled={false}
-          onClick={orderSubmit}
+        <Link
+          href={{
+            pathname: 'order',
+            query: { cart: JSON.stringify(cartData) }
+          }}
+          as="order"
+          passHref
         >
-          주문하기
-        </Buttons.Custom>
+          <Buttons.Custom
+            width={18}
+            height={4}
+            fontSize={1.9}
+            color="green"
+            disabled={false}
+            onClick={orderSubmit}
+          >
+            주문하기
+          </Buttons.Custom>
+        </Link>
       </ContainerItem>
       <AreaDelete onClick={() => setIsModal((prev) => !prev)} />
       <Modal
