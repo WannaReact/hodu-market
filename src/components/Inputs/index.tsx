@@ -34,6 +34,7 @@ interface TextAreaProps {
   hook?: UseFormRegisterReturn;
   minHeight?: number;
   placeholder?: string;
+  defaultValue?: string;
 }
 
 function TextInputComponent({
@@ -144,9 +145,10 @@ export function TextAreaComponent({
   name,
   hook,
   minHeight,
-  placeholder
+  placeholder,
+  defaultValue = ''
 }: TextAreaProps) {
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>(defaultValue);
   const autoResize = useCallback(() => {
     const textarea = document.getElementById('textarea');
     if (!textarea) {

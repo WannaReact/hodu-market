@@ -5,8 +5,10 @@ import { dateConverter } from '@utils/dateConverter';
 import Cost from 'src/components/Table/Cost';
 import Status, { ButtonInfo } from 'src/components/Table/Status';
 import ChangeOrder from 'src/components/Modals/CustomModal/Contents/ChangeOrder';
-import { IMyOrder } from '@shared/types';
+import { IMyOrder, IMyReview } from '@shared/types';
 import ConfirmOrder from 'src/components/Modals/CustomModal/Contents/ConfirmOrder';
+import Review from 'src/components/Table/Review';
+import PostReview from 'src/components/Modals/CustomModal/Contents/PostReview';
 
 export const menuText = {
   order: '주문 내역',
@@ -54,7 +56,8 @@ export const buttons: {
     },
     구매확정: {
       text: '리뷰 작성',
-      color: 'green'
+      color: 'green',
+      content: (data: IMyOrder) => <PostReview data={data} />
     }
   }
 };
@@ -86,21 +89,17 @@ export const getRows = {
       };
     }),
   review: (data: { [key: string]: any }) =>
-    data?.data?.reviews.map(
-      ({
-        product: { productName, option },
-        content
-      }: {
-        [key: string]: any;
-      }) => {
-        return {
-          tableData: [
-            <Product key={nanoid()} title={productName} option={option} />,
-            content
-          ]
-        };
-      }
-    ),
+    data?.data?.reviews.map((rowData: IMyReview) => {
+      const {
+        product: { productName, option }
+      } = rowData;
+      return {
+        tableData: [
+          <Product key={nanoid()} title={productName} option={option} />,
+          <Review key={nanoid()} data={rowData} />
+        ]
+      };
+    }),
   inquiry: (data: { [key: string]: any }) =>
     data?.data?.inquiries.map(
       ({
