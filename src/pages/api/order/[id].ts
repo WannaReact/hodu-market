@@ -4,7 +4,7 @@ import createHandler from 'lib/mongoose/utils/createHandler';
 import OrderGroup from 'lib/mongoose/models/OrderGroup';
 
 const handler = createHandler();
-const { Order } = mongoose.models;
+const { User, Product, Order } = mongoose.models;
 
 handler.get(async (req, res) => {
   const {
@@ -51,10 +51,18 @@ handler.delete(async (req, res) => {
     query: { id }
   } = req;
   const order = await Order.findByIdAndDelete(id)
-    .select('-product -count -cost -updatedAt')
-    .populate('orderGroup', '-user -updatedAt')
+    .select('-updatedAt')
+    .populate('orderGroup', '-updatedAt')
     .lean()
     .exec();
+  await Promise.all([
+    Product.findByIdAndUpdate(order.product, {
+      $inc: { stock: order.count }
+    }),
+    User.findByIdAndUpdate(order.orderGroup.user, {
+      $inc: { money: order.cost }
+    })
+  ]);
   send(res, order);
 });
 
