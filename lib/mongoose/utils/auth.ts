@@ -1,8 +1,10 @@
 import { CustomJWT } from '@pages/api/auth/[...nextauth]';
 
-export default (token: CustomJWT | null, admin = false) => {
+const auth = (token: CustomJWT | null, admin = false) => {
   if (admin) {
-    return !token || !token.isAdmin;
+    return !token || !token.user.isAdmin;
   }
   return !token;
 };
+
+export default auth;
