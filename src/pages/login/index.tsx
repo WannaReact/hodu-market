@@ -15,6 +15,7 @@ interface LoginInputs {
 }
 
 function Login() {
+  console.log('login');
   const {
     register,
     handleSubmit,
@@ -23,6 +24,7 @@ function Login() {
   // console.log(watch('loginId'));
   const router = useRouter();
   const login = async ({ loginId, loginPw }: LoginInputs) => {
+    console.log('ㅎㅇㅎㅇ');
     const response = await signIn('id-pw-credential', {
       userId: loginId,
       password: loginPw,
@@ -39,7 +41,7 @@ function Login() {
       <ImageWrapper width="55rem" height="7.4rem">
         <Logo viewBox="0 0 156 38" />
       </ImageWrapper>
-      <Styled.Container onSubmit={handleSubmit(login)}>
+      <Styled.Container id="login-form" onSubmit={handleSubmit(login)}>
         <div>
           <Inputs.TextInput
             width={48}
@@ -77,6 +79,8 @@ function Login() {
           )}
         </div>
         <Buttons.Custom
+          type="submit"
+          form="login-form"
           width={48}
           height={6}
           fontSize={1.8}
