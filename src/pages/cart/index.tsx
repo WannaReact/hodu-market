@@ -160,7 +160,7 @@ interface CartDataProps {
 function CartPage({ data }: CartDataProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { totalprice, deliveryprice, finalprice, cartData } = state;
-  console.log(state);
+  const router = useRouter();
 
   useEffect(() => {
     dispatch({
@@ -206,7 +206,16 @@ function CartPage({ data }: CartDataProps) {
       type: 'FINAL'
     });
   };
-  const orderSubmit = () => {};
+  const orderSubmit = () => {
+    router.push({
+      pathname: '/order',
+      query: {
+        products: JSON.stringify(
+          cartData.filter((item: any) => item.checked === true)
+        )
+      }
+    });
+  };
 
   return (
     <DefaultContainerPage>
