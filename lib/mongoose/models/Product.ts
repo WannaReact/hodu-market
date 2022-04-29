@@ -25,12 +25,6 @@ export const ProductSchema = new Schema(
       min: [0, '가격이 유효하지 않습니다.'],
       max: [100_000_000, '가격이 유효하지 않습니다.']
     },
-    deliveryCharge: {
-      type: Number,
-      default: 0,
-      min: [0, '배송비가 유효하지 않습니다.'],
-      max: [99_999, '배송비가 유효하지 않습니다.']
-    },
     discountRate: {
       type: Number,
       required: [true, '할인율을 입력하세요.'],

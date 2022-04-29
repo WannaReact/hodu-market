@@ -36,12 +36,6 @@ export const OrderGroupSchema = new Schema(
         address2: String
       },
       required: [true, '주소를 입력하세요']
-    },
-    deliveryCharge: {
-      type: Number,
-      default: 0,
-      min: [0, '배송비가 유효하지 않습니다.'],
-      max: [99_999, '배송비가 유효하지 않습니다.']
     }
   },
   { timestamps: true, versionKey: false }
