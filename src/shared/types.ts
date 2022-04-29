@@ -97,3 +97,17 @@ export interface IMyOrder {
   };
   createdAt: string;
 }
+
+export interface IMyReview {
+  _id: string;
+  product: {
+    _id: string;
+    productName: string;
+    option: string;
+    images: string[];
+  };
+  rating: number;
+  content: string;
+  images: string[];
+  createdAt: string;
+}
