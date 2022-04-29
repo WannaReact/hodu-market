@@ -15,7 +15,7 @@ interface InputValues {
   content: string;
 }
 
-function Review({
+function PostReview({
   data: {
     _id: orderId,
     product: { _id: productId, productName, option }
@@ -97,4 +97,4 @@ function Review({
   );
 }
 
-export default Review;
+export default PostReview;
