@@ -32,7 +32,7 @@ export const Field = styled.li`
 
 export const Product = styled.li`
   height: 14.5rem;
-  padding: 1.8rem 0.8rem;
+  padding: 1.8rem 0;
   border-bottom: 1px solid ${COLOR.greyC4};
 `;
 
