@@ -127,6 +127,24 @@ function reducer(state: any, action: any) {
             : item
         )
       };
+    case 'CHECKEDALL':
+      return {
+        ...state,
+        cartData:
+          state.cartData
+            .map((item: any) => item.checked)
+            .every((item: boolean) => item === true) ||
+          state.cartData
+            .map((item: any) => item.checked)
+            .every((item: boolean) => item === false)
+            ? state.cartData.map((item: any) => ({
+                ...item,
+                checked: !item.checked
+              }))
+            : state.cartData.map((item: any) =>
+                item.checked === false ? { ...item, checked: true } : item
+              )
+      };
     default:
       return state;
   }
@@ -140,6 +158,7 @@ function CartPage({ data }: CartDataProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { totalprice, deliveryprice, finalprice, cartData } = state;
   console.log(state);
+
   useEffect(() => {
     dispatch({
       type: 'INITIAL'
@@ -173,6 +192,17 @@ function CartPage({ data }: CartDataProps) {
     });
   }, []);
 
+  const checkedAll = () => {
+    dispatch({
+      type: 'CHECKEDALL'
+    });
+    dispatch({
+      type: 'TOTAL'
+    });
+    dispatch({
+      type: 'FINAL'
+    });
+  };
   const orderSubmit = () => {
     console.log('주문하기 버튼');
   };
@@ -186,6 +216,7 @@ function CartPage({ data }: CartDataProps) {
             checked={cartData
               .map((item: any) => item.checked)
               .every((item: boolean) => item === true)}
+            onClick={checkedAll}
           />
         </ContainerCheckBox>
         <TextBar flex={55}>상품정보</TextBar>
