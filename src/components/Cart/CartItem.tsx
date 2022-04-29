@@ -124,6 +124,12 @@ function CartItem({ cartData, dispatch }: CartDataProps) {
       type: 'CHANGECHECK',
       cart_id: cartData.cart_id
     });
+    dispatch({
+      type: 'TOTAL'
+    });
+    dispatch({
+      type: 'FINAL'
+    });
   };
 
   return (

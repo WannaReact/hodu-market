@@ -1,13 +1,17 @@
 import React, { useEffect, useReducer } from 'react';
 import { GetServerSideProps } from 'next';
 import DefaultContainerPage from 'src/components/common/DefaultContainer';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Buttons } from '@components';
 import CartItem from 'src/components/Cart/CartItem';
 import axios from 'axios';
 
 interface BarProps {
   flex: number;
+}
+
+interface CheckBoxProps {
+  checked: boolean;
 }
 
 export interface CartData {
@@ -68,7 +72,7 @@ function reducer(state: any, action: any) {
       return {
         ...state,
         totalprice: state.cartData
-          .map((item: any) => item.price)
+          .map((item: any) => (item.checked === false ? 0 : item.price))
           .reduce((prev: number, curr: number) => prev + curr, 0),
         deliveryprice: state.cartData
           .map((item: any) =>
@@ -172,12 +176,17 @@ function CartPage({ data }: CartDataProps) {
   const orderSubmit = () => {
     console.log('주문하기 버튼');
   };
+
   return (
     <DefaultContainerPage>
       <PageTitle>장바구니</PageTitle>
       <SectionBar>
         <ContainerCheckBox>
-          <ContainerCheck />
+          <ContainerCheck
+            checked={cartData
+              .map((item: any) => item.checked)
+              .every((item: boolean) => item === true)}
+          />
         </ContainerCheckBox>
         <TextBar flex={55}>상품정보</TextBar>
         <TextBar flex={15}>수량</TextBar>
@@ -262,12 +271,30 @@ const ContainerCheckBox = styled.div`
   flex-basis: 5%;
 `;
 
-const ContainerCheck = styled.div`
+const ContainerCheck = styled.div<CheckBoxProps>`
+  position: relative;
   width: 20px;
   height: 20px;
   border: 2px solid #21bf48;
   border-radius: 50%;
   margin: 0 auto;
+
+  ${(props) =>
+    props.checked &&
+    css`
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+        width: 12px;
+        height: 12px;
+        background-color: #21bf48;
+        border-radius: 50%;
+      }
+    `}
 `;
 
 const TextBar = styled.p<BarProps>`
