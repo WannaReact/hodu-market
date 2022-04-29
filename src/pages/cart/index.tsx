@@ -114,6 +114,15 @@ function reducer(state: any, action: any) {
           (item: any) => item.cart_id !== action.cart_id
         )
       };
+    case 'CHANGECHECK':
+      return {
+        ...state,
+        cartData: state.cartData.map((item: any) =>
+          item.cart_id === action.cart_id
+            ? { ...item, checked: !item.checked }
+            : item
+        )
+      };
     default:
       return state;
   }

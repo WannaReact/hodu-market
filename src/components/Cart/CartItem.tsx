@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import api from '@utils/api';
 import { Buttons } from '@components';
 import Modal from '../Modals';
@@ -8,6 +8,10 @@ interface ItemProps {
   flex: number;
   center?: boolean;
   columnDirection?: boolean;
+}
+
+interface CheckBoxProps {
+  checked: boolean;
 }
 
 export interface CartData {
@@ -51,8 +55,15 @@ interface CartDataProps {
 }
 
 function CartItem({ cartData, dispatch }: CartDataProps) {
-  const { count, deliveryCharge, price, categories, productName, originPrice } =
-    cartData;
+  const {
+    count,
+    deliveryCharge,
+    price,
+    categories,
+    productName,
+    originPrice,
+    checked
+  } = cartData;
 
   const [isModal, setIsModal] = useState(false);
 
@@ -108,10 +119,17 @@ function CartItem({ cartData, dispatch }: CartDataProps) {
     }
   };
 
+  const checkToggle = () => {
+    dispatch({
+      type: 'CHANGECHECK',
+      cart_id: cartData.cart_id
+    });
+  };
+
   return (
     <SectionItem>
       <ContainerCheckBox>
-        <ContainerCheck />
+        <ContainerCheck checked={checked} onClick={checkToggle} />
       </ContainerCheckBox>
       <ContainerItem flex={55}>
         <ImgItem src="https://itec.snu.ac.kr/msc/default.png" />
@@ -168,12 +186,30 @@ const ContainerCheckBox = styled.div`
   flex-basis: 5%;
 `;
 
-const ContainerCheck = styled.div`
+const ContainerCheck = styled.div<CheckBoxProps>`
+  position: relative;
   width: 20px;
   height: 20px;
   border: 2px solid #21bf48;
   border-radius: 50%;
   margin: 0 auto;
+
+  ${(props) =>
+    props.checked &&
+    css`
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+        width: 12px;
+        height: 12px;
+        background-color: #21bf48;
+        border-radius: 50%;
+      }
+    `}
 `;
 
 const ContainerItem = styled.div<ItemProps>`
