@@ -17,7 +17,7 @@ function ConfirmOrder({ data: { _id: orderId, status } }: { data: IMyOrder }) {
 
   switch (apiStatus) {
     case 'loading':
-      return <Result>⌛️ 처리중입니다...</Result>;
+      return <Result>⌛️ 구매확정 처리중입니다...</Result>;
     case 'success':
       return <Result>✅ 구매확정 되었습니다.</Result>;
     case 'fail':

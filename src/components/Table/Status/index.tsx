@@ -64,36 +64,37 @@ function Status({ data, status, button }: StatusProps) {
   return (
     <Styled.Container>
       <Styled.StatusText>{status}</Styled.StatusText>
-      {Array.isArray(button) ? (
-        button.map(({ text, color, content, onClick }) => {
-          return (
-            <Button
-              key={nanoid()}
-              width={10}
-              height={4}
-              fontSize={1.6}
-              color={color ?? 'white'}
-              disabled={false}
-              content={content?.(data)}
-              onClick={onClick?.(data)}
-            >
-              {text}
-            </Button>
-          );
-        })
-      ) : (
-        <Button
-          width={10}
-          height={4}
-          fontSize={1.6}
-          color={button.color ?? 'white'}
-          disabled={false}
-          content={button.content?.(data)}
-          onClick={button.onClick?.(data)}
-        >
-          {button.text}
-        </Button>
-      )}
+      {button &&
+        (Array.isArray(button) ? (
+          button.map(({ text, color, content, onClick }) => {
+            return (
+              <Button
+                key={nanoid()}
+                width={10}
+                height={4}
+                fontSize={1.6}
+                color={color ?? 'white'}
+                disabled={false}
+                content={content?.(data)}
+                onClick={onClick?.(data)}
+              >
+                {text}
+              </Button>
+            );
+          })
+        ) : (
+          <Button
+            width={10}
+            height={4}
+            fontSize={1.6}
+            color={button.color ?? 'white'}
+            disabled={false}
+            content={button.content?.(data)}
+            onClick={button.onClick?.(data)}
+          >
+            {button.text}
+          </Button>
+        ))}
     </Styled.Container>
   );
 }
