@@ -26,7 +26,8 @@ export const ORDER_STATUS_ENUM = [
   '발송대기',
   '배송중',
   '배송완료',
-  '구매확정'
+  '구매확정',
+  '리뷰 작성 완료'
 ];
 export const COURIER_ENUM = [
   'CJ대한통운',
