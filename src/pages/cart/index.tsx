@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
+import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import DefaultContainerPage from 'src/components/common/DefaultContainer';
 import styled, { css } from 'styled-components';
@@ -205,9 +206,7 @@ function CartPage({ data }: CartDataProps) {
       type: 'FINAL'
     });
   };
-  const orderSubmit = () => {
-    console.log('주문하기 버튼');
-  };
+  const orderSubmit = () => {};
 
   return (
     <DefaultContainerPage>
