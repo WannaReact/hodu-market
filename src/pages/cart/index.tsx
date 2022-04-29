@@ -22,21 +22,33 @@ export interface CartData {
 export interface CartProduct {
   _id: string;
   categories: string[];
-  discount: string;
+  discountRate: string;
   imges: string[];
   price: number;
   productName: string;
-  inquiries: string[];
-  reviews: string[];
   deliveryCharge: number;
+  option: string;
 }
 
 const initialState = {
-  price: [],
+  cartData: [],
   totalprice: 0,
   deliveryprice: 0,
   finalprice: 0
 };
+export interface CartProps {
+  cart_id: string;
+  product_id: string;
+  price: number;
+  deliveryCharge: number;
+  count: number;
+  user: string;
+  categories: string[];
+  discountRaste: string;
+  option: string;
+  productName: string;
+  originPrice: number;
+}
 
 function reducer(state: any, action: any) {
   switch (action.type) {
@@ -44,20 +56,20 @@ function reducer(state: any, action: any) {
       return {
         ...state,
         totalprice: 0,
-        price: initialState.price
+        cartData: initialState.cartData
       };
     case 'LOAD':
       return {
         ...state,
-        price: state.price.concat(action.itemPrice)
+        cartData: state.cartData.concat(action.itemPrice)
       };
     case 'TOTAL':
       return {
         ...state,
-        totalprice: state.price
+        totalprice: state.cartData
           .map((item: any) => item.price)
           .reduce((prev: number, curr: number) => prev + curr, 0),
-        deliveryprice: state.price
+        deliveryprice: state.cartData
           .map((item: any) =>
             item.deliveryCharge === undefined ? 0 : item.deliveryCharge
           )
@@ -71,25 +83,35 @@ function reducer(state: any, action: any) {
     case 'PLUSCOUNT':
       return {
         ...state,
-        price: state.price.map((item: any) =>
-          item.id === action.item_id
-            ? { ...item, price: item.price + action.oneCharge }
+        cartData: state.cartData.map((item: any) =>
+          item.product_id === action.item_id
+            ? {
+                ...item,
+                price: item.price + action.oneCharge,
+                count: item.count + 1
+              }
             : item
         )
       };
     case 'MINUSCOUNT':
       return {
         ...state,
-        price: state.price.map((item: any) =>
-          item.id === action.item_id
-            ? { ...item, price: item.price - action.oneCharge }
+        cartData: state.cartData.map((item: any) =>
+          item.product_id === action.item_id
+            ? {
+                ...item,
+                price: item.price - action.oneCharge,
+                count: item.count - 1
+              }
             : item
         )
       };
     case 'DELETE':
       return {
         ...state,
-        price: state.price.filter((item: any) => item.id !== action.item_id)
+        cartData: state.cartData.filter(
+          (item: any) => item.cart_id !== action.cart_id
+        )
       };
     default:
       return state;
@@ -102,8 +124,7 @@ interface CartDataProps {
 
 function CartPage({ data }: CartDataProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { totalprice, deliveryprice, finalprice } = state;
-  console.log(data);
+  const { totalprice, deliveryprice, finalprice, cartData } = state;
 
   useEffect(() => {
     dispatch({
@@ -113,9 +134,17 @@ function CartPage({ data }: CartDataProps) {
       dispatch({
         type: 'LOAD',
         itemPrice: {
-          id: item.product._id,
-          price: item.product.price,
-          deliveryCharge: item.product?.deliveryCharge
+          cart_id: item._id,
+          product_id: item.product._id,
+          price: item.product.price * Number(item.count),
+          deliveryCharge: item.product?.deliveryCharge,
+          count: item.count,
+          user: item.user,
+          categories: item.product.categories,
+          discountRaste: item.product.discountRate,
+          option: item.product.option,
+          productName: item.product.productName,
+          originPrice: item.product.price
         },
         final: Number(item.product.price),
         delivery: item.product.deliveryCharge
@@ -129,12 +158,9 @@ function CartPage({ data }: CartDataProps) {
     });
   }, []);
 
-  console.log(state);
-
   const orderSubmit = () => {
     console.log('주문하기 버튼');
   };
-
   return (
     <DefaultContainerPage>
       <PageTitle>장바구니</PageTitle>
@@ -147,11 +173,11 @@ function CartPage({ data }: CartDataProps) {
         <TextBar flex={25}>상품금액</TextBar>
       </SectionBar>
 
-      {data?.data.map((item: CartData) => {
+      {cartData?.map((item: CartProps) => {
         return (
           <CartItem
             cartData={item}
-            key={`cart-data-${item._id}`}
+            key={`cart-data-${item.cart_id}`}
             dispatch={dispatch}
           />
         );
@@ -195,7 +221,7 @@ function CartPage({ data }: CartDataProps) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const { data } = await axios.get(
-    `${process.env.NEXTAUTH_URL}/api/user/cart/6266d8ed14624164b487d447`
+    `${process.env.NEXTAUTH_URL}/api/user/cart/626b2b3d42ded73bbbbf5d62`
   );
 
   return {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import api from '@utils/api';
 import { Buttons } from '@components';
 import Modal from '../Modals';
 
@@ -21,35 +22,50 @@ export interface CartData {
 export interface CartProduct {
   _id: string;
   categories: string[];
-  discount: string;
+  discountRate: string;
   imges: string[];
   price: number;
   productName: string;
-  inquiries: string[];
-  reviews: string[];
+  deliveryCharge: number;
+  option: string;
+}
+
+export interface CartProps {
+  cart_id: string;
+  product_id: string;
+  price: number;
+  deliveryCharge: number;
+  count: number;
+  user: string;
+  categories: string[];
+  discountRaste: string;
+  option: string;
+  productName: string;
+  originPrice: number;
 }
 
 interface CartDataProps {
-  cartData: CartData;
+  cartData: CartProps;
   dispatch: any;
 }
 
 function CartItem({ cartData, dispatch }: CartDataProps) {
-  const { count, delivery, product } = cartData;
-  const [productCount, setProductCount] = useState<number>(Number(count));
-  const [price, setPrice] = useState(product.price);
+  const { count, deliveryCharge, price, categories, productName, originPrice } =
+    cartData;
+
   const [isModal, setIsModal] = useState(false);
-  const oneprice = product.price / +count;
 
   const orderSubmit = () => {
     console.log('주문하기 버튼');
   };
 
-  const deleteData = () => {
-    console.log('삭제');
+  const deleteData = async () => {
+    const data = await api.delete(`/cart/${cartData.cart_id}`);
+    console.log(data);
+    setIsModal(false);
     dispatch({
       type: 'DELETE',
-      item_id: product._id
+      cart_id: cartData.cart_id
     });
     dispatch({
       type: 'TOTAL'
@@ -60,12 +76,10 @@ function CartItem({ cartData, dispatch }: CartDataProps) {
   };
 
   const plusCount = () => {
-    setProductCount((prev) => prev + 1);
-    setPrice((prev) => prev + oneprice);
     dispatch({
       type: 'PLUSCOUNT',
-      item_id: product._id,
-      oneCharge: oneprice
+      item_id: cartData.product_id,
+      oneCharge: originPrice
     });
     dispatch({
       type: 'TOTAL'
@@ -76,13 +90,11 @@ function CartItem({ cartData, dispatch }: CartDataProps) {
   };
 
   const minusCount = () => {
-    if (productCount > 1) {
-      setProductCount((prev) => prev - 1);
-      setPrice((prev) => prev - oneprice);
+    if (count > 1) {
       dispatch({
         type: 'MINUSCOUNT',
-        item_id: product._id,
-        oneCharge: oneprice
+        item_id: cartData.product_id,
+        oneCharge: originPrice
       });
       dispatch({
         type: 'TOTAL'
@@ -103,15 +115,15 @@ function CartItem({ cartData, dispatch }: CartDataProps) {
       <ContainerItem flex={55}>
         <ImgItem src="https://itec.snu.ac.kr/msc/default.png" />
         <ContainerText>
-          <TextCategory>{product.categories}</TextCategory>
-          <p>{product.productName}</p>
-          <TextItemPrice>{product.price}</TextItemPrice>
-          <TextDelivery>{delivery}</TextDelivery>
+          <TextCategory>{categories}</TextCategory>
+          <p>{productName}</p>
+          <TextItemPrice>{originPrice}</TextItemPrice>
+          <TextDelivery>{deliveryCharge}</TextDelivery>
         </ContainerText>
       </ContainerItem>
       <ContainerItem flex={15} center>
         <BtnControl onClick={minusCount}>-</BtnControl>
-        <BtnCount disabled>{productCount}</BtnCount>
+        <BtnCount disabled>{count}</BtnCount>
         <BtnControl onClick={plusCount}>+</BtnControl>
       </ContainerItem>
       <ContainerItem flex={25} center columnDirection>
