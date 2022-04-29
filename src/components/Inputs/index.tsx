@@ -28,6 +28,14 @@ interface TextInputBoxProps extends InputProps {
   type?: string;
 }
 
+interface TextAreaProps {
+  maxLength: number;
+  name?: string;
+  hook?: UseFormRegisterReturn;
+  minHeight?: number;
+  placeholder?: string;
+}
+
 function TextInputComponent({
   width,
   placeholder,
@@ -74,7 +82,7 @@ export function TextInputBoxComponent({
     },
     [hook]
   );
-  const isValid: boolean = false;
+  const isValid = false;
   const id = nanoid();
 
   return (
@@ -101,7 +109,10 @@ export function TextInputBoxComponent({
         switch (option) {
           case 'limit':
             return (
-              <Styled.Limit>{`${value.length}/${maxLength}`}</Styled.Limit>
+              <Styled.Limit
+                bottom="50%"
+                right="2.6rem"
+              >{`${value.length}/${maxLength}`}</Styled.Limit>
             );
           case 'password':
             return (
@@ -124,6 +135,54 @@ export function TextInputBoxComponent({
             return null;
         }
       })()}
+    </Styled.Box>
+  );
+}
+
+export function TextAreaComponent({
+  maxLength,
+  name,
+  hook,
+  minHeight,
+  placeholder
+}: TextAreaProps) {
+  const [value, setValue] = useState<string>('');
+  const autoResize = useCallback(() => {
+    const textarea = document.getElementById('textarea');
+    if (!textarea) {
+      return;
+    }
+    textarea.style.height = 'auto';
+    const height = textarea.scrollHeight;
+    textarea.style.height = `${height / 10}rem`;
+  }, []);
+
+  const handleChange = useCallback(
+    (e) => {
+      setValue(e.target.value);
+      hook?.onChange(e);
+    },
+    [hook]
+  );
+
+  return (
+    <Styled.Box>
+      <Styled.TextArea
+        id="textarea"
+        name={name}
+        maxLength={maxLength}
+        minHeight={minHeight}
+        placeholder={placeholder}
+        value={value}
+        {...hook}
+        onChange={handleChange}
+        onKeyDown={autoResize}
+        onKeyUp={autoResize}
+      />
+      <Styled.Limit
+        bottom="3rem"
+        right="1rem"
+      >{`${value.length}/${maxLength}`}</Styled.Limit>
     </Styled.Box>
   );
 }
@@ -151,5 +210,13 @@ TextInputBoxComponent.defaultProps = {
   name: ''
 };
 
+TextAreaComponent.defaultProps = {
+  name: '',
+  hook: null,
+  minHeight: 10,
+  placeholder: ''
+};
+
 export const TextInput = React.memo(TextInputComponent);
 export const TextInputBox = React.memo(TextInputBoxComponent);
+export const TextArea = React.memo(TextAreaComponent);
