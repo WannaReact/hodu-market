@@ -26,6 +26,7 @@ interface TextInputBoxProps extends InputProps {
   validationMsg?: string;
   unit?: string;
   type?: string;
+  isValid?: boolean;
 }
 
 interface TextAreaProps {
@@ -73,7 +74,8 @@ export function TextInputBoxComponent({
   unit,
   type,
   hook,
-  name
+  name,
+  isValid
 }: TextInputBoxProps) {
   const [value, setValue] = useState<string>('');
   const handleChange = useCallback(
@@ -83,7 +85,6 @@ export function TextInputBoxComponent({
     },
     [hook]
   );
-  const isValid = false;
   const id = nanoid();
 
   return (
@@ -209,7 +210,8 @@ TextInputBoxComponent.defaultProps = {
   unit: '',
   type: 'text',
   hook: null,
-  name: ''
+  name: '',
+  isValid: false
 };
 
 TextAreaComponent.defaultProps = {
