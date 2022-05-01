@@ -334,6 +334,7 @@ function Join() {
         fontSize={1.8}
         color="green"
         disabled={false}
+        type="submit"
       >
         가입하기
       </Buttons.Custom>
