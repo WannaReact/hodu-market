@@ -17,6 +17,7 @@ interface InputProps {
 interface TextInputProps extends InputProps {
   placeholder: string;
   className?: string;
+  type?: string;
 }
 
 interface TextInputBoxProps extends InputProps {
@@ -26,6 +27,7 @@ interface TextInputBoxProps extends InputProps {
   validationMsg?: string;
   unit?: string;
   type?: string;
+  isValid?: boolean;
 }
 
 interface TextAreaProps {
@@ -41,7 +43,8 @@ function TextInputComponent({
   width,
   placeholder,
   className,
-  hook
+  hook,
+  type
 }: TextInputProps) {
   const id = nanoid();
   return (
@@ -51,7 +54,7 @@ function TextInputComponent({
       </label>
       <Styled.Input
         className={className}
-        type="text"
+        type={type}
         id={id}
         placeholder={placeholder}
         width={width}
@@ -73,7 +76,8 @@ export function TextInputBoxComponent({
   unit,
   type,
   hook,
-  name
+  name,
+  isValid
 }: TextInputBoxProps) {
   const [value, setValue] = useState<string>('');
   const handleChange = useCallback(
@@ -83,7 +87,6 @@ export function TextInputBoxComponent({
     },
     [hook]
   );
-  const isValid = false;
   const id = nanoid();
 
   return (
@@ -209,7 +212,8 @@ TextInputBoxComponent.defaultProps = {
   unit: '',
   type: 'text',
   hook: null,
-  name: ''
+  name: '',
+  isValid: false
 };
 
 TextAreaComponent.defaultProps = {

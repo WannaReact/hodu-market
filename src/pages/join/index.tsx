@@ -18,7 +18,7 @@ interface JoinInputs {
   emailId: string;
   emailAddress?: string;
   emailSelectAdd?: string;
-  agreeCheck: Boolean;
+  agreeCheck: boolean;
 }
 
 const regExpId = /^[A-Za-z0-9]+$/i;
@@ -67,6 +67,7 @@ function Join() {
       // form 제출 막는 것 구현하기
     } else {
       setIsIdPossible(true);
+      alert('사용가능한 아이디입니다');
     }
     // 서버 에러 분기처리해야함
     console.log(e);
@@ -118,7 +119,7 @@ function Join() {
           <Logo viewBox="0 0 156 38" />
         </ImageWrapper>
       </Styled.JoinHeader>
-      <Styled.Container id="join" onSubmit={handleSubmit(onSubmit)}>
+      <Styled.Container onSubmit={handleSubmit(onSubmit)}>
         <h1 className="sr-only">회원가입</h1>
         <Styled.Wrap>
           <Inputs.TextInputBox
@@ -303,39 +304,39 @@ function Join() {
         {errors?.emailAddress?.type ? (
           <Styled.ErrorMsg>이메일 주소를 다시 입력해주세요</Styled.ErrorMsg>
         ) : null}
+        <Styled.JoinHeader>
+          <input
+            type="checkbox"
+            {...register('agreeCheck', {
+              required: true
+            })}
+          />{' '}
+          <Styled.ExplainMsg>
+            원두마켓의{' '}
+            <Link href="/" passHref>
+              <Styled.A>이용약관</Styled.A>
+            </Link>{' '}
+            및{' '}
+            <Link href="/" passHref>
+              <Styled.A>개인정보처리방침</Styled.A>
+            </Link>
+            에 대한 내용을 확인하였고 동의합니다.
+          </Styled.ExplainMsg>{' '}
+          {errors?.agreeCheck?.type === 'required' ? (
+            <Styled.ErrorMsg>사용약관에 동의해주세요</Styled.ErrorMsg>
+          ) : null}
+        </Styled.JoinHeader>
+        <Buttons.Custom
+          width={48}
+          height={6}
+          fontSize={1.8}
+          color="green"
+          disabled={false}
+          type="submit"
+        >
+          가입하기
+        </Buttons.Custom>
       </Styled.Container>
-      <Styled.JoinHeader>
-        <input
-          type="checkbox"
-          {...register('agreeCheck', {
-            required: true
-          })}
-        />{' '}
-        <Styled.ExplainMsg>
-          원두마켓의{' '}
-          <Link href="/" passHref>
-            <Styled.A>이용약관</Styled.A>
-          </Link>{' '}
-          및{' '}
-          <Link href="/" passHref>
-            <Styled.A>개인정보처리방침</Styled.A>
-          </Link>
-          에 대한 내용을 확인하였고 동의합니다.
-        </Styled.ExplainMsg>{' '}
-        {errors?.agreeCheck?.type === 'required' ? (
-          <Styled.ErrorMsg>사용약관에 동의해주세요</Styled.ErrorMsg>
-        ) : null}
-      </Styled.JoinHeader>
-      <Buttons.Custom
-        form="join"
-        width={48}
-        height={6}
-        fontSize={1.8}
-        color="green"
-        disabled={false}
-      >
-        가입하기
-      </Buttons.Custom>
     </Styled.Main>
   );
 }

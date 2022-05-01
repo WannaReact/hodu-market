@@ -65,6 +65,7 @@ function Login() {
           )}
 
           <Inputs.TextInput
+            type="password"
             hook={register('loginPw', {
               required: true,
               min: 8,
@@ -80,7 +81,6 @@ function Login() {
         </div>
         <Buttons.Custom
           type="submit"
-          form="login-form"
           width={48}
           height={6}
           fontSize={1.8}

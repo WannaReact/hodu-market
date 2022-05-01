@@ -6,7 +6,7 @@ interface ISelectProps {
 }
 
 export const JoinHeader = styled.div`
-  margin-bottom: 3.5rem;
+  margin: 1.5rem 0;
 `;
 
 export const Main = styled.main`

@@ -16,7 +16,6 @@ export interface ICustomButtonProps extends IButtonProps {
   height: 3 | 4 | 5 | 5.4 | 6 | 6.8;
   fontSize: number;
   color: 'green' | 'dark' | 'white' | 'red';
-  form?: string;
   disabled: boolean;
 }
 
@@ -34,7 +33,6 @@ interface IModalButtonProps extends Omit<ICustomButtonProps, 'onClick'> {
 }
 
 export function Custom({
-  form,
   disabled,
   width,
   height,
@@ -46,7 +44,6 @@ export function Custom({
 }: ICustomButtonProps) {
   return (
     <Styled.Custom
-      form={form}
       onClick={onClick}
       disabled={disabled}
       width={width}
@@ -83,7 +80,6 @@ export function Menu({
 }
 
 export function Modal({
-  form,
   disabled,
   width,
   height,
@@ -104,7 +100,6 @@ export function Modal({
   };
   return (
     <Styled.Custom
-      form={form}
       onClick={handleClick}
       disabled={disabled}
       width={width}
@@ -120,6 +115,5 @@ export function Modal({
 
 Custom.defaultProps = {
   type: 'button',
-  form: '',
   onClick: () => {}
 };
