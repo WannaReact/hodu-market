@@ -71,7 +71,7 @@ const data = {
   sale: [
     {
       tableData: [
-        <Product key={nanoid()} title="상품명" text="재고 32개" />,
+        <Product key={nanoid()} title="상품명" option="재고 32개" />,
         '17,500원',
         '안녕',
         '안녕'
@@ -120,7 +120,7 @@ const data = {
   question: [
     {
       tableData: [
-        <Product key={nanoid()} title="상품명" text="옵션 이름" />,
+        <Product key={nanoid()} title="상품명" option="옵션 이름" />,
         'jma1020',
         '문의 내용입니다.',
         '답변완료',
@@ -143,7 +143,7 @@ const data = {
   review: [
     {
       tableData: [
-        <Product key={nanoid()} title="상품명" text="옵션 이름" />,
+        <Product key={nanoid()} title="상품명" option="옵션 이름" />,
         'jma1020',
         '리뷰 내용입니다.',
         '답변완료',
@@ -181,6 +181,7 @@ function SellerPage() {
     <MenuPageLayout
       menu={menu}
       menuText={menuText}
+      badge={null}
       header={<Header />}
       thead={(thead as { [key: string]: any })[menu as string]}
     >
