@@ -15,7 +15,6 @@ interface LoginInputs {
 }
 
 function Login() {
-  console.log('login');
   const {
     register,
     handleSubmit,
@@ -24,7 +23,6 @@ function Login() {
   // console.log(watch('loginId'));
   const router = useRouter();
   const login = async ({ loginId, loginPw }: LoginInputs) => {
-    console.log('ㅎㅇㅎㅇ');
     const response = await signIn('id-pw-credential', {
       userId: loginId,
       password: loginPw,
