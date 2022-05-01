@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 interface ModalType {
   isModal: boolean;
-  setIsModal: Function;
+  setIsModal: (isModal: boolean) => void;
   children: React.ReactNode;
 }
 

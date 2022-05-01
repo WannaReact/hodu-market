@@ -4,7 +4,7 @@ import { Buttons } from '@components';
 
 interface ModalType {
   isModal: boolean;
-  setIsModal: Function;
+  setIsModal: (isModal: boolean) => void;
   cancelText: string;
   checkText: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
