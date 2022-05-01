@@ -18,7 +18,7 @@ interface JoinInputs {
   emailId: string;
   emailAddress?: string;
   emailSelectAdd?: string;
-  agreeCheck: Boolean;
+  agreeCheck: boolean;
 }
 
 const regExpId = /^[A-Za-z0-9]+$/i;
