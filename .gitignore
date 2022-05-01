@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+# development
+/src/pages/api-test
+
 # production
 /build
 
