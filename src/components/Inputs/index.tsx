@@ -17,6 +17,7 @@ interface InputProps {
 interface TextInputProps extends InputProps {
   placeholder: string;
   className?: string;
+  type?: string;
 }
 
 interface TextInputBoxProps extends InputProps {
@@ -42,7 +43,8 @@ function TextInputComponent({
   width,
   placeholder,
   className,
-  hook
+  hook,
+  type
 }: TextInputProps) {
   const id = nanoid();
   return (
@@ -52,7 +54,7 @@ function TextInputComponent({
       </label>
       <Styled.Input
         className={className}
-        type="text"
+        type={type}
         id={id}
         placeholder={placeholder}
         width={width}
