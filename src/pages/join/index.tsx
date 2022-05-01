@@ -67,6 +67,7 @@ function Join() {
       // form 제출 막는 것 구현하기
     } else {
       setIsIdPossible(true);
+      alert('사용가능한 아이디입니다');
     }
     // 서버 에러 분기처리해야함
     console.log(e);
