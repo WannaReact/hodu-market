@@ -24,11 +24,7 @@ function TableRow({ comments, thead, sumFlex, children }: TableRowProps) {
           <Styled.Tr>
             {comments.map((comment) =>
               comment.map((data, i) => (
-                <Styled.CommentTd
-                  key={nanoid()}
-                  hasProfile={typeof data === 'object'}
-                  flex={thead[i][1] / sumFlex}
-                >
+                <Styled.CommentTd key={nanoid()} flex={thead[i][1] / sumFlex}>
                   {data}
                 </Styled.CommentTd>
               ))

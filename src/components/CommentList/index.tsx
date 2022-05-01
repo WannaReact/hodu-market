@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { CustomSession } from '@pages/api/auth/[...nextauth]';
+import { CustomSession } from '@pages/api/auth/[...nextauth].page';
 import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';

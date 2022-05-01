@@ -8,7 +8,7 @@ import Product from 'src/components/Table/Product';
 import StarRating from 'src/components/StarRating';
 import { Buttons, Inputs } from '@components';
 import { useSession } from 'next-auth/react';
-import { CustomSession } from '@pages/api/auth/[...nextauth]';
+import { CustomSession } from '@pages/api/auth/[...nextauth].page';
 import { ModalDispatchContext } from 'src/contexts/Modal/ModalContext';
 
 interface InputValues {

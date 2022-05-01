@@ -1,4 +1,4 @@
-import { CustomJWT } from '@pages/api/auth/[...nextauth]';
+import { CustomJWT } from '@pages/api/auth/[...nextauth].page';
 
 const auth = (token: CustomJWT | null, admin = false) => {
   if (admin) {

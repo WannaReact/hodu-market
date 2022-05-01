@@ -1,4 +1,4 @@
-import { CustomJWT } from '@pages/api/auth/[...nextauth]';
+import { CustomJWT } from '@pages/api/auth/[...nextauth].page';
 import { NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
 import { NextHandler } from 'next-connect';
