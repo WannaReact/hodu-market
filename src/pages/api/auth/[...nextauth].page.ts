@@ -36,6 +36,7 @@ export default NextAuth({
           userId: string;
           password: string;
         };
+        console.log('아이디, 비밀번호 입력', userId, password);
         const {
           data: {
             data: { id, nickname, isAdmin }
@@ -44,6 +45,7 @@ export default NextAuth({
           userId,
           password
         });
+        console.log('id, nickname, isAdmin', id, nickname, isAdmin);
         if (id) {
           return { id, nickname, isAdmin };
         }

@@ -18,7 +18,7 @@ interface JoinInputs {
   emailId: string;
   emailAddress?: string;
   emailSelectAdd?: string;
-  agreeCheck: Boolean;
+  agreeCheck: boolean;
 }
 
 const regExpId = /^[A-Za-z0-9]+$/i;
@@ -161,7 +161,7 @@ function Join() {
         <Inputs.TextInputBox
           name="joinPw"
           width={48}
-          isValid={!!joinPw.current && !errors.joinPw}
+          /* isValid={!!joinPw.current && !errors.joinPw} */
           hook={register('joinPw', {
             required: true,
             minLength: 8,
@@ -184,7 +184,7 @@ function Join() {
           name="joinPwConfirm"
           option="password"
           placeholder="비밀번호 재확인"
-          isValid={!!joinPwConfirm.current && !errors.joinPwConfirm}
+          /* isValid={!!joinPwConfirm.current && !errors.joinPwConfirm} */
           hook={register('joinPwConfirm', {
             required: true,
             minLength: 8,

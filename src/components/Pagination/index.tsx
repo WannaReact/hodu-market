@@ -7,7 +7,7 @@ interface IPaginationProps {
   totalItemCount: number;
   itemsPerPage: number;
   pageNum: number;
-  setPageNum: Function;
+  setPageNum: (pageNum: number) => void;
 }
 
 export function Pagination({

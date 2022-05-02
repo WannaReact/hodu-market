@@ -1,4 +1,4 @@
-import { CustomJWT } from '@pages/api/auth/[...nextauth]';
+import { CustomJWT } from '@pages/api/auth/[...nextauth].page';
 import { NextApiRequest } from 'next';
 
 export declare global {
@@ -7,6 +7,8 @@ export declare global {
 }
 
 export declare interface PassedRequest extends NextApiRequest {
+  query: any;
+  body: any;
   locals: {
     pagination: {
       skip: number;

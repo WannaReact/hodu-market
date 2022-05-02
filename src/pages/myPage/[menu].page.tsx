@@ -5,7 +5,7 @@ import Header from 'src/components/myPage/Header';
 import MenuPageLayout from 'src/layouts/MenuPageLayout';
 import api from '@utils/api';
 import { getSession } from 'next-auth/react';
-import { CustomSession } from '@pages/api/auth/[...nextauth]';
+import { CustomSession } from '@pages/api/auth/[...nextauth].page';
 import { Session } from 'next-auth';
 import ModalProvider from 'src/contexts/Modal/ModalProvider';
 import { menuText, thead, getRows } from './constants';

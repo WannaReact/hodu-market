@@ -6,7 +6,7 @@ import * as Buttons from '../Buttons';
 import * as Styled from './styled';
 
 export function InquiryItem({
-  userId,
+  _id: userId,
   content,
   answer,
   createdAt,
@@ -46,7 +46,7 @@ export function InquiryItem({
             {answer}
           </Styled.AnswerContent>
           <span>판매자</span>
-          <span>{dateConverter(updatedAt)}</span>
+          <span>{dateConverter(updatedAt ?? '')}</span>
         </Styled.Answer>
       )}
       {isOpen && isSeller && !isAnswered && (

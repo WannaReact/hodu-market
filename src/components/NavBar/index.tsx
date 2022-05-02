@@ -6,7 +6,7 @@ import Logo from 'public/images/logo.svg';
 import Cart from 'public/images/icon-shopping-cart.svg';
 import User from 'public/images/icon-user.svg';
 import Bag from 'public/images/icon-shopping-bag.svg';
-import { CustomSession } from '@pages/api/auth/[...nextauth]';
+import { CustomSession } from '@pages/api/auth/[...nextauth].page';
 import { useRouter } from 'next/router';
 import { Buttons } from '@components';
 import SearchBar from './SearchBar';

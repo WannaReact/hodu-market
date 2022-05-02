@@ -22,7 +22,14 @@ export default async (
   }
 
   if (!global.mongoose) {
-    global.mongoose = await mongoose.connect(MONGODB_URI);
+    global.mongoose = await mongoose.connect(MONGODB_URI, (err) => {
+      if (err) {
+        console.log('mongoDB 연결 실패');
+        console.log(err);
+      } else {
+        console.log('mongoDB 연결 성공!');
+      }
+    });
     global.orderNumber = [...Array(100000)].map((_, i) => i);
     mongoose.model('User', UserSchema);
     mongoose.model('CartItem', CartItemSchema);
