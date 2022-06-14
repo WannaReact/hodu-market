@@ -1,4 +1,4 @@
-# 📚 Inflearn-Clone-Frontend
+# 📚 wondu-market
 
 ## 📖 개요(Summary)
 
